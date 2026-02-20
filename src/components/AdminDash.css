@@ -1,57 +1,250 @@
-/* DigiLync Admin Dashboard */
+/* ============================================
+   DigiLync Admin - Professional Design System
+   ============================================ */
+
+:root {
+  --admin-sidebar-bg: rgba(34, 197, 94, 0.15);
+  --admin-sidebar-text: #166534;
+  --admin-sidebar-text-active: #14532d;
+  --admin-sidebar-hover: rgba(34, 197, 94, 0.25);
+  --admin-sidebar-active: rgba(34, 197, 94, 0.35);
+  --admin-sidebar-border: rgba(34, 197, 94, 0.2);
+  --admin-header-bg: #ffffff;
+  --admin-header-border: #e2e8f0;
+  --admin-content-bg: #f8fafc;
+  --admin-card-bg: #ffffff;
+  --admin-card-border: #e2e8f0;
+  --admin-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --admin-card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --admin-text-primary: #0f172a;
+  --admin-text-secondary: #64748b;
+  --admin-text-muted: #94a3b8;
+  --admin-accent: #16a34a;
+  --admin-accent-hover: #15803d;
+  --admin-accent-light: #dcfce7;
+  --admin-danger: #dc2626;
+  --admin-danger-light: #fee2e2;
+  --admin-radius: 8px;
+  --admin-radius-lg: 12px;
+  --admin-space: 24px;
+}
 
 .admin-dash {
   min-height: 100vh;
-  background: linear-gradient(165deg, #F1F8E9 0%, #E8F5E9 35%, #C8E6C9 100%);
-  font-family: 'Poppins', sans-serif;
+  background: var(--admin-content-bg);
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* Header */
 .admin-dash-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 2px 8px rgba(85, 139, 47, 0.1);
+  gap: 1rem;
+  padding: 0 1.5rem;
+  height: 64px;
+  background: var(--admin-header-bg);
+  border-bottom: 1px solid var(--admin-header-border);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
-.admin-dash-header h1 {
+.admin-dash-menu-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 1.35rem;
+  color: var(--admin-text-secondary);
+  background: transparent;
+  border: none;
+  border-radius: var(--admin-radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-dash-menu-btn:hover {
+  background: var(--admin-content-bg);
+  color: var(--admin-text-primary);
+}
+
+@media (min-width: 768px) {
+  .admin-dash-menu-btn { display: none; }
+}
+
+.admin-dash-title {
+  flex: 1;
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  color: #2E7D32;
+  color: var(--admin-accent);
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .admin-dash-title {
+    flex: none;
+    text-align: left;
+    font-size: 1.375rem;
+  }
 }
 
 .admin-dash-logout {
   padding: 0.5rem 1rem;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.9rem;
+  font-family: inherit;
+  font-size: 0.875rem;
   font-weight: 500;
-  color: #558B2F;
+  color: var(--admin-text-secondary);
   background: transparent;
-  border: 1px solid #558B2F;
-  border-radius: 6px;
+  border: 1px solid var(--admin-card-border);
+  border-radius: var(--admin-radius);
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: all 0.2s ease;
 }
 
 .admin-dash-logout:hover {
-  background: #558B2F;
-  color: #fff;
+  background: var(--admin-danger-light);
+  border-color: var(--admin-danger);
+  color: var(--admin-danger);
 }
 
-.admin-dash-main {
+/* Sidebar overlay */
+.admin-sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(15, 23, 42, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.admin-sidebar-overlay.open {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (min-width: 768px) {
+  .admin-sidebar-overlay { display: none !important; }
+}
+
+/* Body layout */
+.admin-dash-body {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: calc(100vh - 80px);
-  padding: 2rem;
+  min-height: calc(100vh - 64px);
 }
 
-.admin-dash-coming-soon {
-  font-size: 2rem;
+/* Sidebar */
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 101;
+  width: 280px;
+  height: 100vh;
+  padding: 72px 0 24px;
+  background: var(--admin-sidebar-bg);
+  border-right: 1px solid var(--admin-sidebar-border);
+  transform: translateX(-100%);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+}
+
+.admin-sidebar.open {
+  transform: translateX(0);
+  box-shadow: 8px 0 24px rgba(0, 0, 0, 0.15);
+}
+
+@media (min-width: 768px) {
+  .admin-sidebar {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 260px;
+    min-width: 260px;
+    height: auto;
+    padding: var(--admin-space) 0;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+.admin-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 12px;
+}
+
+.admin-nav-item {
+  padding: 10px 14px;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--admin-sidebar-text);
+  background: transparent;
+  border: none;
+  border-radius: var(--admin-radius);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-nav-item:hover {
+  background: var(--admin-sidebar-hover);
+  color: var(--admin-sidebar-text-active);
+}
+
+.admin-nav-item.active {
+  background: var(--admin-sidebar-active);
+  color: var(--admin-sidebar-text-active);
+}
+
+/* Content area */
+.admin-content {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  overflow-y: auto;
+  background: var(--admin-content-bg);
+}
+
+/* Placeholder (WhatsApp etc) */
+.admin-placeholder {
+  padding: var(--admin-space);
+  max-width: 560px;
+}
+
+.admin-placeholder h2 {
+  margin: 0 0 8px;
+  font-size: 1.5rem;
   font-weight: 600;
-  color: #558B2F;
-  letter-spacing: 0.05em;
-  margin: 0;
+  color: var(--admin-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.admin-placeholder p {
+  margin: 0 0 8px;
+  font-size: 0.9375rem;
+  color: var(--admin-text-secondary);
+  line-height: 1.6;
+}
+
+.admin-placeholder-hint {
+  margin-top: 16px !important;
+  font-size: 0.8125rem !important;
+  color: var(--admin-text-muted) !important;
+}
+
+.admin-placeholder code {
+  padding: 2px 6px;
+  font-size: 0.8125rem;
+  background: var(--admin-accent-light);
+  color: var(--admin-accent);
+  border-radius: 4px;
+  word-break: break-all;
 }

@@ -1,0 +1,19 @@
+/* Add Booking Form - Professional */
+.add-booking-form { padding: var(--admin-space); max-width: 720px; margin: 0 auto; }
+.add-booking-title { margin: 0 0 24px; font-size: 1.5rem; font-weight: 600; color: var(--admin-text-primary); letter-spacing: -0.02em; }
+.add-booking-error { margin: 0 0 20px; padding: 14px 18px; font-size: 0.875rem; color: var(--admin-danger); background: var(--admin-danger-light); border-radius: var(--admin-radius); }
+.add-booking-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 20px; }
+@media (min-width: 480px) { .add-booking-grid { grid-template-columns: 1fr 1fr; } }
+.add-booking-field { display: flex; flex-direction: column; gap: 8px; }
+.add-booking-field label { font-size: 0.8125rem; font-weight: 600; color: var(--admin-text-secondary); }
+.add-booking-field input, .add-booking-field select, .add-booking-field textarea { padding: 12px 16px; font-family: inherit; font-size: 0.9375rem; border: 1px solid var(--admin-card-border); border-radius: var(--admin-radius); outline: none; background: var(--admin-card-bg); box-sizing: border-box; transition: border-color 0.2s, box-shadow 0.2s; }
+.add-booking-field input:focus, .add-booking-field select:focus, .add-booking-field textarea:focus { border-color: var(--admin-accent); box-shadow: 0 0 0 3px var(--admin-accent-light); }
+.add-booking-field textarea { resize: vertical; min-height: 96px; }
+.add-booking-actions { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--admin-card-border); }
+@media (min-width: 480px) { .add-booking-actions { flex-direction: row; gap: 16px; } }
+.add-booking-cancel, .add-booking-submit { padding: 12px 24px; font-family: inherit; font-size: 0.9375rem; font-weight: 600; border-radius: var(--admin-radius); cursor: pointer; transition: all 0.2s ease; }
+.add-booking-cancel { color: var(--admin-text-secondary); background: transparent; border: 1px solid var(--admin-card-border); }
+.add-booking-cancel:hover { background: #f8fafc; border-color: #cbd5e1; }
+.add-booking-submit { color: #fff; background: var(--admin-accent); border: none; }
+.add-booking-submit:hover:not(:disabled) { background: var(--admin-accent-hover); }
+.add-booking-submit:disabled { opacity: 0.6; cursor: not-allowed; }

@@ -61,17 +61,47 @@ export const api = {
       body: JSON.stringify({ username, password }),
     }),
 
+  /** Dashboard */
+  getDashboardStats: () => apiRequest('/api/dashboard/stats'),
+
   /** Farmers */
-  getFarmers: () => apiRequest('/api/farmers'),
+  getFarmers: (params) => {
+    const q = new URLSearchParams(params || {}).toString();
+    return apiRequest(`/api/farmers${q ? `?${q}` : ''}`);
+  },
   getFarmer: (id) => apiRequest(`/api/farmers/${id}`),
+  createFarmer: (data) =>
+    apiRequest('/api/farmers', { method: 'POST', body: JSON.stringify(data) }),
+  updateFarmer: (id, data) =>
+    apiRequest(`/api/farmers/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  deleteFarmer: (id) =>
+    apiRequest(`/api/farmers/${id}`, { method: 'DELETE' }),
 
   /** Providers */
-  getProviders: () => apiRequest('/api/providers'),
+  getProviders: (params) => {
+    const q = new URLSearchParams(params || {}).toString();
+    return apiRequest(`/api/providers${q ? `?${q}` : ''}`);
+  },
   getProvider: (id) => apiRequest(`/api/providers/${id}`),
+  createProvider: (data) =>
+    apiRequest('/api/providers', { method: 'POST', body: JSON.stringify(data) }),
+  updateProvider: (id, data) =>
+    apiRequest(`/api/providers/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  deleteProvider: (id) =>
+    apiRequest(`/api/providers/${id}`, { method: 'DELETE' }),
 
   /** Bookings */
-  getBookings: () => apiRequest('/api/bookings'),
+  getBookings: (params) => {
+    const q = new URLSearchParams(params || {}).toString();
+    return apiRequest(`/api/bookings${q ? `?${q}` : ''}`);
+  },
   getBooking: (id) => apiRequest(`/api/bookings/${id}`),
+  createBooking: (data) =>
+    apiRequest('/api/bookings', { method: 'POST', body: JSON.stringify(data) }),
+  updateBooking: (id, data) =>
+    apiRequest(`/api/bookings/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  deleteBooking: (id) =>
+    apiRequest(`/api/bookings/${id}`, { method: 'DELETE' }),
 };
 
 /**

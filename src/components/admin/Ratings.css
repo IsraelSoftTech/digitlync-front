@@ -1,0 +1,13 @@
+/* Ratings - Professional */
+.ratings-section { padding: var(--admin-space); max-width: 800px; margin: 0 auto; }
+.ratings-title { margin: 0 0 24px; font-size: 1.5rem; font-weight: 600; color: var(--admin-text-primary); letter-spacing: -0.02em; }
+.ratings-placeholder {
+  background: var(--admin-card-bg);
+  border: 1px solid var(--admin-card-border);
+  border-radius: var(--admin-radius-lg);
+  padding: 48px;
+  box-shadow: var(--admin-card-shadow);
+  text-align: center;
+}
+.ratings-placeholder p { margin: 0 0 12px; font-size: 0.9375rem; color: var(--admin-text-secondary); line-height: 1.6; }
+.ratings-hint { margin-top: 20px !important; font-size: 0.875rem !important; color: var(--admin-text-muted) !important; }

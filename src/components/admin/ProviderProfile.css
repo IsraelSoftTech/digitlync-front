@@ -1,0 +1,21 @@
+/* Provider Profile - Professional */
+.provider-profile { padding: var(--admin-space); max-width: 800px; margin: 0 auto; }
+.provider-profile-header { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+@media (min-width: 480px) { .provider-profile-header { flex-direction: row; justify-content: space-between; align-items: center; } }
+.provider-profile-back, .provider-profile-edit { padding: 10px 18px; font-family: inherit; font-size: 0.875rem; font-weight: 500; border-radius: var(--admin-radius); cursor: pointer; transition: all 0.2s ease; }
+.provider-profile-back { color: var(--admin-text-secondary); background: transparent; border: 1px solid var(--admin-card-border); }
+.provider-profile-back:hover { background: #f8fafc; border-color: #cbd5e1; }
+.provider-profile-edit { color: #fff; background: var(--admin-accent); border: none; }
+.provider-profile-edit:hover { background: var(--admin-accent-hover); }
+.provider-profile-name { margin: 0 0 24px; font-size: 1.5rem; font-weight: 600; color: var(--admin-text-primary); letter-spacing: -0.02em; }
+.provider-profile-loading, .provider-profile-error { padding: 48px 24px; text-align: center; font-size: 0.9375rem; color: var(--admin-text-secondary); }
+.provider-profile-error { color: var(--admin-danger); }
+.provider-profile-grid { display: flex; flex-direction: column; gap: 20px; }
+.provider-profile-section { background: var(--admin-card-bg); border: 1px solid var(--admin-card-border); border-radius: var(--admin-radius-lg); padding: 24px; box-shadow: var(--admin-card-shadow); }
+.provider-profile-section h3 { margin: 0 0 16px; font-size: 0.875rem; font-weight: 600; color: var(--admin-text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.provider-profile-section dl { margin: 0; display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 480px) { .provider-profile-section dl { grid-template-columns: 160px 1fr; gap: 12px 24px; } }
+.provider-profile-section dt { margin: 0; font-size: 0.8125rem; font-weight: 500; color: var(--admin-text-muted); }
+.provider-profile-section dd { margin: 0; font-size: 0.9375rem; color: var(--admin-text-primary); }
+.provider-profile-notes p { margin: 0; font-size: 0.9375rem; color: var(--admin-text-secondary); line-height: 1.6; }
+.provider-profile-meta { margin-top: 24px; font-size: 0.8125rem; color: var(--admin-text-muted); }

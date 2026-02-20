@@ -1,0 +1,20 @@
+/* Booking Detail - Professional */
+.booking-detail { padding: var(--admin-space); max-width: 800px; margin: 0 auto; }
+.booking-detail-header { margin-bottom: 24px; }
+.booking-detail-back { padding: 10px 18px; font-family: inherit; font-size: 0.875rem; font-weight: 500; color: var(--admin-text-secondary); background: transparent; border: 1px solid var(--admin-card-border); border-radius: var(--admin-radius); cursor: pointer; transition: all 0.2s; }
+.booking-detail-back:hover { background: #f8fafc; border-color: #cbd5e1; }
+.booking-detail-title { margin: 0 0 24px; font-size: 1.5rem; font-weight: 600; color: var(--admin-text-primary); letter-spacing: -0.02em; }
+.booking-detail-loading, .booking-detail-error { padding: 48px 24px; text-align: center; font-size: 0.9375rem; color: var(--admin-text-secondary); }
+.booking-detail-error { color: var(--admin-danger); }
+.booking-detail-grid { display: flex; flex-direction: column; gap: 20px; }
+.booking-detail-section { background: var(--admin-card-bg); border: 1px solid var(--admin-card-border); border-radius: var(--admin-radius-lg); padding: 24px; box-shadow: var(--admin-card-shadow); }
+.booking-detail-section h3 { margin: 0 0 16px; font-size: 0.875rem; font-weight: 600; color: var(--admin-text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.booking-detail-section dl { margin: 0; display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 480px) { .booking-detail-section dl { grid-template-columns: 160px 1fr; gap: 12px 24px; } }
+.booking-detail-section dt { margin: 0; font-size: 0.8125rem; font-weight: 500; color: var(--admin-text-muted); }
+.booking-detail-section dd { margin: 0; font-size: 0.9375rem; color: var(--admin-text-primary); }
+.booking-detail-edit-btn { margin-left: 8px; font-size: 0.8125rem; color: var(--admin-accent); background: none; border: none; cursor: pointer; text-decoration: underline; }
+.booking-detail-status-edit { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.booking-detail-status-edit select { padding: 8px 12px; font-size: 0.875rem; border: 1px solid var(--admin-card-border); border-radius: var(--admin-radius); }
+.booking-detail-status-edit button { padding: 8px 16px; font-size: 0.875rem; font-weight: 500; border-radius: var(--admin-radius); cursor: pointer; }
+.booking-detail-meta { margin-top: 24px; font-size: 0.8125rem; color: var(--admin-text-muted); }

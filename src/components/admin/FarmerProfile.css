@@ -1,0 +1,137 @@
+/* Farmer Profile - Professional */
+
+.farmer-profile {
+  padding: var(--admin-space);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.farmer-profile-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 480px) {
+  .farmer-profile-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.farmer-profile-back,
+.farmer-profile-edit {
+  padding: 10px 18px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--admin-radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.farmer-profile-back {
+  color: var(--admin-text-secondary);
+  background: transparent;
+  border: 1px solid var(--admin-card-border);
+}
+
+.farmer-profile-back:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.farmer-profile-edit {
+  color: #fff;
+  background: var(--admin-accent);
+  border: none;
+}
+
+.farmer-profile-edit:hover {
+  background: var(--admin-accent-hover);
+}
+
+.farmer-profile-name {
+  margin: 0 0 24px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--admin-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.farmer-profile-loading,
+.farmer-profile-error {
+  padding: 48px 24px;
+  text-align: center;
+  font-size: 0.9375rem;
+  color: var(--admin-text-secondary);
+}
+
+.farmer-profile-error {
+  color: var(--admin-danger);
+}
+
+.farmer-profile-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.farmer-profile-section {
+  background: var(--admin-card-bg);
+  border: 1px solid var(--admin-card-border);
+  border-radius: var(--admin-radius-lg);
+  padding: 24px;
+  box-shadow: var(--admin-card-shadow);
+}
+
+.farmer-profile-section h3 {
+  margin: 0 0 16px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--admin-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.farmer-profile-section dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 480px) {
+  .farmer-profile-section dl {
+    grid-template-columns: 160px 1fr;
+    gap: 12px 24px;
+  }
+}
+
+.farmer-profile-section dt {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--admin-text-muted);
+}
+
+.farmer-profile-section dd {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--admin-text-primary);
+}
+
+.farmer-profile-notes p {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--admin-text-secondary);
+  line-height: 1.6;
+}
+
+.farmer-profile-meta {
+  margin-top: 24px;
+  font-size: 0.8125rem;
+  color: var(--admin-text-muted);
+}
