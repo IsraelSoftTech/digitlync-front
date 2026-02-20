@@ -1,15 +1,15 @@
-import React from 'react';
-import { FaLeaf } from 'react-icons/fa';
+import React, { useState } from 'react';
+import Loader from './components/Loader';
+import Home from './components/Home';
 import './App.css';
 
 function App() {
+  const [showHome, setShowHome] = useState(false);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <FaLeaf className="App-logo" />
-        <h1>DigiLync</h1>
-        <p>WhatsApp-first agricultural coordination platform</p>
-      </header>
+      {!showHome && <Loader onComplete={() => setShowHome(true)} />}
+      {showHome && <Home />}
     </div>
   );
 }

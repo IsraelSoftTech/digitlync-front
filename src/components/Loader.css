@@ -1,0 +1,109 @@
+/* DigiLync Loader - 3 circular dots, one solid / two outlined, sequential wave */
+
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(165deg, #F1F8E9 0%, #E8F5E9 35%, #C8E6C9 100%);
+  transition: opacity 0.4s ease;
+}
+
+.loader-overlay.loader-fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dots wrapper with text below */
+.loader-dots-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.loader-powered {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8125rem;
+  color: #558B2F;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+/* 3 circular dots - one solid, two outlined, wave animation */
+.loader-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.loader-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #1B5E20;
+  background: transparent;
+  flex-shrink: 0;
+  animation: loader-dot-wave 1.2s ease-in-out infinite both;
+}
+
+.loader-dot-1 {
+  animation-delay: 0s;
+}
+
+.loader-dot-2 {
+  animation-delay: 0.2s;
+}
+
+.loader-dot-3 {
+  animation-delay: 0.4s;
+}
+
+/* Sequential wave: solid state moves left → center → right */
+@keyframes loader-dot-wave {
+  0%, 25% {
+    background: transparent;
+    border-color: #1B5E20;
+    box-shadow: none;
+  }
+  12% {
+    background: #1B5E20;
+    border-color: #1B5E20;
+    box-shadow: 0 0 8px rgba(27, 94, 32, 0.3);
+  }
+  26%, 100% {
+    background: transparent;
+    border-color: #1B5E20;
+    box-shadow: none;
+  }
+}
+
+/* Logo - static, no spin */
+.loader-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+  animation: loader-logo-fade-in 0.5s ease-out forwards;
+}
+
+@keyframes loader-logo-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
