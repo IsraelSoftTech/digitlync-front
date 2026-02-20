@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { api } from '../../api';
 import './ProvidersList.css';
 
@@ -8,19 +8,19 @@ function ProvidersList({ onSelectProvider, onAddProvider }) {
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
 
-  const fetchProviders = async () => {
+  const fetchProviders = useCallback(async () => {
     setLoading(true);
     const params = search ? { search } : {};
     const { data, error: err } = await api.getProviders(params);
     if (err) setError(err);
     else setProviders(data?.providers ?? []);
     setLoading(false);
-  };
+  }, [search]);
 
   useEffect(() => {
     const t = setTimeout(fetchProviders, 300);
     return () => clearTimeout(t);
-  }, [search]);
+  }, [fetchProviders]);
 
   const handleDelete = async (id, e) => {
     e.stopPropagation();

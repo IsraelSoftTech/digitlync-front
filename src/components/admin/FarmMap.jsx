@@ -73,7 +73,7 @@ function FarmMap() {
         mapInstanceRef.current = null;
       }
     };
-  }, [loading, farmers.length]);
+  }, [loading, farmers]);
 
   if (loading) return <div className="farm-map-loading">Loading map...</div>;
   if (error) return <div className="farm-map-error">{error}</div>;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { api } from '../../api';
 import './BookingsList.css';
 
@@ -17,18 +17,18 @@ function BookingsList({ onSelectBooking, onAddBooking }) {
   const [error, setError] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
 
-  const fetchBookings = async () => {
+  const fetchBookings = useCallback(async () => {
     setLoading(true);
     const params = statusFilter ? { status: statusFilter } : {};
     const { data, error: err } = await api.getBookings(params);
     if (err) setError(err);
     else setBookings(data?.bookings ?? []);
     setLoading(false);
-  };
+  }, [statusFilter]);
 
   useEffect(() => {
     fetchBookings();
-  }, [statusFilter]);
+  }, [fetchBookings]);
 
   const formatDate = (d) => (d ? new Date(d).toLocaleDateString() : '—');
   const statusClass = (s) => `booking-status booking-status-${(s || 'pending').replace('_', '-')}`;

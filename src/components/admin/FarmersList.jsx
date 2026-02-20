@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { api } from '../../api';
 import './FarmersList.css';
 
@@ -8,19 +8,19 @@ function FarmersList({ onSelectFarmer, onAddFarmer }) {
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
 
-  const fetchFarmers = async () => {
+  const fetchFarmers = useCallback(async () => {
     setLoading(true);
     const params = search ? { search } : {};
     const { data, error: err } = await api.getFarmers(params);
     if (err) setError(err);
     else setFarmers(data?.farmers ?? []);
     setLoading(false);
-  };
+  }, [search]);
 
   useEffect(() => {
     const t = setTimeout(fetchFarmers, 300);
     return () => clearTimeout(t);
-  }, [search]);
+  }, [fetchFarmers]);
 
   const handleDelete = async (id, e) => {
     e.stopPropagation();
