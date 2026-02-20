@@ -276,6 +276,24 @@
   margin: 0;
 }
 
+.login-error {
+  margin: 0 0 1rem;
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  color: #c62828;
+  background: rgba(198, 40, 40, 0.08);
+  border-radius: 6px;
+}
+
+.login-error {
+  margin: 0 0 1rem;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  color: #b71c1c;
+  background: rgba(183, 28, 28, 0.1);
+  border-radius: 6px;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
@@ -371,6 +389,12 @@
 
 .login-submit:active {
   transform: translateY(0);
+}
+
+.login-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
 }
 
 /* Responsive - show mobile menu below 900px */

@@ -1,0 +1,57 @@
+/* DigiLync Admin Dashboard */
+
+.admin-dash {
+  min-height: 100vh;
+  background: linear-gradient(165deg, #F1F8E9 0%, #E8F5E9 35%, #C8E6C9 100%);
+  font-family: 'Poppins', sans-serif;
+}
+
+.admin-dash-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(85, 139, 47, 0.1);
+}
+
+.admin-dash-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2E7D32;
+}
+
+.admin-dash-logout {
+  padding: 0.5rem 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #558B2F;
+  background: transparent;
+  border: 1px solid #558B2F;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.admin-dash-logout:hover {
+  background: #558B2F;
+  color: #fff;
+}
+
+.admin-dash-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 80px);
+  padding: 2rem;
+}
+
+.admin-dash-coming-soon {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #558B2F;
+  letter-spacing: 0.05em;
+  margin: 0;
+}

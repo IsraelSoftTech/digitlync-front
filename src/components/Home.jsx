@@ -22,25 +22,45 @@ const NAV_ITEMS = [
   { id: 'footer', label: 'Contact' },
 ];
 
-function Home() {
+function Home({ onAdminLoginSuccess }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [bannerIndex, setBannerIndex] = useState(0);
   const [loginForm, setLoginForm] = useState({ username: '', password: '' });
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [loginError, setLoginError] = useState('');
+  const [loginLoading, setLoginLoading] = useState(false);
 
   const closeLoginModal = () => {
     setLoginModalOpen(false);
     setLoginForm({ username: '', password: '' });
     setPasswordVisible(false);
+    setLoginError('');
   };
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Connect to auth API
-    console.log('Login:', loginForm);
-    closeLoginModal();
+    setLoginError('');
+    setLoginLoading(true);
+    try {
+      const { api } = await import('../api');
+      const { data, error } = await api.login(loginForm.username, loginForm.password);
+      if (error) {
+        setLoginError(error);
+        return;
+      }
+      if (data?.success) {
+        closeLoginModal();
+        onAdminLoginSuccess?.();
+      } else {
+        setLoginError(data?.error || 'Login failed');
+      }
+    } catch (err) {
+      setLoginError(err.message || 'Login failed');
+    } finally {
+      setLoginLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -105,6 +125,9 @@ function Home() {
               <p>Sign in to access the DigiLync dashboard</p>
             </div>
             <form className="login-form" onSubmit={handleLoginSubmit}>
+              {loginError && (
+                <p className="login-error" role="alert">{loginError}</p>
+              )}
               <div className="login-field">
                 <label htmlFor="login-username">Username</label>
                 <input
@@ -139,7 +162,9 @@ function Home() {
                   </button>
                 </div>
               </div>
-              <button type="submit" className="login-submit">Sign In</button>
+              <button type="submit" className="login-submit" disabled={loginLoading}>
+                {loginLoading ? 'Signing in…' : 'Sign In'}
+              </button>
             </form>
           </div>
         </div>

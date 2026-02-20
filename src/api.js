@@ -54,6 +54,13 @@ export const api = {
   /** Health check */
   health: () => apiRequest('/api/health'),
 
+  /** Admin auth */
+  login: (username, password) =>
+    apiRequest('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ username, password }),
+    }),
+
   /** Farmers */
   getFarmers: () => apiRequest('/api/farmers'),
   getFarmer: (id) => apiRequest(`/api/farmers/${id}`),
