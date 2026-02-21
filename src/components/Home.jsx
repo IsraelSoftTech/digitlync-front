@@ -248,14 +248,14 @@ function Home({ onAdminLoginSuccess }) {
         <div className="hero-content">
           <h1 className="hero-title">
             <span className="hero-brand">DigiLync</span>
-            <span className="hero-tagline">Africa's Agricultural Coordination & Intelligence Infrastructure</span>
+            <span className="hero-tagline">Africa's AI-Enabled Geospatial Agricultural Coordination Infrastructure</span>
           </h1>
           <p className="hero-subheadline">
-            Linking farmers, mechanized service providers, and industrial buyers through structured scheduling, geospatial mapping, and intelligent coordination.
+            Linking farmers, mechanized service providers, and industrial buyers through structured scheduling, geospatial mapping, and AI-Powered intelligent coordination.
           </p>
           <div className="hero-cta">
             <a
-              href="https://wa.me/"
+              href="https://wa.me/237697799186"
               target="_blank"
               rel="noopener noreferrer"
               className="hero-btn hero-btn-primary"
@@ -329,8 +329,8 @@ function Home({ onAdminLoginSuccess }) {
                 <li>Mechanization density visualization</li>
               </ul>
             </div>
-            <div className="platform-layer roadmap">
-              <span className="platform-badge">Roadmap</span>
+            <div className="platform-layer dev">
+              <span className="platform-badge">In Development</span>
               <h3>Layer 3 – AI Matching & Capacity Intelligence</h3>
               <ul>
                 <li>Intelligent service matching</li>
@@ -450,7 +450,7 @@ function Home({ onAdminLoginSuccess }) {
           </div>
           <div className="footer-links">
             <a href="mailto:contact@digilync.com">Email</a>
-            <a href="https://wa.me/237651412772" target="_blank" rel="noopener noreferrer">WhatsApp Number: +237 651 412 772</a>
+            <a href="https://wa.me/237697799186" target="_blank" rel="noopener noreferrer">WhatsApp: +237 697 799 186</a>
             <a href="/terms">Terms & Conditions</a>
             <a href="/privacy">Privacy Policy</a>
             <button type="button" className="footer-admin-btn" onClick={() => setLoginModalOpen(true)}>Admin Login</button>
