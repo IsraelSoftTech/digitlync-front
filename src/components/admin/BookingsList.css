@@ -1,11 +1,10 @@
 /* Bookings List - Professional */
 .bookings-list { padding: var(--admin-space); max-width: 1400px; margin: 0 auto; }
-.bookings-list-header { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
-@media (min-width: 640px) { .bookings-list-header { flex-direction: row; justify-content: space-between; align-items: center; } }
-.bookings-list-title { margin: 0; font-size: 1.5rem; font-weight: 600; color: var(--admin-text-primary); letter-spacing: -0.02em; }
+.bookings-list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.bookings-list-title { margin: 0; font-size: 1.25rem; font-weight: 600; color: var(--admin-text-primary); }
 .bookings-add-btn { align-self: flex-start; padding: 10px 20px; font-family: inherit; font-size: 0.875rem; font-weight: 600; color: #fff; background: var(--admin-accent); border: none; border-radius: var(--admin-radius); cursor: pointer; transition: all 0.2s ease; }
 .bookings-add-btn:hover { background: var(--admin-accent-hover); transform: translateY(-1px); }
-.bookings-filters { margin-bottom: 20px; }
+.bookings-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
 .bookings-filter-select { padding: 12px 16px; font-family: inherit; font-size: 0.9375rem; border: 1px solid var(--admin-card-border); border-radius: var(--admin-radius); outline: none; background: var(--admin-card-bg); min-width: 160px; }
 .bookings-filter-select:focus { border-color: var(--admin-accent); }
 .bookings-loading, .bookings-error, .bookings-empty { padding: 48px 24px; text-align: center; font-size: 0.9375rem; color: var(--admin-text-secondary); }

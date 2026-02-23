@@ -1,30 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import logo from '../assets/logo.png';
 import './Loader.css';
 
 function Loader({ onComplete }) {
-  const [phase, setPhase] = useState('dots'); // dots | logo | fading | done
+  const [phase, setPhase] = useState('drawing'); // drawing | animated | fading | done
 
   useEffect(() => {
-    let logoTimer;
-    let fadeTimer;
-
-    // Dots: 0-2s appear, 2-3.5s interchange, then logo 2s
-    const dotsTimer = setTimeout(() => {
-      setPhase('logo');
-      logoTimer = setTimeout(() => {
-        setPhase('fading');
-        fadeTimer = setTimeout(() => {
-          setPhase('done');
-          onComplete?.();
-        }, 400);
-      }, 2000);
-    }, 3500);
+    // Drawing: 3s. Then cool animated state: 0.6s. Then fade: 0.4s.
+    const drawEnd = setTimeout(() => setPhase('animated'), 3000);
+    const animEnd = setTimeout(() => setPhase('fading'), 3600);
+    const done = setTimeout(() => {
+      setPhase('done');
+      onComplete?.();
+    }, 4000);
 
     return () => {
-      clearTimeout(dotsTimer);
-      clearTimeout(logoTimer);
-      clearTimeout(fadeTimer);
+      clearTimeout(drawEnd);
+      clearTimeout(animEnd);
+      clearTimeout(done);
     };
   }, [onComplete]);
 
@@ -33,19 +25,20 @@ function Loader({ onComplete }) {
   return (
     <div className={`loader-overlay ${phase === 'fading' ? 'loader-fade-out' : ''}`}>
       <div className="loader-content">
-        {phase === 'dots' && (
-          <div className="loader-dots-wrapper">
-            <div className="loader-dots">
-              <span className="loader-dot loader-dot-1" />
-              <span className="loader-dot loader-dot-2" />
-              <span className="loader-dot loader-dot-3" />
-            </div>
-            <p className="loader-powered">Powered by Izzy Tech Team</p>
-          </div>
-        )}
-        {phase === 'logo' && (
-          <img src={logo} alt="DigiLync" className="loader-logo" />
-        )}
+        <svg
+          className={`loader-leaf-svg ${phase === 'animated' ? 'loader-leaf-animated' : ''}`}
+          viewBox="0 0 100 120"
+          fill="none"
+          stroke="#1B5E20"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path id="stem" pathLength="1" strokeWidth="3" d="M50 110 C48 75 52 50 54 35 C55 25 52 18 50 12" />
+          <path id="leaf-left" pathLength="1" strokeWidth="2.8" d="M54 35 C30 28 18 45 28 58 C38 68 50 55 54 35" />
+          <path id="leaf-mid" pathLength="1" strokeWidth="2.8" d="M54 35 C55 20 52 8 50 12 C48 18 50 28 54 35" />
+          <path id="leaf-right" pathLength="1" strokeWidth="2.8" d="M54 35 C78 42 88 55 75 65 C65 72 55 60 54 35" />
+        </svg>
       </div>
     </div>
   );

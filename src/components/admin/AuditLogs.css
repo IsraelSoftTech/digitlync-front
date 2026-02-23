@@ -1,0 +1,111 @@
+/* Audit & System Logs - Enterprise */
+
+.audit-logs {
+  padding: var(--admin-space);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.audit-logs-header {
+  margin-bottom: 24px;
+}
+
+.audit-logs-title {
+  margin: 0 0 4px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.audit-logs-subtitle {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--admin-text-secondary);
+}
+
+.audit-logs-filters {
+  background: var(--admin-card-bg);
+  border: 1px solid var(--admin-card-border);
+  border-radius: var(--admin-radius-lg);
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: var(--admin-card-shadow);
+}
+
+.audit-logs-filters h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--admin-text-primary);
+}
+
+.audit-logs-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.audit-logs-filter-row input,
+.audit-logs-filter-row select {
+  padding: 8px 12px;
+  font-size: 0.9375rem;
+  border: 1px solid var(--admin-card-border);
+  border-radius: var(--admin-radius);
+}
+
+.audit-logs-table-wrap {
+  overflow-x: auto;
+  background: var(--admin-card-bg);
+  border: 1px solid var(--admin-card-border);
+  border-radius: var(--admin-radius-lg);
+  box-shadow: var(--admin-card-shadow);
+}
+
+.audit-logs-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.audit-logs-table th,
+.audit-logs-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--admin-card-border);
+}
+
+.audit-logs-table th {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--admin-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.audit-logs-table td {
+  font-size: 0.9375rem;
+  color: var(--admin-text-primary);
+}
+
+.audit-logs-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+.audit-logs-badge-data_edit { background: #dbeafe; color: #1d4ed8; }
+.audit-logs-badge-booking { background: #dcfce7; color: #15803d; }
+.audit-logs-badge-suspension { background: #fee2e2; color: #b91c1c; }
+.audit-logs-badge-matching { background: #fef3c7; color: #b45309; }
+.audit-logs-badge-whatsapp { background: #dcfce7; color: #15803d; }
+
+.audit-logs-hint {
+  margin-top: 16px;
+  font-size: 0.8125rem;
+  color: var(--admin-text-muted);
+}

@@ -1,0 +1,76 @@
+.page-wrap {
+  padding-top: 80px;
+  min-height: 100vh;
+}
+
+.page-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-intro {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+  color: var(--dl-earth-brown);
+  font-size: 1rem;
+}
+
+.ai-outro {
+  text-align: center;
+  max-width: 560px;
+  margin: 2.5rem auto 0;
+  line-height: 1.6;
+  color: var(--dl-earth-brown);
+  font-size: 0.95rem;
+}
+
+.ai-page {
+  padding: 4rem 1.5rem;
+  background: var(--dl-white);
+}
+
+.ai-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ai-title {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  color: var(--dl-green-deep);
+  text-align: center;
+  margin: 0 0 0.5rem;
+}
+
+.ai-badge {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--dl-earth-brown-light);
+  font-style: italic;
+  margin: 0 0 2rem;
+}
+
+.ai-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.ai-feature {
+  padding: 0.75rem 1.25rem;
+  background: var(--dl-lime-pale);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--dl-green-deep);
+  border: 1px solid rgba(27, 94, 32, 0.15);
+}
+
+@media (max-width: 640px) {
+  .ai-page {
+    padding: 3rem 1rem;
+  }
+}

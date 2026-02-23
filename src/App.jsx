@@ -3,6 +3,7 @@ import Loader from './components/Loader';
 import Home from './components/Home';
 import AdminDash from './components/AdminDash';
 import './App.css';
+import './components/PageAnimations.css';
 
 const ADMIN_SESSION_KEY = 'digilync_admin_session';
 

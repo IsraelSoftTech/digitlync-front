@@ -1,0 +1,68 @@
+.page-wrap {
+  padding-top: 80px;
+  min-height: 100vh;
+}
+
+.page-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.vision-intro {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+}
+
+.vision-outro {
+  text-align: center;
+  max-width: 640px;
+  margin: 2rem auto 0;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+}
+
+.vision-page {
+  padding: 4rem 1.5rem;
+  background: linear-gradient(165deg, var(--dl-green-deep) 0%, var(--dl-green-medium) 100%);
+}
+
+.vision-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.vision-title {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  color: var(--dl-white);
+  text-align: center;
+  margin: 0 0 2rem;
+}
+
+.vision-content {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.vision-content p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.8;
+  margin: 0 0 1rem;
+}
+
+.vision-content p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 640px) {
+  .vision-page {
+    padding: 3rem 1rem;
+  }
+}

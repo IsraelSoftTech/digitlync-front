@@ -3,19 +3,19 @@
    ============================================ */
 
 :root {
-  --admin-sidebar-bg: rgba(34, 197, 94, 0.15);
-  --admin-sidebar-text: #166534;
-  --admin-sidebar-text-active: #14532d;
-  --admin-sidebar-hover: rgba(34, 197, 94, 0.25);
-  --admin-sidebar-active: rgba(34, 197, 94, 0.35);
-  --admin-sidebar-border: rgba(34, 197, 94, 0.2);
+  --admin-sidebar-bg: #fafafa;
+  --admin-sidebar-text: #475569;
+  --admin-sidebar-text-active: #0f172a;
+  --admin-sidebar-hover: #f1f5f9;
+  --admin-sidebar-active: #e2e8f0;
+  --admin-sidebar-border: #e2e8f0;
   --admin-header-bg: #ffffff;
   --admin-header-border: #e2e8f0;
   --admin-content-bg: #f8fafc;
   --admin-card-bg: #ffffff;
   --admin-card-border: #e2e8f0;
-  --admin-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --admin-card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --admin-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --admin-card-shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.06);
   --admin-text-primary: #0f172a;
   --admin-text-secondary: #64748b;
   --admin-text-muted: #94a3b8;
@@ -35,8 +35,10 @@
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Header */
+/* Header - must stay above sidebar/overlay on mobile so menu button stays clickable */
 .admin-dash-header {
+  position: relative;
+  z-index: 110;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -76,9 +78,9 @@
 .admin-dash-title {
   flex: 1;
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  color: var(--admin-accent);
+  color: var(--admin-text-primary);
   letter-spacing: -0.02em;
   text-align: center;
 }
@@ -87,7 +89,7 @@
   .admin-dash-title {
     flex: none;
     text-align: left;
-    font-size: 1.375rem;
+    font-size: 1.25rem;
   }
 }
 
@@ -138,25 +140,42 @@
   min-height: calc(100vh - 64px);
 }
 
-/* Sidebar */
+/* Sidebar - clean, minimal */
 .admin-sidebar {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 101;
-  width: 280px;
+  width: 240px;
   height: 100vh;
   padding: 72px 0 24px;
   background: var(--admin-sidebar-bg);
   border-right: 1px solid var(--admin-sidebar-border);
   transform: translateX(-100%);
-  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.2s ease;
   overflow-y: auto;
 }
 
 .admin-sidebar.open {
   transform: translateX(0);
-  box-shadow: 8px 0 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 767px) {
+  .admin-sidebar {
+    background: #fff;
+    width: 260px;
+  }
+  .admin-sidebar.open {
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.1);
+  }
+  .admin-nav-item.active {
+    background: var(--admin-accent-light);
+    color: var(--admin-accent);
+  }
+  .admin-nav-item.active .admin-nav-icon {
+    color: var(--admin-accent);
+  }
 }
 
 @media (min-width: 768px) {
@@ -164,10 +183,10 @@
     position: relative;
     top: auto;
     left: auto;
-    width: 260px;
-    min-width: 260px;
+    width: 220px;
+    min-width: 220px;
     height: auto;
-    padding: var(--admin-space) 0;
+    padding: 20px 0;
     transform: none;
     box-shadow: none;
   }
@@ -177,21 +196,31 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 0 12px;
+  padding: 0 8px;
 }
 
 .admin-nav-item {
-  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
   font-family: inherit;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--admin-sidebar-text);
   background: transparent;
   border: none;
-  border-radius: var(--admin-radius);
+  border-radius: 6px;
   text-align: left;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
+}
+
+.admin-nav-icon {
+  flex-shrink: 0;
+  font-size: 1.125rem;
+  color: var(--admin-text-muted);
 }
 
 .admin-nav-item:hover {
@@ -204,6 +233,10 @@
   color: var(--admin-sidebar-text-active);
 }
 
+.admin-nav-item.active .admin-nav-icon {
+  color: var(--admin-accent);
+}
+
 /* Content area */
 .admin-content {
   flex: 1;
@@ -211,6 +244,15 @@
   min-width: 0;
   overflow-y: auto;
   background: var(--admin-content-bg);
+}
+
+/* Shared admin page styles - simple, clear */
+.admin-page-title {
+  margin: 0 0 20px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--admin-text-primary);
+  letter-spacing: -0.02em;
 }
 
 /* Placeholder (WhatsApp etc) */

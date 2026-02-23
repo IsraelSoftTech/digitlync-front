@@ -1,0 +1,83 @@
+.page-wrap {
+  padding-top: 80px;
+  min-height: 100vh;
+}
+
+.page-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.geospatial-intro {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+  color: var(--dl-earth-brown);
+  font-size: 1rem;
+}
+
+.geospatial-outro {
+  text-align: center;
+  max-width: 560px;
+  margin: 2.5rem auto 0;
+  line-height: 1.6;
+  color: var(--dl-earth-brown-light);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.geospatial-page {
+  padding: 4rem 1.5rem;
+  background: var(--dl-lime-light);
+}
+
+.geospatial-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.geospatial-title {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  color: var(--dl-green-deep);
+  text-align: center;
+  margin: 0 0 1rem;
+}
+
+.geospatial-desc {
+  text-align: center;
+  color: var(--dl-earth-brown);
+  max-width: 640px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.geospatial-visual {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  text-align: center;
+  border: 2px dashed var(--dl-green-light);
+}
+
+.geospatial-icon {
+  font-size: 4rem;
+  color: var(--dl-green-medium);
+  margin-bottom: 1rem;
+}
+
+.geospatial-visual p {
+  font-size: 0.9rem;
+  color: var(--dl-earth-brown);
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .geospatial-page {
+    padding: 3rem 1rem;
+  }
+}

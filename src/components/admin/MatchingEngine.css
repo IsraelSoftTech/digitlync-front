@@ -1,0 +1,128 @@
+/* Matching Engine - Enterprise */
+
+.matching-engine {
+  padding: var(--admin-space);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.matching-engine-header {
+  margin-bottom: 32px;
+}
+
+.matching-engine-title {
+  margin: 0 0 4px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.matching-engine-subtitle {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--admin-text-secondary);
+}
+
+.me-section {
+  background: var(--admin-card-bg);
+  border: 1px solid var(--admin-card-border);
+  border-radius: var(--admin-radius-lg);
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--admin-card-shadow);
+}
+
+.me-section h2 {
+  margin: 0 0 8px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--admin-text-primary);
+}
+
+.me-desc {
+  margin: 0 0 20px;
+  font-size: 0.875rem;
+  color: var(--admin-text-secondary);
+}
+
+.me-weights {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.me-weight-row {
+  display: grid;
+  grid-template-columns: 140px 1fr 50px;
+  align-items: center;
+  gap: 12px;
+}
+
+.me-weight-row label {
+  font-size: 0.9375rem;
+  color: var(--admin-text-primary);
+}
+
+.me-weight-row input[type="range"] {
+  width: 100%;
+  accent-color: var(--admin-accent);
+}
+
+.me-weight-row span {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--admin-accent);
+}
+
+.me-thresholds {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.me-threshold {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.me-threshold label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--admin-text-primary);
+}
+
+.me-threshold input {
+  max-width: 200px;
+  padding: 8px 12px;
+  font-size: 0.9375rem;
+  border: 1px solid var(--admin-card-border);
+  border-radius: var(--admin-radius);
+}
+
+.me-empty {
+  margin: 0;
+  padding: 16px;
+  background: #f8fafc;
+  border: 2px dashed var(--admin-card-border);
+  border-radius: var(--admin-radius);
+  color: var(--admin-text-muted);
+  font-size: 0.9375rem;
+}
+
+.me-save-btn {
+  padding: 10px 24px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--admin-accent);
+  border: none;
+  border-radius: var(--admin-radius);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.me-save-btn:hover {
+  background: var(--admin-accent-hover);
+}

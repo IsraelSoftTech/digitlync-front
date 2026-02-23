@@ -1,0 +1,120 @@
+/* Ratings & Disputes - Enterprise */
+
+.ratings-disputes {
+  padding: var(--admin-space);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ratings-disputes-header {
+  margin-bottom: 24px;
+}
+
+.ratings-disputes-title {
+  margin: 0 0 4px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.ratings-disputes-subtitle {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--admin-text-secondary);
+}
+
+.ratings-disputes-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.ratings-disputes-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--admin-text-secondary);
+  background: var(--admin-card-bg);
+  border: 1px solid var(--admin-card-border);
+  border-radius: var(--admin-radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ratings-disputes-tab:hover {
+  color: var(--admin-accent);
+  border-color: var(--admin-accent);
+}
+
+.ratings-disputes-tab.active {
+  color: var(--admin-accent);
+  background: var(--admin-accent-light);
+  border-color: var(--admin-accent);
+}
+
+.ratings-disputes-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.rd-section {
+  background: var(--admin-card-bg);
+  border: 1px solid var(--admin-card-border);
+  border-radius: var(--admin-radius-lg);
+  padding: 20px;
+  box-shadow: var(--admin-card-shadow);
+}
+
+.rd-section h3 {
+  margin: 0 0 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--admin-text-primary);
+}
+
+.rd-cards {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.rd-card {
+  padding: 16px 24px;
+  background: #f8fafc;
+  border-radius: var(--admin-radius);
+  border: 1px solid var(--admin-card-border);
+}
+
+.rd-card-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--admin-accent);
+}
+
+.rd-card-label {
+  font-size: 0.8125rem;
+  color: var(--admin-text-muted);
+}
+
+.rd-empty {
+  margin: 0;
+  padding: 16px;
+  background: #fafafa;
+  border: 2px dashed var(--admin-card-border);
+  border-radius: var(--admin-radius);
+  color: var(--admin-text-muted);
+  font-size: 0.9375rem;
+}
+
+.rd-hint {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--admin-text-muted);
+  font-style: italic;
+}

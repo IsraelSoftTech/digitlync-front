@@ -1,0 +1,113 @@
+/* Notification Center - Enterprise */
+
+.notification-center {
+  padding: var(--admin-space);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.notification-center-header {
+  margin-bottom: 24px;
+}
+
+.notification-center-title {
+  margin: 0 0 4px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.notification-center-subtitle {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--admin-text-secondary);
+}
+
+.notification-center-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.notification-center-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  background: var(--admin-card-bg);
+  border: 1px solid var(--admin-card-border);
+  border-radius: var(--admin-radius);
+  box-shadow: var(--admin-card-shadow);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.notification-center-item:hover {
+  border-color: #cbd5e1;
+}
+
+.notification-center-item.read {
+  opacity: 0.7;
+}
+
+.notification-center-danger { border-left: 4px solid var(--admin-danger); }
+.notification-center-warning { border-left: 4px solid #f59e0b; }
+.notification-center-info { border-left: 4px solid #3b82f6; }
+
+.notification-center-icon {
+  flex-shrink: 0;
+  font-size: 1.5rem;
+}
+
+.notification-center-danger .notification-center-icon { color: var(--admin-danger); }
+.notification-center-warning .notification-center-icon { color: #f59e0b; }
+.notification-center-info .notification-center-icon { color: #3b82f6; }
+
+.notification-center-content strong {
+  display: block;
+  font-size: 0.9375rem;
+  color: var(--admin-text-primary);
+  margin-bottom: 2px;
+}
+
+.notification-center-content p {
+  margin: 0 0 4px;
+  font-size: 0.875rem;
+  color: var(--admin-text-secondary);
+}
+
+.notification-center-time {
+  font-size: 0.75rem;
+  color: var(--admin-text-muted);
+}
+
+.notification-center-empty {
+  padding: 40px;
+  text-align: center;
+  color: var(--admin-text-muted);
+  background: #f8fafc;
+  border: 2px dashed var(--admin-card-border);
+  border-radius: var(--admin-radius);
+}
+
+.notification-center-types {
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: var(--admin-radius);
+}
+
+.notification-center-types h3 {
+  margin: 0 0 12px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--admin-text-primary);
+}
+
+.notification-center-types ul {
+  margin: 0;
+  padding: 0 0 0 20px;
+  font-size: 0.875rem;
+  color: var(--admin-text-secondary);
+}

@@ -6,12 +6,22 @@ import logo from '../assets/logo.png';
 import home1 from '../assets/home1.jpg';
 import home2 from '../assets/home2.jpg';
 import home3 from '../assets/home3.jpg';
+import Problem from './pages/Problem';
+import Platform from './pages/Platform';
+import Services from './pages/Services';
+import Geospatial from './pages/Geospatial';
+import AICoordination from './pages/AICoordination';
+import HowItWorks from './pages/HowItWorks';
+import Vision from './pages/Vision';
+import Contact from './pages/Contact';
+import SharedFooter from './SharedFooter';
+import AnimateOnScroll from './AnimateOnScroll';
 import './Home.css';
 
 const BANNER_IMAGES = [home1, home2, home3];
 
 const NAV_ITEMS = [
-  { id: 'hero', label: 'Home' },
+  { id: 'home', label: 'Home' },
   { id: 'problem', label: 'The Problem' },
   { id: 'platform', label: 'Platform' },
   { id: 'services', label: 'Services' },
@@ -25,7 +35,7 @@ const NAV_ITEMS = [
 function Home({ onAdminLoginSuccess }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
+  const [currentPage, setCurrentPage] = useState('home');
   const [bannerIndex, setBannerIndex] = useState(0);
   const [loginForm, setLoginForm] = useState({ username: '', password: '' });
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -79,35 +89,13 @@ function Home({ onAdminLoginSuccess }) {
     return () => clearInterval(bannerTimer);
   }, []);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: '-20% 0px -70% 0px', threshold: 0 }
-    );
-
-    const sections = ['hero', 'problem', 'platform', 'services', 'geospatial', 'ai-coordination', 'how-it-works', 'vision', 'footer'];
-    sections.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const scrollToSection = (id) => {
-    const el = document.getElementById(id);
-    el?.scrollIntoView({ behavior: 'smooth' });
+  const handleNavClick = (id) => {
+    setCurrentPage(id);
     setMobileMenuOpen(false);
   };
 
   const handleExploreClick = () => {
-    scrollToSection('platform');
+    setCurrentPage('platform');
   };
 
   return (
@@ -172,21 +160,21 @@ function Home({ onAdminLoginSuccess }) {
       {/* Header with logo, nav, Admin Login */}
       <header className="hero-header">
         <div className="hero-header-inner">
-          <a href="#hero" className="hero-logo" onClick={(e) => { e.preventDefault(); scrollToSection('hero'); }}>
+          <button type="button" className="hero-logo hero-logo-btn" onClick={() => handleNavClick('home')}>
             <img src={logo} alt="DigiLync" className="hero-logo-img" />
             <span className="hero-logo-text">DigiLync</span>
-          </a>
+          </button>
 
           <nav className="hero-nav">
             {NAV_ITEMS.map((item) => (
-              <a
+              <button
                 key={item.id}
-                href={`#${item.id}`}
-                className={`hero-nav-link ${activeSection === item.id ? 'active' : ''}`}
-                onClick={(e) => { e.preventDefault(); scrollToSection(item.id); }}
+                type="button"
+                className={`hero-nav-link ${currentPage === item.id ? 'active' : ''}`}
+                onClick={() => handleNavClick(item.id)}
               >
                 {item.label}
-              </a>
+              </button>
             ))}
           </nav>
 
@@ -207,20 +195,23 @@ function Home({ onAdminLoginSuccess }) {
         {mobileMenuOpen && (
           <div className="hero-mobile-menu">
             {NAV_ITEMS.map((item) => (
-              <a
+              <button
                 key={item.id}
-                href={`#${item.id}`}
-                className={`hero-mobile-link ${activeSection === item.id ? 'active' : ''}`}
-                onClick={(e) => { e.preventDefault(); scrollToSection(item.id); }}
+                type="button"
+                className={`hero-mobile-link ${currentPage === item.id ? 'active' : ''}`}
+                onClick={() => handleNavClick(item.id)}
               >
                 {item.label}
-              </a>
+              </button>
             ))}
             <button type="button" className="hero-mobile-link hero-mobile-admin" onClick={() => { setLoginModalOpen(true); setMobileMenuOpen(false); }}>Admin Login</button>
           </div>
         )}
       </header>
 
+      {/* Content: full home page or single page component */}
+      {currentPage === 'home' && (
+        <>
       {/* Hero Section with Banner */}
       <section id="hero" className="hero">
         <div className="hero-banner">
@@ -277,7 +268,7 @@ function Home({ onAdminLoginSuccess }) {
 
       {/* Section 2: The Problem */}
       <section id="problem" className="section section-problem">
-        <div className="section-inner">
+        <AnimateOnScroll className="section-inner">
           <h2 className="section-title">Agriculture in Africa Is Fragmented</h2>
           <div className="problem-grid">
             <div className="problem-card">
@@ -301,12 +292,12 @@ function Home({ onAdminLoginSuccess }) {
               <p>Industrial buyers lack structured supply visibility and traceability.</p>
             </div>
           </div>
-        </div>
+        </AnimateOnScroll>
       </section>
 
       {/* Section 3: The DigiLync Platform */}
       <section id="platform" className="section section-platform">
-        <div className="section-inner">
+        <AnimateOnScroll className="section-inner">
           <h2 className="section-title">The DigiLync Platform</h2>
           <p className="section-subtitle">Layered infrastructure for agricultural coordination</p>
           <div className="platform-layers">
@@ -350,12 +341,12 @@ function Home({ onAdminLoginSuccess }) {
               </ul>
             </div>
           </div>
-        </div>
+        </AnimateOnScroll>
       </section>
 
       {/* Section 4: Services Offered */}
       <section id="services" className="section section-services">
-        <div className="section-inner">
+        <AnimateOnScroll className="section-inner">
           <h2 className="section-title">Services Offered</h2>
           <div className="services-grid">
             <div className="services-category">
@@ -383,12 +374,12 @@ function Home({ onAdminLoginSuccess }) {
               <ul><li>Farm-to-market transport</li><li>Produce aggregation</li></ul>
             </div>
           </div>
-        </div>
+        </AnimateOnScroll>
       </section>
 
       {/* Section 5: Geospatial Intelligence */}
       <section id="geospatial" className="section section-geospatial">
-        <div className="section-inner">
+        <AnimateOnScroll className="section-inner">
           <h2 className="section-title">Geospatial Agricultural Intelligence</h2>
           <p className="section-desc">
             DigiLync geo-tags farms and mechanized service providers to build structured regional production maps.
@@ -397,12 +388,12 @@ function Home({ onAdminLoginSuccess }) {
             <IoMapOutline className="geospatial-icon" />
             <p>Map-style visualization • Regional production mapping • Clean, minimal preview</p>
           </div>
-        </div>
+        </AnimateOnScroll>
       </section>
 
       {/* Section 6: AI & Intelligent Coordination */}
       <section id="ai-coordination" className="section section-ai">
-        <div className="section-inner">
+        <AnimateOnScroll className="section-inner">
           <h2 className="section-title">AI-Driven Agricultural Coordination</h2>
           <p className="section-badge-inline">AI modules under progressive development</p>
           <div className="ai-features">
@@ -411,12 +402,12 @@ function Home({ onAdminLoginSuccess }) {
             <div className="ai-feature">Production clustering</div>
             <div className="ai-feature">Supply forecasting</div>
           </div>
-        </div>
+        </AnimateOnScroll>
       </section>
 
       {/* Section 7: How It Works */}
       <section id="how-it-works" className="section section-how">
-        <div className="section-inner">
+        <AnimateOnScroll className="section-inner">
           <h2 className="section-title">How It Works</h2>
           <p className="section-subtitle">Current version – grounded and real</p>
           <div className="how-steps">
@@ -425,12 +416,12 @@ function Home({ onAdminLoginSuccess }) {
             <div className="how-step"><span className="how-num">3</span><p>Provider confirms</p></div>
             <div className="how-step"><span className="how-num">4</span><p>Service completed</p></div>
           </div>
-        </div>
+        </AnimateOnScroll>
       </section>
 
       {/* Section 8: Vision Statement */}
       <section id="vision" className="section section-vision">
-        <div className="section-inner">
+        <AnimateOnScroll className="section-inner">
           <h2 className="section-title">Building Africa's Agricultural Infrastructure Layer</h2>
           <div className="vision-content">
             <p>Structured capacity coordination across farmers, providers, and buyers.</p>
@@ -438,26 +429,21 @@ function Home({ onAdminLoginSuccess }) {
             <p>Supply intelligence for traceability and market linkage.</p>
             <p>Continental scalability – infrastructure that grows with Africa.</p>
           </div>
-        </div>
+        </AnimateOnScroll>
       </section>
 
-      {/* Section 9: Footer */}
-      <footer id="footer" className="footer">
-        <div className="footer-inner">
-          <div className="footer-brand">
-            <img src={logo} alt="DigiLync" className="footer-logo" />
-            <span>DigiLync</span>
-          </div>
-          <div className="footer-links">
-            <a href="mailto:contact@digilync.com">Email</a>
-            <a href="https://wa.me/237697799186" target="_blank" rel="noopener noreferrer">WhatsApp: +237 697 799 186</a>
-            <a href="/terms">Terms & Conditions</a>
-            <a href="/privacy">Privacy Policy</a>
-            <button type="button" className="footer-admin-btn" onClick={() => setLoginModalOpen(true)}>Admin Login</button>
-          </div>
-          <p className="footer-copy">© DigiLync. Powered by Izzy Tech Team.</p>
-        </div>
-      </footer>
+      <SharedFooter onAdminLogin={() => setLoginModalOpen(true)} />
+        </>
+      )}
+
+      {currentPage === 'problem' && <Problem onAdminLogin={() => setLoginModalOpen(true)} />}
+      {currentPage === 'platform' && <Platform onAdminLogin={() => setLoginModalOpen(true)} />}
+      {currentPage === 'services' && <Services onAdminLogin={() => setLoginModalOpen(true)} />}
+      {currentPage === 'geospatial' && <Geospatial onAdminLogin={() => setLoginModalOpen(true)} />}
+      {currentPage === 'ai-coordination' && <AICoordination onAdminLogin={() => setLoginModalOpen(true)} />}
+      {currentPage === 'how-it-works' && <HowItWorks onAdminLogin={() => setLoginModalOpen(true)} />}
+      {currentPage === 'vision' && <Vision onAdminLogin={() => setLoginModalOpen(true)} />}
+      {currentPage === 'footer' && <Contact onAdminLogin={() => setLoginModalOpen(true)} />}
     </div>
   );
 }

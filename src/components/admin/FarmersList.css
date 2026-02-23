@@ -8,26 +8,49 @@
 
 .farmers-list-header {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-@media (min-width: 640px) {
-  .farmers-list-header {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .farmers-list-title {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--admin-text-primary);
-  letter-spacing: -0.02em;
 }
+
+.farmers-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.farmers-filters select,
+.farmers-filter-num {
+  padding: 8px 12px;
+  font-size: 0.875rem;
+  border: 1px solid var(--admin-card-border);
+  border-radius: var(--admin-radius);
+  background: var(--admin-card-bg);
+}
+
+.farmers-filter-num {
+  width: 80px;
+}
+
+.farmers-status-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+.farmers-status-active { background: #dcfce7; color: #15803d; }
+.farmers-status-suspended { background: #fee2e2; color: #b91c1c; }
+.farmers-status-flagged { background: #fef3c7; color: #b45309; }
 
 .farmers-add-btn {
   align-self: flex-start;

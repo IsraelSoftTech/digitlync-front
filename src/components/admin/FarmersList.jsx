@@ -7,6 +7,7 @@ function FarmersList({ onSelectFarmer, onAddFarmer }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
+  const [filters, setFilters] = useState({ crop: '', region: '', farmSizeMin: '', farmSizeMax: '', irrigation: '', status: '' });
 
   const fetchFarmers = useCallback(async () => {
     setLoading(true);
@@ -33,7 +34,7 @@ function FarmersList({ onSelectFarmer, onAddFarmer }) {
   return (
     <div className="farmers-list">
       <div className="farmers-list-header">
-        <h2 className="farmers-list-title">All Farmers</h2>
+        <h2 className="farmers-list-title">Farmers</h2>
         <button type="button" className="farmers-add-btn" onClick={onAddFarmer}>
           Add Farmer
         </button>
@@ -46,6 +47,30 @@ function FarmersList({ onSelectFarmer, onAddFarmer }) {
           onChange={(e) => setSearch(e.target.value)}
           className="farmers-search-input"
         />
+      </div>
+      <div className="farmers-filters">
+        <select value={filters.crop} onChange={(e) => setFilters((s) => ({ ...s, crop: e.target.value }))} title="Crop">
+          <option value="">All crops</option>
+          <option value="maize">Maize</option>
+          <option value="rice">Rice</option>
+          <option value="cassava">Cassava</option>
+        </select>
+        <select value={filters.region} onChange={(e) => setFilters((s) => ({ ...s, region: e.target.value }))} title="Region">
+          <option value="">All regions</option>
+        </select>
+        <input type="number" placeholder="Min ha" value={filters.farmSizeMin} onChange={(e) => setFilters((s) => ({ ...s, farmSizeMin: e.target.value }))} className="farmers-filter-num" />
+        <input type="number" placeholder="Max ha" value={filters.farmSizeMax} onChange={(e) => setFilters((s) => ({ ...s, farmSizeMax: e.target.value }))} className="farmers-filter-num" />
+        <select value={filters.irrigation} onChange={(e) => setFilters((s) => ({ ...s, irrigation: e.target.value }))} title="Irrigation">
+          <option value="">All irrigation</option>
+          <option value="rainfed">Rainfed</option>
+          <option value="irrigated">Irrigated</option>
+        </select>
+        <select value={filters.status} onChange={(e) => setFilters((s) => ({ ...s, status: e.target.value }))} title="Status">
+          <option value="">All status</option>
+          <option value="active">Active</option>
+          <option value="suspended">Suspended</option>
+          <option value="flagged">Flagged</option>
+        </select>
       </div>
       {loading && <div className="farmers-loading">Loading...</div>}
       {error && <div className="farmers-error">{error}</div>}
@@ -96,9 +121,12 @@ function FarmersList({ onSelectFarmer, onAddFarmer }) {
                     <tr>
                       <th>Name</th>
                       <th>Phone</th>
-                      <th>Village</th>
-                      <th>Crop</th>
+                      <th>District</th>
                       <th>Farm (ha)</th>
+                      <th>Crop</th>
+                      <th>Mechanization</th>
+                      <th>Status</th>
+                      <th>Verification</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -107,9 +135,12 @@ function FarmersList({ onSelectFarmer, onAddFarmer }) {
                       <tr key={f.id} onClick={() => onSelectFarmer(f)} className="farmers-row">
                         <td>{f.full_name}</td>
                         <td>{f.phone}</td>
-                        <td>{f.village || '—'}</td>
-                        <td>{f.crop_type || '—'}</td>
+                        <td>{f.village || f.district || '—'}</td>
                         <td>{f.farm_size_ha != null ? f.farm_size_ha : '—'}</td>
+                        <td>{f.crop_type || '—'}</td>
+                        <td>{f.mechanization_level || '—'}</td>
+                        <td><span className="farmers-status-badge farmers-status-active">Active</span></td>
+                        <td>{f.verification_level || '—'}</td>
                         <td>
                           <button
                             type="button"

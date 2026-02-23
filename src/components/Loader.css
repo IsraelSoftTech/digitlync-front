@@ -1,4 +1,4 @@
-/* DigiLync Loader - 3 circular dots, one solid / two outlined, sequential wave */
+/* DigiLync Loader – stroke-draw leaf logo, 3s total */
 
 .loader-overlay {
   position: fixed;
@@ -18,92 +18,70 @@
 
 .loader-content {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-/* Dots wrapper with text below */
-.loader-dots-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.25rem;
+.loader-leaf-svg {
+  width: 140px;
+  height: 168px;
+  filter: drop-shadow(0 2px 12px rgba(27, 94, 32, 0.2));
 }
 
-.loader-powered {
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.8125rem;
-  color: #558B2F;
-  margin: 0;
-  letter-spacing: 0.02em;
+/* Stroke-draw: pathLength=1, so dasharray 1 = full path. All done in 3s. */
+.loader-leaf-svg path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: loader-draw cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* 3 circular dots - one solid, two outlined, wave animation */
-.loader-dots {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-}
-
-.loader-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 2px solid #1B5E20;
-  background: transparent;
-  flex-shrink: 0;
-  animation: loader-dot-wave 1.2s ease-in-out infinite both;
-}
-
-.loader-dot-1 {
+#stem {
+  animation-duration: 0.6s;
   animation-delay: 0s;
 }
 
-.loader-dot-2 {
-  animation-delay: 0.2s;
-}
-
-.loader-dot-3 {
+#leaf-left {
+  animation-duration: 0.8s;
   animation-delay: 0.4s;
 }
 
-/* Sequential wave: solid state moves left → center → right */
-@keyframes loader-dot-wave {
-  0%, 25% {
-    background: transparent;
-    border-color: #1B5E20;
-    box-shadow: none;
-  }
-  12% {
-    background: #1B5E20;
-    border-color: #1B5E20;
-    box-shadow: 0 0 8px rgba(27, 94, 32, 0.3);
-  }
-  26%, 100% {
-    background: transparent;
-    border-color: #1B5E20;
-    box-shadow: none;
-  }
+#leaf-mid {
+  animation-duration: 1s;
+  animation-delay: 0.8s;
 }
 
-/* Logo - static, no spin */
-.loader-logo {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
-  animation: loader-logo-fade-in 0.5s ease-out forwards;
+#leaf-right {
+  animation-duration: 1.8s;
+  animation-delay: 1.2s;
 }
 
-@keyframes loader-logo-fade-in {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
+@keyframes loader-draw {
   to {
-    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Post-draw: cool animated state */
+.loader-leaf-animated path {
+  stroke-dashoffset: 0;
+  animation: none;
+}
+
+.loader-leaf-animated {
+  animation: loader-leaf-pulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes loader-leaf-pulse {
+  0% {
     transform: scale(1);
+    filter: drop-shadow(0 2px 12px rgba(27, 94, 32, 0.2));
+  }
+  50% {
+    transform: scale(1.06);
+    filter: drop-shadow(0 6px 24px rgba(27, 94, 32, 0.4));
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 2px 12px rgba(27, 94, 32, 0.2));
   }
 }

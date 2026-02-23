@@ -42,14 +42,19 @@ function BookingsList({ onSelectBooking, onAddBooking }) {
         </button>
       </div>
       <div className="bookings-filters">
-        <select
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-          className="bookings-filter-select"
-        >
+        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="bookings-filter-select">
           {STATUS_OPTIONS.map((o) => (
             <option key={o.value || 'all'} value={o.value}>{o.label}</option>
           ))}
+        </select>
+        <select className="bookings-filter-select" disabled title="By region (future)">
+          <option>All regions</option>
+        </select>
+        <select className="bookings-filter-select" disabled title="By crop (future)">
+          <option>All crops</option>
+        </select>
+        <select className="bookings-filter-select" disabled title="By service (future)">
+          <option>All services</option>
         </select>
       </div>
       {loading && <div className="bookings-loading">Loading...</div>}

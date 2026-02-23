@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { HiMenu, HiX } from 'react-icons/hi';
-import DashboardHome from './admin/DashboardHome';
+import {
+  FiLayout,
+  FiUsers,
+  FiBriefcase,
+  FiCalendar,
+  FiZap,
+  FiMapPin,
+  FiAward,
+  FiBarChart2,
+  FiShield,
+  FiSettings,
+  FiFileText,
+  FiBell,
+} from 'react-icons/fi';
+import ExecutiveDashboard from './admin/ExecutiveDashboard';
 import FarmersList from './admin/FarmersList';
 import FarmerProfile from './admin/FarmerProfile';
 import FarmerForm from './admin/FarmerForm';
@@ -10,9 +24,14 @@ import ProviderForm from './admin/ProviderForm';
 import BookingsList from './admin/BookingsList';
 import BookingDetail from './admin/BookingDetail';
 import AddBookingForm from './admin/AddBookingForm';
-import FarmMap from './admin/FarmMap';
-import Ratings from './admin/Ratings';
-import Settings from './admin/Settings';
+import FarmMapIntelligence from './admin/FarmMapIntelligence';
+import RatingsDisputes from './admin/RatingsDisputes';
+import MatchingEngine from './admin/MatchingEngine';
+import DataAnalytics from './admin/DataAnalytics';
+import UserRoles from './admin/UserRoles';
+import SystemSettings from './admin/SystemSettings';
+import AuditLogs from './admin/AuditLogs';
+import NotificationCenter from './admin/NotificationCenter';
 import './AdminDash.css';
 
 const VIEW_DASHBOARD = 'dashboard';
@@ -29,7 +48,27 @@ const VIEW_BOOKING_DETAIL = 'booking_detail';
 const VIEW_BOOKING_ADD = 'booking_add';
 const VIEW_FARM_MAP = 'farm_map';
 const VIEW_RATINGS = 'ratings';
+const VIEW_MATCHING = 'matching';
+const VIEW_DATA = 'data';
+const VIEW_ROLES = 'roles';
 const VIEW_SETTINGS = 'settings';
+const VIEW_AUDIT = 'audit';
+const VIEW_NOTIFICATIONS = 'notifications';
+
+const NAV_ITEMS = [
+  { id: VIEW_DASHBOARD, label: 'Dashboard', icon: FiLayout },
+  { id: VIEW_FARMERS, label: 'Farmers', icon: FiUsers },
+  { id: VIEW_PROVIDERS, label: 'Providers', icon: FiBriefcase },
+  { id: VIEW_BOOKINGS, label: 'Bookings', icon: FiCalendar },
+  { id: VIEW_MATCHING, label: 'Matching', icon: FiZap },
+  { id: VIEW_FARM_MAP, label: 'Farm Map', icon: FiMapPin },
+  { id: VIEW_RATINGS, label: 'Ratings & Disputes', icon: FiAward },
+  { id: VIEW_DATA, label: 'Analytics', icon: FiBarChart2 },
+  { id: VIEW_ROLES, label: 'Roles', icon: FiShield },
+  { id: VIEW_SETTINGS, label: 'Settings', icon: FiSettings },
+  { id: VIEW_AUDIT, label: 'Audit Logs', icon: FiFileText },
+  { id: VIEW_NOTIFICATIONS, label: 'Notifications', icon: FiBell },
+];
 
 function AdminDash({ onLogout }) {
   const [view, setView] = useState(VIEW_DASHBOARD);
@@ -74,7 +113,7 @@ function AdminDash({ onLogout }) {
 
   const renderContent = () => {
     switch (view) {
-      case VIEW_DASHBOARD: return <DashboardHome />;
+      case VIEW_DASHBOARD: return <ExecutiveDashboard />;
       case VIEW_FARMERS: return <FarmersList onSelectFarmer={showFarmerProfile} onAddFarmer={showAddFarmer} />;
       case VIEW_FARMER_PROFILE: return <FarmerProfile farmerId={selectedFarmer?.id} onBack={showFarmers} onEdit={showEditFarmer} />;
       case VIEW_FARMER_ADD: return <FarmerForm onSuccess={handleFarmerFormSuccess} onCancel={() => setView(VIEW_FARMERS)} />;
@@ -86,14 +125,19 @@ function AdminDash({ onLogout }) {
       case VIEW_BOOKINGS: return <BookingsList onSelectBooking={showBookingDetail} onAddBooking={showAddBooking} />;
       case VIEW_BOOKING_DETAIL: return <BookingDetail bookingId={selectedBooking?.id} onBack={showBookings} onUpdate={handleBookingUpdate} />;
       case VIEW_BOOKING_ADD: return <AddBookingForm onSuccess={handleBookingFormSuccess} onCancel={() => setView(VIEW_BOOKINGS)} />;
-      case VIEW_FARM_MAP: return <FarmMap />;
-      case VIEW_RATINGS: return <Ratings />;
-      case VIEW_SETTINGS: return <Settings />;
-      default: return <DashboardHome />;
+      case VIEW_FARM_MAP: return <FarmMapIntelligence />;
+      case VIEW_RATINGS: return <RatingsDisputes />;
+      case VIEW_MATCHING: return <MatchingEngine />;
+      case VIEW_DATA: return <DataAnalytics />;
+      case VIEW_ROLES: return <UserRoles />;
+      case VIEW_SETTINGS: return <SystemSettings />;
+      case VIEW_AUDIT: return <AuditLogs />;
+      case VIEW_NOTIFICATIONS: return <NotificationCenter />;
+      default: return <ExecutiveDashboard />;
     }
   };
 
-  const isActive = (views) => views.some((v) => view === v || view.startsWith(v));
+  const isActive = (id) => view === id || (id === VIEW_FARMERS && (view.startsWith('farmer') || view === 'farmers')) || (id === VIEW_PROVIDERS && (view.startsWith('provider') || view === 'providers')) || (id === VIEW_BOOKINGS && (view.startsWith('booking') || view === 'bookings'));
 
   return (
     <div className="admin-dash">
@@ -108,13 +152,12 @@ function AdminDash({ onLogout }) {
       <div className="admin-dash-body">
         <aside className={`admin-sidebar ${sidebarOpen ? 'open' : ''}`}>
           <nav className="admin-nav">
-            <button type="button" className={`admin-nav-item ${view === VIEW_DASHBOARD ? 'active' : ''}`} onClick={showDashboard}>Dashboard</button>
-            <button type="button" className={`admin-nav-item ${isActive(['farmers', 'farmer']) ? 'active' : ''}`} onClick={showFarmers}>Farmers</button>
-            <button type="button" className={`admin-nav-item ${isActive(['providers', 'provider']) ? 'active' : ''}`} onClick={showProviders}>Providers</button>
-            <button type="button" className={`admin-nav-item ${isActive(['bookings', 'booking']) ? 'active' : ''}`} onClick={showBookings}>Bookings</button>
-            <button type="button" className={`admin-nav-item ${view === VIEW_FARM_MAP ? 'active' : ''}`} onClick={() => nav(VIEW_FARM_MAP)}>Farm Map</button>
-            <button type="button" className={`admin-nav-item ${view === VIEW_RATINGS ? 'active' : ''}`} onClick={() => nav(VIEW_RATINGS)}>Ratings</button>
-            <button type="button" className={`admin-nav-item ${view === VIEW_SETTINGS ? 'active' : ''}`} onClick={() => nav(VIEW_SETTINGS)}>Settings</button>
+            {NAV_ITEMS.map(({ id, label, icon: Icon }) => (
+              <button key={id} type="button" className={`admin-nav-item ${isActive(id) ? 'active' : ''}`} onClick={() => id === VIEW_DASHBOARD ? showDashboard() : id === VIEW_FARMERS ? showFarmers() : id === VIEW_PROVIDERS ? showProviders() : id === VIEW_BOOKINGS ? showBookings() : nav(id)}>
+                <Icon className="admin-nav-icon" />
+                <span>{label}</span>
+              </button>
+            ))}
           </nav>
         </aside>
         <main className="admin-content">{renderContent()}</main>

@@ -58,6 +58,14 @@
   color: inherit;
 }
 
+.hero-logo-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
 .hero-logo-img {
   height: 36px;
   width: 36px;
@@ -91,6 +99,10 @@
   padding: 0.5rem 0.75rem;
   border-radius: 6px;
   transition: color 0.2s ease, background 0.2s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .hero-nav-link:hover {
@@ -155,6 +167,12 @@
 }
 
 .hero-mobile-link {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
   padding: 0.75rem 0;
   font-size: 0.9375rem;
   color: var(--dl-earth-brown);

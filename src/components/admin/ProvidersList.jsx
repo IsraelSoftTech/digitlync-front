@@ -7,6 +7,7 @@ function ProvidersList({ onSelectProvider, onAddProvider }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
+  const [filters, setFilters] = useState({ service: '', rating: '', district: '', status: '' });
 
   const fetchProviders = useCallback(async () => {
     setLoading(true);
@@ -33,7 +34,7 @@ function ProvidersList({ onSelectProvider, onAddProvider }) {
   return (
     <div className="providers-list">
       <div className="providers-list-header">
-        <h2 className="providers-list-title">All Providers</h2>
+        <h2 className="providers-list-title">Providers</h2>
         <button type="button" className="providers-add-btn" onClick={onAddProvider}>
           Add Provider
         </button>
@@ -46,6 +47,26 @@ function ProvidersList({ onSelectProvider, onAddProvider }) {
           onChange={(e) => setSearch(e.target.value)}
           className="providers-search-input"
         />
+      </div>
+      <div className="providers-filters">
+        <select value={filters.service} onChange={(e) => setFilters((s) => ({ ...s, service: e.target.value }))}>
+          <option value="">All services</option>
+          <option value="plowing">Plowing</option>
+          <option value="harvesting">Harvesting</option>
+        </select>
+        <select value={filters.rating} onChange={(e) => setFilters((s) => ({ ...s, rating: e.target.value }))}>
+          <option value="">All ratings</option>
+          <option value="4">4+ stars</option>
+          <option value="3">3+ stars</option>
+        </select>
+        <select value={filters.district} onChange={(e) => setFilters((s) => ({ ...s, district: e.target.value }))}>
+          <option value="">All districts</option>
+        </select>
+        <select value={filters.status} onChange={(e) => setFilters((s) => ({ ...s, status: e.target.value }))}>
+          <option value="">All status</option>
+          <option value="active">Active</option>
+          <option value="suspended">Suspended</option>
+        </select>
       </div>
       {loading && <div className="providers-loading">Loading...</div>}
       {error && <div className="providers-error">{error}</div>}
@@ -97,8 +118,11 @@ function ProvidersList({ onSelectProvider, onAddProvider }) {
                       <th>Name</th>
                       <th>Phone</th>
                       <th>Services</th>
-                      <th>Capacity</th>
-                      <th>Price/ha</th>
+                      <th>Equipment</th>
+                      <th>Base Location</th>
+                      <th>Rating</th>
+                      <th>On-time %</th>
+                      <th>Status</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -108,8 +132,11 @@ function ProvidersList({ onSelectProvider, onAddProvider }) {
                         <td>{p.full_name}</td>
                         <td>{p.phone}</td>
                         <td>{p.services_offered || '—'}</td>
-                        <td>{p.work_capacity_ha_per_hour != null ? `${p.work_capacity_ha_per_hour} ha/hr` : '—'}</td>
-                        <td>{p.base_price_per_ha != null ? `${p.base_price_per_ha}` : '—'}</td>
+                        <td>{p.equipment_count ?? '—'}</td>
+                        <td>{p.base_location || p.village || '—'}</td>
+                        <td>{p.rating ?? '—'}</td>
+                        <td>{p.on_time_pct != null ? `${p.on_time_pct}%` : '—'}</td>
+                        <td><span className="providers-status-badge providers-status-active">Active</span></td>
                         <td>
                           <button
                             type="button"

@@ -1,0 +1,101 @@
+.page-wrap {
+  padding-top: 80px;
+  min-height: 100vh;
+}
+
+.page-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.how-intro {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+  color: var(--dl-earth-brown);
+  font-size: 1rem;
+}
+
+.how-outro {
+  text-align: center;
+  max-width: 640px;
+  margin: 2.5rem auto 0;
+  line-height: 1.6;
+  color: var(--dl-earth-brown);
+  font-size: 0.95rem;
+}
+
+.how-page {
+  padding: 4rem 1.5rem;
+  background: var(--dl-lime-light);
+}
+
+.how-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.how-title {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  color: var(--dl-green-deep);
+  text-align: center;
+  margin: 0 0 0.5rem;
+}
+
+.how-subtitle {
+  text-align: center;
+  color: var(--dl-text-muted);
+  margin: 0 0 2rem;
+  font-size: 1rem;
+}
+
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.how-step {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  background: var(--dl-white);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.how-num {
+  display: block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin: 0 auto 0.75rem;
+  background: var(--dl-green-deep);
+  color: white;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.how-step p {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--dl-green-deep);
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .how-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .how-page {
+    padding: 3rem 1rem;
+  }
+  .how-steps {
+    grid-template-columns: 1fr;
+  }
+}
