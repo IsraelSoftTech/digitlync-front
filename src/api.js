@@ -102,6 +102,15 @@ export const api = {
     apiRequest(`/api/bookings/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   deleteBooking: (id) =>
     apiRequest(`/api/bookings/${id}`, { method: 'DELETE' }),
+
+  /** Admin ratings (rate farmers and providers) */
+  getAdminRatings: (rateeType, rateeId) =>
+    apiRequest(`/api/admin-ratings?ratee_type=${rateeType}&ratee_id=${rateeId}`),
+  submitAdminRating: (data) =>
+    apiRequest('/api/admin-ratings', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
 };
 
 /**

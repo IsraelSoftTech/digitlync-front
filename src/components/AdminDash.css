@@ -11,11 +11,16 @@
   --admin-sidebar-border: #e2e8f0;
   --admin-header-bg: #ffffff;
   --admin-header-border: #e2e8f0;
-  --admin-content-bg: #f8fafc;
-  --admin-card-bg: #ffffff;
-  --admin-card-border: #e2e8f0;
-  --admin-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --admin-card-shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --admin-content-bg: #f0fdf9;
+  --admin-card-bg: #ecfdf5;
+  --admin-card-bg-1: #ecfdf5;
+  --admin-card-bg-2: #d1fae5;
+  --admin-card-bg-3: #ccfbf1;
+  --admin-card-bg-4: #c8f5e7;
+  --admin-card-bg-5: #d4f5e9;
+  --admin-card-border: rgba(22, 101, 52, 0.15);
+  --admin-card-shadow: 0 1px 2px rgba(22, 101, 52, 0.06);
+  --admin-card-shadow-hover: 0 2px 8px rgba(22, 101, 52, 0.12);
   --admin-text-primary: #0f172a;
   --admin-text-secondary: #64748b;
   --admin-text-muted: #94a3b8;
@@ -290,3 +295,21 @@
   border-radius: 4px;
   word-break: break-all;
 }
+
+/* Admin card variations - forest green light theme */
+.admin-content .exec-card:nth-child(3n + 1) { background: var(--admin-card-bg-1); }
+.admin-content .exec-card:nth-child(3n + 2) { background: var(--admin-card-bg-2); }
+.admin-content .exec-card:nth-child(3n + 3) { background: var(--admin-card-bg-3); }
+.admin-content .exec-geo-card { background: var(--admin-card-bg-4); }
+.admin-content .exec-alert-card:nth-child(odd) { background: var(--admin-card-bg-2); }
+.admin-content .exec-alert-card:nth-child(even) { background: var(--admin-card-bg-5); }
+.admin-content .farmers-card:nth-child(3n + 1) { background: var(--admin-card-bg-1); }
+.admin-content .farmers-card:nth-child(3n + 2) { background: var(--admin-card-bg-2); }
+.admin-content .farmers-card:nth-child(3n + 3) { background: var(--admin-card-bg-3); }
+.admin-content .providers-card:nth-child(odd) { background: var(--admin-card-bg-1); }
+.admin-content .providers-card:nth-child(even) { background: var(--admin-card-bg-3); }
+.admin-content .bookings-card:nth-child(odd) { background: var(--admin-card-bg-4); }
+.admin-content .bookings-card:nth-child(even) { background: var(--admin-card-bg-5); }
+.admin-content .rd-card:nth-child(odd) { background: var(--admin-card-bg-1); }
+.admin-content .rd-card:nth-child(even) { background: var(--admin-card-bg-3); }
+.admin-content .exec-activity-feed { background: var(--admin-card-bg-5); }

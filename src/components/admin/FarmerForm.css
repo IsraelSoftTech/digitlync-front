@@ -124,3 +124,50 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.farmer-form-section-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--admin-text-secondary);
+  margin: 24px 0 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--admin-card-border);
+}
+
+.farmer-form-field-full {
+  grid-column: 1 / -1;
+}
+
+.farmer-form-checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding: 12px 0;
+}
+
+.farmer-form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9375rem;
+  cursor: pointer;
+}
+
+.farmer-form-checkbox input {
+  width: 18px;
+  height: 18px;
+}
+
+.farmer-form-other-input {
+  margin-top: 8px;
+}
+
+.farmer-form-field select {
+  padding: 12px 16px;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  border: 1px solid var(--admin-card-border);
+  border-radius: var(--admin-radius);
+  outline: none;
+  background: var(--admin-card-bg);
+}

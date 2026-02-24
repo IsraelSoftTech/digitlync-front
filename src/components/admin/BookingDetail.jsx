@@ -42,6 +42,7 @@ function BookingDetail({ bookingId, onBack, onUpdate }) {
   if (!booking) return null;
 
   const formatDate = (d) => (d ? new Date(d).toLocaleDateString() : '—');
+  const formatTime = (t) => (t ? (typeof t === 'string' && t.includes(':') ? t.substring(0, 5) : t) : '—');
   const statusClass = (s) => `booking-status booking-status-${(s || 'pending').replace('_', '-')}`;
 
   return (
@@ -70,6 +71,10 @@ function BookingDetail({ bookingId, onBack, onUpdate }) {
             </dd>
             <dt>Scheduled Date</dt>
             <dd>{formatDate(booking.scheduled_date)}</dd>
+            <dt>Scheduled Time</dt>
+            <dd>{formatTime(booking.scheduled_time)}</dd>
+            <dt>Farm Produce Type</dt>
+            <dd>{booking.farm_produce_type || '—'}</dd>
             <dt>Farm Size (ha)</dt>
             <dd>{booking.farm_size_ha != null ? booking.farm_size_ha : '—'}</dd>
           </dl>

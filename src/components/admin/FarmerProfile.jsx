@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../../api';
+import AdminRatingWidget from './AdminRatingWidget';
 import './FarmerProfile.css';
 
 function FarmerProfile({ farmerId, onBack, onEdit }) {
@@ -40,10 +41,20 @@ function FarmerProfile({ farmerId, onBack, onEdit }) {
           <dl>
             <dt>Phone</dt>
             <dd>{farmer.phone}</dd>
+            <dt>Country</dt>
+            <dd>{farmer.country || '—'}</dd>
+            <dt>Region</dt>
+            <dd>{farmer.region || '—'}</dd>
+            <dt>Division</dt>
+            <dd>{farmer.division || '—'}</dd>
+            <dt>District</dt>
+            <dd>{farmer.district || '—'}</dd>
             <dt>Village</dt>
             <dd>{farmer.village || '—'}</dd>
             <dt>Location</dt>
             <dd>{farmer.location || '—'}</dd>
+            <dt>Service Needs</dt>
+            <dd>{Array.isArray(farmer.service_needs) && farmer.service_needs.length ? farmer.service_needs.join(', ') : '—'}</dd>
             <dt>Farm Size (ha)</dt>
             <dd>{farmer.farm_size_ha != null ? farmer.farm_size_ha : '—'}</dd>
             <dt>Crop Type</dt>
@@ -65,6 +76,9 @@ function FarmerProfile({ farmerId, onBack, onEdit }) {
             <p>{farmer.notes}</p>
           </div>
         )}
+        <div className="farmer-profile-section">
+          <AdminRatingWidget rateeType="farmer" rateeId={farmer.id} />
+        </div>
       </div>
       <p className="farmer-profile-meta">
         Created {farmer.created_at ? new Date(farmer.created_at).toLocaleDateString() : '—'}

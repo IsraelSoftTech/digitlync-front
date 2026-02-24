@@ -6,7 +6,7 @@ import './FarmMapIntelligence.css';
 const DEFAULT_LAT = 6.3703;
 const DEFAULT_LNG = 2.3912;
 
-function FarmMapIntelligence() {
+function FarmMapIntelligence({ onFarmerClick }) {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const markersRef = useRef([]);
@@ -47,9 +47,25 @@ function FarmMapIntelligence() {
       mapInstanceRef.current = map;
       const withGps = farmers.filter((f) => f.gps_lat != null && f.gps_lng != null);
       withGps.forEach((f) => {
-        const m = L.marker([parseFloat(f.gps_lat), parseFloat(f.gps_lng)])
+        const loc = [parseFloat(f.gps_lat), parseFloat(f.gps_lng)];
+        const m = L.marker(loc)
           .addTo(map)
-          .bindPopup(`<strong>${f.full_name}</strong><br/>${f.village || ''}<br/>${f.phone || ''}`);
+          .bindTooltip(f.full_name || 'Farmer', { permanent: false, direction: 'top' })
+          .bindPopup(
+            `<div class="farm-map-popup">
+              <strong>${(f.full_name || 'Farmer').replace(/</g, '&lt;')}</strong><br/>
+              ${(f.district || f.region || f.village || '').replace(/</g, '&lt;')}<br/>
+              ${(f.phone || '').replace(/</g, '&lt;')}<br/>
+              ${(f.crop_type ? `Crop: ${f.crop_type}` : '').replace(/</g, '&lt;')}
+              ${onFarmerClick ? `<br/><button type="button" class="farm-map-view-profile" data-farmer-id="${f.id}">View full profile</button>` : ''}
+            </div>`
+          );
+        if (onFarmerClick) {
+          m.on('popupopen', () => {
+            const btn = document.querySelector('.farm-map-view-profile');
+            if (btn) btn.onclick = () => onFarmerClick(f);
+          });
+        }
         markersRef.current.push(m);
       });
     };
@@ -59,7 +75,7 @@ function FarmMapIntelligence() {
       markersRef.current = [];
       if (mapInstanceRef.current) { mapInstanceRef.current.remove(); mapInstanceRef.current = null; }
     };
-  }, [loading, farmers]);
+  }, [loading, farmers, onFarmerClick]);
 
   const farmersWithGps = farmers.filter((f) => f.gps_lat != null && f.gps_lng != null);
 
@@ -103,7 +119,9 @@ function FarmMapIntelligence() {
             <h3>Farms ({farmersWithGps.length})</h3>
             <ul>
               {farmersWithGps.slice(0, 10).map((f) => (
-                <li key={f.id}>{f.full_name} — {f.village || '—'}</li>
+                <li key={f.id} onClick={() => onFarmerClick?.(f)} className={onFarmerClick ? 'farm-map-legend-clickable' : ''}>
+                  {f.full_name} — {f.district || f.region || f.village || '—'}
+                </li>
               ))}
               {farmersWithGps.length > 10 && <li>+{farmersWithGps.length - 10} more</li>}
             </ul>

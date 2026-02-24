@@ -19,3 +19,8 @@
 .provider-profile-section dd { margin: 0; font-size: 0.9375rem; color: var(--admin-text-primary); }
 .provider-profile-notes p { margin: 0; font-size: 0.9375rem; color: var(--admin-text-secondary); line-height: 1.6; }
 .provider-profile-meta { margin-top: 24px; font-size: 0.8125rem; color: var(--admin-text-muted); }
+
+.provider-profile-services { display: flex; flex-direction: column; gap: 16px; }
+.provider-profile-service { padding: 16px; background: var(--admin-card-bg-2); border-radius: var(--admin-radius); border: 1px solid var(--admin-card-border); }
+.provider-profile-service h4 { margin: 0 0 12px; font-size: 1rem; font-weight: 600; color: var(--admin-text-primary); }
+.provider-profile-service dl { margin: 0; }

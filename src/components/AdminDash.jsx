@@ -125,7 +125,7 @@ function AdminDash({ onLogout }) {
       case VIEW_BOOKINGS: return <BookingsList onSelectBooking={showBookingDetail} onAddBooking={showAddBooking} />;
       case VIEW_BOOKING_DETAIL: return <BookingDetail bookingId={selectedBooking?.id} onBack={showBookings} onUpdate={handleBookingUpdate} />;
       case VIEW_BOOKING_ADD: return <AddBookingForm onSuccess={handleBookingFormSuccess} onCancel={() => setView(VIEW_BOOKINGS)} />;
-      case VIEW_FARM_MAP: return <FarmMapIntelligence />;
+      case VIEW_FARM_MAP: return <FarmMapIntelligence onFarmerClick={showFarmerProfile} />;
       case VIEW_RATINGS: return <RatingsDisputes />;
       case VIEW_MATCHING: return <MatchingEngine />;
       case VIEW_DATA: return <DataAnalytics />;

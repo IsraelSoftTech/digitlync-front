@@ -18,3 +18,21 @@
 .provider-form-submit { color: #fff; background: var(--admin-accent); border: none; }
 .provider-form-submit:hover:not(:disabled) { background: var(--admin-accent-hover); }
 .provider-form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.provider-form-section-label { font-size: 0.875rem; font-weight: 600; color: var(--admin-text-secondary); margin: 24px 0 12px; padding-top: 16px; border-top: 1px solid var(--admin-card-border); }
+.provider-form-section-label-sm { font-size: 0.8125rem; font-weight: 600; color: var(--admin-text-muted); margin: 16px 0 8px; }
+.provider-form-service-block { padding: 16px; background: var(--admin-card-bg-2); border: 1px solid var(--admin-card-border); border-radius: var(--admin-radius); margin-bottom: 16px; }
+.provider-form-service-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-weight: 600; font-size: 0.9375rem; }
+.provider-form-remove-svc { padding: 4px 10px; font-size: 0.8125rem; color: var(--admin-danger); background: transparent; border: 1px solid var(--admin-danger); border-radius: 6px; cursor: pointer; }
+.provider-form-remove-svc:hover:not(:disabled) { background: var(--admin-danger-light); }
+.provider-form-remove-svc:disabled { opacity: 0.4; cursor: not-allowed; }
+.provider-form-add-svc { padding: 10px 18px; font-size: 0.875rem; font-weight: 600; color: var(--admin-accent); background: var(--admin-accent-light); border: 1px dashed var(--admin-accent); border-radius: var(--admin-radius); cursor: pointer; margin-bottom: 20px; }
+.provider-form-add-svc:hover { background: #bbf7d0; }
+.provider-form-equipment-list { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.provider-form-equipment-row { display: flex; gap: 8px; align-items: center; }
+.provider-form-equipment-row input { flex: 1; padding: 10px 14px; font-size: 0.875rem; border: 1px solid var(--admin-card-border); border-radius: var(--admin-radius); }
+.provider-form-remove-eq { width: 32px; height: 32px; padding: 0; font-size: 1.25rem; color: var(--admin-text-muted); background: transparent; border: none; cursor: pointer; }
+.provider-form-remove-eq:hover { color: var(--admin-danger); }
+.provider-form-add-eq { align-self: flex-start; padding: 6px 12px; font-size: 0.8125rem; color: var(--admin-accent); background: transparent; border: 1px dashed var(--admin-accent); border-radius: 6px; cursor: pointer; }
+.provider-form-add-eq:hover { background: var(--admin-accent-light); }
+.provider-form-field select { padding: 12px 16px; font-family: inherit; font-size: 0.9375rem; border: 1px solid var(--admin-card-border); border-radius: var(--admin-radius); background: var(--admin-card-bg); }

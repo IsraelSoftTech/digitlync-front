@@ -17,3 +17,4 @@
 .add-booking-submit { color: #fff; background: var(--admin-accent); border: none; }
 .add-booking-submit:hover:not(:disabled) { background: var(--admin-accent-hover); }
 .add-booking-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+.add-booking-other-input { margin-top: 8px; }
