@@ -1,0 +1,78 @@
+.contact-inline-form {
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  border: 1px solid rgba(27, 94, 32, 0.12);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.contact-inline-form h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dl-green-deep);
+  margin: 0 0 1rem;
+}
+
+.contact-inline-success {
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--dl-green-deep);
+  font-size: 0.9rem;
+  border-radius: 8px;
+}
+
+.contact-inline-field {
+  margin-bottom: 1rem;
+}
+
+.contact-inline-field label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--dl-green-deep);
+  margin-bottom: 0.35rem;
+}
+
+.contact-inline-field input,
+.contact-inline-field textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  font-family: inherit;
+  border: 2px solid rgba(27, 94, 32, 0.15);
+  border-radius: 8px;
+  background: var(--dl-white);
+  color: var(--dl-earth-brown);
+  transition: border-color 0.2s ease;
+}
+
+.contact-inline-field input:focus,
+.contact-inline-field textarea:focus {
+  outline: none;
+  border-color: var(--dl-green-medium);
+}
+
+.contact-inline-field textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.contact-inline-submit {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--dl-white);
+  background: linear-gradient(135deg, var(--dl-green-deep) 0%, var(--dl-green-medium) 100%);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.contact-inline-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(27, 94, 32, 0.35);
+}

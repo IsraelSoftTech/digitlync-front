@@ -14,26 +14,67 @@ import AICoordination from './pages/AICoordination';
 import HowItWorks from './pages/HowItWorks';
 import Vision from './pages/Vision';
 import Contact from './pages/Contact';
+import Credibility from './pages/Credibility';
+import Impact from './pages/Impact';
+import Partner from './pages/Partner';
+import Metrics from './pages/Metrics';
 import SharedFooter from './SharedFooter';
 import AnimateOnScroll from './AnimateOnScroll';
+import LiveMetrics from './LiveMetrics';
+import ContactFormInline from './ContactFormInline';
 import './Home.css';
 
 const BANNER_IMAGES = [home1, home2, home3];
 
-const NAV_ITEMS = [
+/* Top-level nav: single items + dropdown groups (for large screens) */
+const NAV_TOP = [
   { id: 'home', label: 'Home' },
+  {
+    id: 'about',
+    label: 'About',
+    dropdown: [
+      { id: 'credibility', label: 'About Us' },
+      { id: 'impact', label: 'Impact & Goals' },
+      { id: 'vision', label: 'Vision' },
+      { id: 'partner', label: 'Partner' },
+    ],
+  },
+  {
+    id: 'platform',
+    label: 'Platform',
+    dropdown: [
+      { id: 'platform', label: 'Platform Overview' },
+      { id: 'services', label: 'Services' },
+      { id: 'geospatial', label: 'Geospatial' },
+      { id: 'ai-coordination', label: 'AI & Coordination' },
+    ],
+  },
   { id: 'problem', label: 'The Problem' },
+  { id: 'how-it-works', label: 'How It Works' },
+  { id: 'live-metrics', label: 'Metrics' },
+  { id: 'footer', label: 'Contact' },
+];
+
+/* Flat list for mobile (all items expanded) */
+const NAV_MOBILE = [
+  { id: 'home', label: 'Home' },
+  { id: 'credibility', label: 'About' },
+  { id: 'impact', label: 'Impact' },
+  { id: 'vision', label: 'Vision' },
+  { id: 'partner', label: 'Partner' },
   { id: 'platform', label: 'Platform' },
   { id: 'services', label: 'Services' },
   { id: 'geospatial', label: 'Geospatial' },
   { id: 'ai-coordination', label: 'AI & Coordination' },
+  { id: 'problem', label: 'The Problem' },
   { id: 'how-it-works', label: 'How It Works' },
-  { id: 'vision', label: 'Vision' },
+  { id: 'live-metrics', label: 'Metrics' },
   { id: 'footer', label: 'Contact' },
 ];
 
 function Home({ onAdminLoginSuccess }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(null); // 'platform' | 'about' | null
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState('home');
   const [bannerIndex, setBannerIndex] = useState(0);
@@ -89,9 +130,29 @@ function Home({ onAdminLoginSuccess }) {
     return () => clearInterval(bannerTimer);
   }, []);
 
+  useEffect(() => {
+    if (!dropdownOpen) return;
+    const close = (e) => {
+      if (!e.target.closest('.hero-nav-dropdown-wrap')) setDropdownOpen(null);
+    };
+    document.addEventListener('click', close);
+    return () => document.removeEventListener('click', close);
+  }, [dropdownOpen]);
+
   const handleNavClick = (id) => {
     setCurrentPage(id);
     setMobileMenuOpen(false);
+    setDropdownOpen(null);
+  };
+
+  const handleDropdownToggle = (key) => {
+    setDropdownOpen((prev) => (prev === key ? null : key));
+  };
+
+  const isPageActive = (id) => {
+    if (id === 'about') return ['credibility', 'impact', 'vision', 'partner'].includes(currentPage);
+    if (id === 'platform') return ['platform', 'services', 'geospatial', 'ai-coordination'].includes(currentPage);
+    return currentPage === id;
   };
 
   const handleExploreClick = () => {
@@ -166,16 +227,45 @@ function Home({ onAdminLoginSuccess }) {
           </button>
 
           <nav className="hero-nav">
-            {NAV_ITEMS.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                className={`hero-nav-link ${currentPage === item.id ? 'active' : ''}`}
-                onClick={() => handleNavClick(item.id)}
-              >
-                {item.label}
-              </button>
-            ))}
+            {NAV_TOP.map((item) =>
+              item.dropdown ? (
+                <div key={item.id} className="hero-nav-dropdown-wrap">
+                  <button
+                    type="button"
+                    className={`hero-nav-link hero-nav-dropdown-trigger ${isPageActive(item.id) ? 'active' : ''}`}
+                    onClick={() => handleDropdownToggle(item.id)}
+                    aria-expanded={dropdownOpen === item.id}
+                    aria-haspopup="true"
+                  >
+                    {item.label}
+                    <HiOutlineChevronDown className={`hero-nav-chevron ${dropdownOpen === item.id ? 'open' : ''}`} />
+                  </button>
+                  {dropdownOpen === item.id && (
+                    <div className="hero-nav-dropdown">
+                      {item.dropdown.map((sub) => (
+                        <button
+                          key={sub.id}
+                          type="button"
+                          className={`hero-nav-dropdown-item ${currentPage === sub.id ? 'active' : ''}`}
+                          onClick={() => handleNavClick(sub.id)}
+                        >
+                          {sub.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={`hero-nav-link ${currentPage === item.id ? 'active' : ''}`}
+                  onClick={() => handleNavClick(item.id)}
+                >
+                  {item.label}
+                </button>
+              )
+            )}
           </nav>
 
           <div className="hero-header-right">
@@ -194,7 +284,7 @@ function Home({ onAdminLoginSuccess }) {
         {/* Mobile menu */}
         {mobileMenuOpen && (
           <div className="hero-mobile-menu">
-            {NAV_ITEMS.map((item) => (
+            {NAV_MOBILE.map((item) => (
               <button
                 key={item.id}
                 type="button"
@@ -215,6 +305,7 @@ function Home({ onAdminLoginSuccess }) {
       {/* Hero Section with Banner */}
       <section id="hero" className="hero">
         <div className="hero-banner">
+          <div className="hero-geo-bg" aria-hidden="true" />
           {BANNER_IMAGES.map((img, i) => (
             <div
               key={i}
@@ -266,9 +357,79 @@ function Home({ onAdminLoginSuccess }) {
         </div>
       </section>
 
+      {/* Institutional Credibility */}
+      <section id="credibility" className="section section-credibility">
+        <AnimateOnScroll className="section-inner" direction="left">
+          <h2 className="section-title">Institutional Credibility</h2>
+          <div className="credibility-content">
+            <p className="credibility-lead">
+              DigiLync is developed by a women-founded and women-led agritech company headquartered in Buea, Cameroon.
+            </p>
+            <p>
+              We have deployed three field pilots in Meme Division (Kumba, Mabonji, and Malende), testing structured agricultural service coordination in real rural environments.
+            </p>
+            <p>
+              Our team combines expertise in agricultural engineering, geospatial systems, AI-enabled platform development, and development-sector financial management — with a combined 3 decades of experience working directly with smallholder farmers and public agricultural institutions.
+            </p>
+            <p className="credibility-tagline">
+              We build digital coordination infrastructure grounded in field realities — not theory.
+            </p>
+          </div>
+        </AnimateOnScroll>
+      </section>
+
+      {/* Live Platform Metrics */}
+      <LiveMetrics />
+
+      {/* Impact & Pilot Goals */}
+      <section id="impact" className="section section-impact">
+        <AnimateOnScroll className="section-inner" direction="right">
+          <h2 className="section-title">Impact & Pilot Goals</h2>
+          <p className="section-subtitle">
+            DigiLync is designed to scale structured agricultural service delivery across fragile and underserved rural regions.
+          </p>
+          <div className="impact-grid">
+            <div className="impact-card">
+              <h3>3-Year Target</h3>
+              <ul>
+                <li><strong>20,000</strong> farmers</li>
+                <li><strong>3,000</strong> service providers</li>
+              </ul>
+            </div>
+            <div className="impact-card">
+              <h3>Current & Upcoming Pilot Regions</h3>
+              <ul>
+                <li>Meme Division – Kumba, Mabonji, Malende</li>
+                <li>Fako Division – Muyuka, Ombe, Tiko</li>
+                <li>Ndian Division</li>
+              </ul>
+            </div>
+            <div className="impact-card">
+              <h3>Expected Outcomes</h3>
+              <ul>
+                <li>Faster and more reliable service scheduling</li>
+                <li>Reduced seasonal delays in land preparation and harvesting</li>
+                <li>Improved service quality accountability</li>
+                <li>Increased visibility of regional production capacity</li>
+              </ul>
+            </div>
+            <div className="impact-card">
+              <h3>Key Performance Indicators</h3>
+              <ul>
+                <li>% reduction in service delays</li>
+                <li>% increase in successful service completion</li>
+                <li>Farmer satisfaction ratings</li>
+                <li>Geographic coverage growth</li>
+                <li>Service response time</li>
+              </ul>
+            </div>
+          </div>
+        </AnimateOnScroll>
+      </section>
+
       {/* Section 2: The Problem */}
       <section id="problem" className="section section-problem">
-        <AnimateOnScroll className="section-inner">
+        <AnimateOnScroll className="section-inner" direction="left">
           <h2 className="section-title">Agriculture in Africa Is Fragmented</h2>
           <div className="problem-grid">
             <div className="problem-card">
@@ -297,7 +458,7 @@ function Home({ onAdminLoginSuccess }) {
 
       {/* Section 3: The DigiLync Platform */}
       <section id="platform" className="section section-platform">
-        <AnimateOnScroll className="section-inner">
+        <AnimateOnScroll className="section-inner" direction="right">
           <h2 className="section-title">The DigiLync Platform</h2>
           <p className="section-subtitle">Layered infrastructure for agricultural coordination</p>
           <div className="platform-layers">
@@ -346,7 +507,7 @@ function Home({ onAdminLoginSuccess }) {
 
       {/* Section 4: Services Offered */}
       <section id="services" className="section section-services">
-        <AnimateOnScroll className="section-inner">
+        <AnimateOnScroll className="section-inner" direction="left">
           <h2 className="section-title">Services Offered</h2>
           <div className="services-grid">
             <div className="services-category">
@@ -379,12 +540,17 @@ function Home({ onAdminLoginSuccess }) {
 
       {/* Section 5: Geospatial Intelligence */}
       <section id="geospatial" className="section section-geospatial">
-        <AnimateOnScroll className="section-inner">
+        <AnimateOnScroll className="section-inner" direction="right">
           <h2 className="section-title">Geospatial Agricultural Intelligence</h2>
           <p className="section-desc">
             DigiLync geo-tags farms and mechanized service providers to build structured regional production maps.
           </p>
           <div className="geospatial-visual">
+            <div className="geospatial-map-preview" aria-hidden="true">
+              <span className="geo-dot" />
+              <span className="geo-dot" />
+              <span className="geo-dot" />
+            </div>
             <IoMapOutline className="geospatial-icon" />
             <p>Map-style visualization • Regional production mapping • Clean, minimal preview</p>
           </div>
@@ -393,7 +559,7 @@ function Home({ onAdminLoginSuccess }) {
 
       {/* Section 6: AI & Intelligent Coordination */}
       <section id="ai-coordination" className="section section-ai">
-        <AnimateOnScroll className="section-inner">
+        <AnimateOnScroll className="section-inner" direction="left">
           <h2 className="section-title">AI-Driven Agricultural Coordination</h2>
           <p className="section-badge-inline">AI modules under progressive development</p>
           <div className="ai-features">
@@ -407,7 +573,7 @@ function Home({ onAdminLoginSuccess }) {
 
       {/* Section 7: How It Works */}
       <section id="how-it-works" className="section section-how">
-        <AnimateOnScroll className="section-inner">
+        <AnimateOnScroll className="section-inner" direction="right">
           <h2 className="section-title">How It Works</h2>
           <p className="section-subtitle">Current version – grounded and real</p>
           <div className="how-steps">
@@ -421,7 +587,7 @@ function Home({ onAdminLoginSuccess }) {
 
       {/* Section 8: Vision Statement */}
       <section id="vision" className="section section-vision">
-        <AnimateOnScroll className="section-inner">
+        <AnimateOnScroll className="section-inner" direction="left">
           <h2 className="section-title">Building Africa's Agricultural Infrastructure Layer</h2>
           <div className="vision-content">
             <p>Structured capacity coordination across farmers, providers, and buyers.</p>
@@ -432,18 +598,114 @@ function Home({ onAdminLoginSuccess }) {
         </AnimateOnScroll>
       </section>
 
+      {/* Partner With DigiLync */}
+      <section id="partner" className="section section-partner">
+        <AnimateOnScroll className="section-inner" direction="right">
+          <h2 className="section-title">Partner With DigiLync</h2>
+          <div className="partner-content">
+            <p>
+              We collaborate with governments, development partners, agricultural institutions, cooperatives, and private sector actors to pilot and scale resilient agricultural coordination systems.
+            </p>
+            <p>
+              If you are working to strengthen food systems, improve rural service delivery, or build digital public infrastructure for agriculture, DigiLync is ready to partner.
+            </p>
+            <p className="partner-cta-text">Let's build accountable and scalable agricultural systems together.</p>
+            <button
+              type="button"
+              className="partner-explore-btn"
+              onClick={() => document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            >
+              Explore Partnership
+            </button>
+          </div>
+        </AnimateOnScroll>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact-section" className="section section-contact-inline">
+        <AnimateOnScroll className="section-inner" direction="left">
+          <h2 className="section-title">Get In Touch</h2>
+          <p className="section-subtitle">
+            Whether you are a farmer, service provider, industrial buyer, or partner — we would like to hear from you.
+          </p>
+          <div className="contact-inline-grid">
+            <div className="contact-inline-info">
+              <h3>Reach Us</h3>
+              <p><strong>Email:</strong> contact@digilync.com</p>
+              <p><strong>WhatsApp:</strong> +237 697 799 186</p>
+              <p className="contact-inline-note">
+                For fastest response, start a conversation on WhatsApp. Farmers and providers can register directly via our WhatsApp bot.
+              </p>
+            </div>
+            <ContactFormInline />
+          </div>
+        </AnimateOnScroll>
+      </section>
+
       <SharedFooter onAdminLogin={() => setLoginModalOpen(true)} />
         </>
       )}
 
-      {currentPage === 'problem' && <Problem onAdminLogin={() => setLoginModalOpen(true)} />}
-      {currentPage === 'platform' && <Platform onAdminLogin={() => setLoginModalOpen(true)} />}
-      {currentPage === 'services' && <Services onAdminLogin={() => setLoginModalOpen(true)} />}
-      {currentPage === 'geospatial' && <Geospatial onAdminLogin={() => setLoginModalOpen(true)} />}
-      {currentPage === 'ai-coordination' && <AICoordination onAdminLogin={() => setLoginModalOpen(true)} />}
-      {currentPage === 'how-it-works' && <HowItWorks onAdminLogin={() => setLoginModalOpen(true)} />}
-      {currentPage === 'vision' && <Vision onAdminLogin={() => setLoginModalOpen(true)} />}
-      {currentPage === 'footer' && <Contact onAdminLogin={() => setLoginModalOpen(true)} />}
+      {currentPage === 'problem' && (
+        <div className="page-transition-wrap" key="problem">
+          <Problem onAdminLogin={() => setLoginModalOpen(true)} />
+        </div>
+      )}
+      {currentPage === 'platform' && (
+        <div className="page-transition-wrap" key="platform">
+          <Platform onAdminLogin={() => setLoginModalOpen(true)} />
+        </div>
+      )}
+      {currentPage === 'services' && (
+        <div className="page-transition-wrap" key="services">
+          <Services onAdminLogin={() => setLoginModalOpen(true)} />
+        </div>
+      )}
+      {currentPage === 'geospatial' && (
+        <div className="page-transition-wrap" key="geospatial">
+          <Geospatial onAdminLogin={() => setLoginModalOpen(true)} />
+        </div>
+      )}
+      {currentPage === 'ai-coordination' && (
+        <div className="page-transition-wrap" key="ai-coordination">
+          <AICoordination onAdminLogin={() => setLoginModalOpen(true)} />
+        </div>
+      )}
+      {currentPage === 'how-it-works' && (
+        <div className="page-transition-wrap" key="how-it-works">
+          <HowItWorks onAdminLogin={() => setLoginModalOpen(true)} />
+        </div>
+      )}
+      {currentPage === 'credibility' && (
+        <div className="page-transition-wrap" key="credibility">
+          <Credibility onAdminLogin={() => setLoginModalOpen(true)} />
+        </div>
+      )}
+      {currentPage === 'impact' && (
+        <div className="page-transition-wrap" key="impact">
+          <Impact onAdminLogin={() => setLoginModalOpen(true)} />
+        </div>
+      )}
+      {currentPage === 'vision' && (
+        <div className="page-transition-wrap" key="vision">
+          <Vision onAdminLogin={() => setLoginModalOpen(true)} />
+        </div>
+      )}
+      {currentPage === 'partner' && (
+        <div className="page-transition-wrap" key="partner">
+          <Partner onAdminLogin={() => setLoginModalOpen(true)} />
+        </div>
+      )}
+      {currentPage === 'live-metrics' && (
+        <div className="page-transition-wrap" key="live-metrics">
+          <Metrics onAdminLogin={() => setLoginModalOpen(true)} />
+        </div>
+      )}
+      {currentPage === 'footer' && (
+        <div className="page-transition-wrap" key="footer">
+          <Contact onAdminLogin={() => setLoginModalOpen(true)} />
+        </div>
+      )}
     </div>
   );
 }

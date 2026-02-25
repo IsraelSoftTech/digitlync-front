@@ -1,0 +1,75 @@
+.impact-page {
+  padding: 4rem 1.5rem;
+  background: var(--dl-lime-light);
+  flex: 1;
+}
+
+.impact-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.impact-title {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  color: var(--dl-green-deep);
+  text-align: center;
+  margin: 0 0 1rem;
+}
+
+.impact-intro {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--dl-earth-brown);
+}
+
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.impact-card {
+  padding: 1.5rem 1.75rem;
+  background: var(--dl-white);
+  border-radius: 12px;
+  border: 1px solid rgba(27, 94, 32, 0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.impact-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dl-green-deep);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--dl-green-light);
+}
+
+.impact-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.impact-card li {
+  font-size: 0.9rem;
+  color: var(--dl-earth-brown);
+  padding: 0.35rem 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .impact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .impact-page {
+    padding: 3rem 1rem;
+  }
+}

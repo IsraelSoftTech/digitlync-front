@@ -1,9 +1,32 @@
 /* ============================================
    DigiLync Page Animations
-   Professional fade-up + stagger on scroll
+   Clear swipe animations: left-to-right, right-to-left
    ============================================ */
 
-/* Keyframes */
+/* Keyframes - Swipe from left (enters from left, moves right) */
+@keyframes anim-swipe-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Swipe from right (enters from right, moves left) */
+@keyframes anim-swipe-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 @keyframes anim-fade-up {
   from {
     opacity: 0;
@@ -34,7 +57,15 @@
 /* Base: hidden until animated */
 .anim-ready {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateX(0);
+}
+
+.anim-ready.anim-swipe-left {
+  transform: translateX(-100px);
+}
+
+.anim-ready.anim-swipe-right {
+  transform: translateX(100px);
 }
 
 .anim-ready.anim-fade-in {
@@ -47,6 +78,18 @@
 
 /* Trigger: run animation when in view */
 .anim-ready.anim-in {
+  animation: anim-swipe-from-left 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.anim-ready.anim-in.anim-swipe-left {
+  animation: anim-swipe-from-left 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.anim-ready.anim-in.anim-swipe-right {
+  animation: anim-swipe-from-right 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.anim-ready.anim-in.anim-fade-up {
   animation: anim-fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
@@ -68,28 +111,89 @@
 .anim-delay-7 { animation-delay: 0.56s; }
 .anim-delay-8 { animation-delay: 0.64s; }
 
-/* Page entrance: for full-page views that mount (no scroll needed) */
+/* Page entrance: for full-page views - clear swipe animations */
 .anim-page-enter {
   opacity: 0;
-  animation: anim-fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: anim-swipe-from-left 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.anim-page-enter.anim-delay-1 { animation-delay: 0.06s; }
-.anim-page-enter.anim-delay-2 { animation-delay: 0.12s; }
-.anim-page-enter.anim-delay-3 { animation-delay: 0.18s; }
-.anim-page-enter.anim-delay-4 { animation-delay: 0.24s; }
-.anim-page-enter.anim-delay-5 { animation-delay: 0.3s; }
-.anim-page-enter.anim-delay-6 { animation-delay: 0.36s; }
-.anim-page-enter.anim-delay-7 { animation-delay: 0.42s; }
-.anim-page-enter.anim-delay-8 { animation-delay: 0.48s; }
+.anim-page-enter.anim-swipe-right {
+  animation: anim-swipe-from-right 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.anim-page-enter.anim-delay-1 { animation-delay: 0.08s; }
+.anim-page-enter.anim-delay-2 { animation-delay: 0.16s; }
+.anim-page-enter.anim-delay-3 { animation-delay: 0.24s; }
+.anim-page-enter.anim-delay-4 { animation-delay: 0.32s; }
+.anim-page-enter.anim-delay-5 { animation-delay: 0.4s; }
+.anim-page-enter.anim-delay-6 { animation-delay: 0.48s; }
+.anim-page-enter.anim-delay-7 { animation-delay: 0.56s; }
+.anim-page-enter.anim-delay-8 { animation-delay: 0.64s; }
 
 /* Respect user preference for reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .anim-ready,
   .anim-page-enter,
-  .anim-ready.anim-in {
+  .anim-ready.anim-in,
+  .page-transition-enter,
+  .page-transition-exit {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
   }
+}
+
+/* Page transition: clear swipe when navigating between pages */
+@keyframes page-enter-from-right {
+  from {
+    opacity: 0.7;
+    transform: translateX(120px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes page-enter-from-left {
+  from {
+    opacity: 0.7;
+    transform: translateX(-120px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes page-exit-to-left {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0.6;
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes page-exit-to-right {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0.6;
+    transform: translateX(100%);
+  }
+}
+
+/* Wrapper for page content - swipe in on mount */
+.page-transition-wrap {
+  animation: page-enter-from-right 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  min-height: 100vh;
+}
+
+.page-transition-wrap.from-left {
+  animation: page-enter-from-left 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }

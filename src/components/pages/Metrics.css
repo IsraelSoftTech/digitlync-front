@@ -1,0 +1,36 @@
+.metrics-page {
+  padding: 4rem 1.5rem 2rem;
+  background: var(--dl-navy, #0d1f12);
+  flex: 1;
+}
+
+.metrics-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.metrics-title {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  color: var(--dl-white);
+  text-align: center;
+  margin: 0 0 1rem;
+}
+
+.metrics-intro {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 2rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.metrics-page .section-live-metrics {
+  padding: 2rem 0;
+}
+
+.metrics-page .section-live-metrics .section-title,
+.metrics-page .section-live-metrics .section-subtitle {
+  display: none;
+}

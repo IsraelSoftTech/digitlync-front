@@ -46,7 +46,7 @@ function Contact({ onAdminLogin }) {
               </p>
             </div>
 
-            <form className="contact-form anim-page-enter anim-delay-4" onSubmit={handleSubmit}>
+            <form className="contact-form anim-page-enter anim-swipe-right anim-delay-4" onSubmit={handleSubmit}>
               <h3>Send a Message</h3>
               {submitted && (
                 <p className="contact-form-success">Thank you. Your message has been sent. We will get back to you soon.</p>

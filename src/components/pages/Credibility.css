@@ -1,0 +1,43 @@
+.credibility-page {
+  padding: 4rem 1.5rem;
+  background: var(--dl-white);
+  flex: 1;
+}
+
+.credibility-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.credibility-title {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  color: var(--dl-green-deep);
+  text-align: center;
+  margin: 0 0 2rem;
+}
+
+.credibility-content p {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--dl-earth-brown);
+  margin-bottom: 1rem;
+}
+
+.credibility-lead {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--dl-green-deep);
+}
+
+.credibility-tagline {
+  font-style: italic;
+  color: var(--dl-earth-brown-light);
+  margin-top: 1.5rem !important;
+}
+
+@media (max-width: 640px) {
+  .credibility-page {
+    padding: 3rem 1rem;
+  }
+}

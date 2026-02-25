@@ -54,6 +54,9 @@ export const api = {
   /** Health check */
   health: () => apiRequest('/api/health'),
 
+  /** Public metrics (for landing page live stats) */
+  getPublicMetrics: () => apiRequest('/api/public/metrics'),
+
   /** Admin auth */
   login: (username, password) =>
     apiRequest('/api/auth/login', {

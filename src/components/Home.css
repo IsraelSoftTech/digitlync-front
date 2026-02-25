@@ -4,7 +4,7 @@
    Background: Green / lime (per user preference)
    ============================================ */
 
-/* CSS Variables - DigiLync palette */
+/* CSS Variables - DigiLync palette (navy/charcoal base, green/blue accents) */
 :root {
   --dl-green-deep: #1B5E20;
   --dl-green-medium: #2E7D32;
@@ -19,6 +19,8 @@
   --dl-white: #FFFFFF;
   --dl-text-dark: #1B5E20;
   --dl-text-muted: #558B2F;
+  --dl-navy: #0d1f12;
+  --dl-charcoal: #1a2e1e;
 }
 
 /* Base */
@@ -118,6 +120,78 @@
 .hero-nav-link.active:hover {
   color: var(--dl-white);
   background: var(--dl-green-medium);
+}
+
+/* Dropdown nav */
+.hero-nav-dropdown-wrap {
+  position: relative;
+}
+
+.hero-nav-dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.hero-nav-chevron {
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+}
+
+.hero-nav-chevron.open {
+  transform: rotate(180deg);
+}
+
+.hero-nav-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 0.25rem;
+  min-width: 200px;
+  background: var(--dl-white);
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(27, 94, 32, 0.08);
+  padding: 0.5rem;
+  z-index: 200;
+  animation: dropdown-in 0.2s ease;
+}
+
+@keyframes dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.hero-nav-dropdown-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--dl-earth-brown);
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.hero-nav-dropdown-item:hover {
+  background: rgba(27, 94, 32, 0.08);
+  color: var(--dl-green-deep);
+}
+
+.hero-nav-dropdown-item.active {
+  background: rgba(27, 94, 32, 0.12);
+  color: var(--dl-green-deep);
+  font-weight: 600;
 }
 
 .hero-header-right {
@@ -453,11 +527,37 @@
   overflow: hidden;
 }
 
+/* Subtle geospatial animated background - "active coordination" feel */
+.hero-geo-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  animation: geo-grid-pulse 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes geo-grid-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.9; }
+}
+
 /* Banner - sliding background images */
 .hero-banner {
   position: absolute;
   inset: 0;
   z-index: 0;
+}
+
+.hero-geo-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 50% at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .hero-banner-slide {
@@ -652,11 +752,15 @@
 }
 
 /* ============================================
-   Section styles
+   Section styles - breathing & hierarchy
    ============================================ */
 
 .section {
-  padding: 4rem 1.5rem;
+  padding: 5rem 1.5rem;
+}
+
+.section + .section {
+  margin-top: 0;
 }
 
 .section-inner {
@@ -666,10 +770,11 @@
 
 .section-title {
   font-size: clamp(1.75rem, 4vw, 2.25rem);
-  font-weight: 700;
+  font-weight: 800;
   color: var(--dl-green-deep);
   text-align: center;
   margin-bottom: 1rem;
+  letter-spacing: -0.02em;
 }
 
 .section-subtitle {
@@ -693,6 +798,178 @@
   color: var(--dl-earth-brown-light);
   font-style: italic;
   margin-bottom: 1.5rem;
+}
+
+/* Institutional Credibility */
+.section-credibility {
+  background: var(--dl-white);
+}
+
+.credibility-content {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.credibility-content p {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--dl-earth-brown);
+  margin-bottom: 1rem;
+}
+
+.credibility-lead {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--dl-green-deep);
+}
+
+.credibility-tagline {
+  font-style: italic;
+  color: var(--dl-earth-brown-light);
+  margin-top: 1.5rem !important;
+}
+
+/* Impact & Pilot Goals */
+.section-impact {
+  background: var(--dl-lime-light);
+}
+
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.impact-card {
+  padding: 1.5rem 1.75rem;
+  background: var(--dl-white);
+  border-radius: 12px;
+  border: 1px solid rgba(27, 94, 32, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.impact-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(27, 94, 32, 0.1);
+}
+
+.impact-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dl-green-deep);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--dl-green-light);
+}
+
+.impact-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.impact-card li {
+  font-size: 0.9rem;
+  color: var(--dl-earth-brown);
+  padding: 0.35rem 0;
+  line-height: 1.5;
+}
+
+/* Partner With DigiLync */
+.section-partner {
+  background: var(--dl-white);
+  border-top: 1px solid rgba(27, 94, 32, 0.06);
+}
+
+.partner-content {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.partner-content p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--dl-earth-brown);
+  margin-bottom: 1rem;
+}
+
+.partner-cta-text {
+  font-weight: 600;
+  color: var(--dl-green-deep);
+  margin-top: 1.5rem !important;
+}
+
+.partner-explore-btn {
+  margin-top: 1.5rem;
+  padding: 0.875rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--dl-white);
+  background: linear-gradient(135deg, var(--dl-green-deep) 0%, var(--dl-green-medium) 100%);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(27, 94, 32, 0.3);
+}
+
+.partner-explore-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(27, 94, 32, 0.4);
+}
+
+/* Contact inline section */
+.section-contact-inline {
+  background: var(--dl-lime-light);
+}
+
+.contact-inline-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 2rem;
+  align-items: start;
+  margin-top: 2rem;
+}
+
+.contact-inline-info {
+  padding: 1.5rem;
+  background: var(--dl-white);
+  border-radius: 12px;
+  border: 1px solid rgba(27, 94, 32, 0.08);
+}
+
+.contact-inline-info h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dl-green-deep);
+  margin: 0 0 1rem;
+}
+
+.contact-inline-info p {
+  font-size: 0.9375rem;
+  color: var(--dl-earth-brown);
+  line-height: 1.6;
+  margin: 0 0 0.5rem;
+}
+
+.contact-inline-note {
+  margin-top: 1rem !important;
+  font-size: 0.875rem !important;
+  color: var(--dl-earth-brown-light) !important;
+}
+
+@media (max-width: 768px) {
+  .impact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-inline-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Section 2: The Problem */
@@ -856,25 +1133,78 @@
 }
 
 .geospatial-visual {
-  max-width: 500px;
+  max-width: 520px;
   margin: 0 auto;
   padding: 2.5rem;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 12px;
   text-align: center;
-  border: 2px dashed var(--dl-green-light);
+  border: 1px solid rgba(27, 94, 32, 0.12);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.geospatial-visual:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(27, 94, 32, 0.12);
+}
+
+.geospatial-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(27, 94, 32, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 94, 32, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+.geospatial-map-preview {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 1rem;
+  background: rgba(27, 94, 32, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(27, 94, 32, 0.1);
+}
+
+.geospatial-map-preview .geo-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--dl-green-medium);
+  border-radius: 50%;
+  animation: geo-dot-pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(46, 125, 50, 0.4);
+}
+
+.geospatial-map-preview .geo-dot:nth-child(1) { top: 20%; left: 30%; animation-delay: 0s; }
+.geospatial-map-preview .geo-dot:nth-child(2) { top: 50%; left: 55%; animation-delay: 0.35s; }
+.geospatial-map-preview .geo-dot:nth-child(3) { top: 70%; left: 25%; animation-delay: 0.7s; }
+
+@keyframes geo-dot-pulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.4); }
 }
 
 .geospatial-icon {
-  font-size: 4rem;
+  font-size: 2.5rem;
   color: var(--dl-green-medium);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
+  position: relative;
+  z-index: 1;
 }
 
 .geospatial-visual p {
   font-size: 0.9rem;
   color: var(--dl-earth-brown);
   line-height: 1.5;
+  position: relative;
+  z-index: 1;
 }
 
 /* Section 6: AI */
