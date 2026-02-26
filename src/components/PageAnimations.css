@@ -27,6 +27,31 @@
   }
 }
 
+/* Mobile: smaller movement to reduce overflow-induced shake */
+@media (max-width: 768px) {
+  @keyframes anim-swipe-from-left {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes anim-swipe-from-right {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
 @keyframes anim-fade-up {
   from {
     opacity: 0;
@@ -68,6 +93,21 @@
   transform: translateX(100px);
 }
 
+/* On mobile: smaller translate values to avoid horizontal overflow/shake */
+@media (max-width: 768px) {
+  .anim-ready.anim-swipe-left {
+    transform: translateX(-30px);
+  }
+
+  .anim-ready.anim-swipe-right {
+    transform: translateX(30px);
+  }
+}
+
+.anim-ready.anim-fade-up {
+  transform: translateY(28px);
+}
+
 .anim-ready.anim-fade-in {
   transform: none;
 }
@@ -99,6 +139,31 @@
 
 .anim-ready.anim-in.anim-scale-in {
   animation: anim-scale-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Stagger: parent observes, children animate with delay when parent in view */
+.anim-stagger-child {
+  opacity: 0;
+}
+
+.anim-stagger-parent.anim-stagger-in .anim-stagger-child.anim-fade-up {
+  animation: anim-fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.anim-stagger-parent.anim-stagger-in .anim-stagger-child.anim-fade-in {
+  animation: anim-fade-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.anim-stagger-parent.anim-stagger-in .anim-stagger-child.anim-scale-in {
+  animation: anim-scale-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.anim-stagger-parent.anim-stagger-in .anim-stagger-child.anim-swipe-left {
+  animation: anim-swipe-from-left 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.anim-stagger-parent.anim-stagger-in .anim-stagger-child.anim-swipe-right {
+  animation: anim-swipe-from-right 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* Stagger delays */
@@ -135,6 +200,7 @@
   .anim-ready,
   .anim-page-enter,
   .anim-ready.anim-in,
+  .anim-stagger-parent.anim-stagger-in .anim-stagger-child,
   .page-transition-enter,
   .page-transition-exit {
     animation: none !important;
@@ -163,6 +229,30 @@
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  @keyframes page-enter-from-right {
+    from {
+      opacity: 0.7;
+      transform: translateX(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes page-enter-from-left {
+    from {
+      opacity: 0.7;
+      transform: translateX(-40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 }
 

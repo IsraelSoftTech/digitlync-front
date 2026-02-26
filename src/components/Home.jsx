@@ -20,6 +20,7 @@ import Partner from './pages/Partner';
 import Metrics from './pages/Metrics';
 import SharedFooter from './SharedFooter';
 import AnimateOnScroll from './AnimateOnScroll';
+import AnimateOnScrollStagger from './AnimateOnScrollStagger';
 import LiveMetrics from './LiveMetrics';
 import ContactFormInline from './ContactFormInline';
 import './Home.css';
@@ -359,7 +360,7 @@ function Home({ onAdminLoginSuccess }) {
 
       {/* Institutional Credibility */}
       <section id="credibility" className="section section-credibility">
-        <AnimateOnScroll className="section-inner" direction="left">
+        <AnimateOnScroll className="section-inner" direction="fade-in">
           <h2 className="section-title">Institutional Credibility</h2>
           <div className="credibility-content">
             <p className="credibility-lead">
@@ -383,12 +384,12 @@ function Home({ onAdminLoginSuccess }) {
 
       {/* Impact & Pilot Goals */}
       <section id="impact" className="section section-impact">
-        <AnimateOnScroll className="section-inner" direction="right">
+        <AnimateOnScroll className="section-inner" direction="fade-up">
           <h2 className="section-title">Impact & Pilot Goals</h2>
           <p className="section-subtitle">
             DigiLync is designed to scale structured agricultural service delivery across fragile and underserved rural regions.
           </p>
-          <div className="impact-grid">
+          <AnimateOnScrollStagger className="impact-grid" effect="fade-up">
             <div className="impact-card">
               <h3>3-Year Target</h3>
               <ul>
@@ -423,7 +424,7 @@ function Home({ onAdminLoginSuccess }) {
                 <li>Service response time</li>
               </ul>
             </div>
-          </div>
+          </AnimateOnScrollStagger>
         </AnimateOnScroll>
       </section>
 
@@ -431,7 +432,7 @@ function Home({ onAdminLoginSuccess }) {
       <section id="problem" className="section section-problem">
         <AnimateOnScroll className="section-inner" direction="left">
           <h2 className="section-title">Agriculture in Africa Is Fragmented</h2>
-          <div className="problem-grid">
+          <AnimateOnScrollStagger className="problem-grid" effect="slide-right">
             <div className="problem-card">
               <FaCogs className="problem-icon" />
               <h3>Under-Coordinated Mechanization</h3>
@@ -452,7 +453,7 @@ function Home({ onAdminLoginSuccess }) {
               <h3>Lack of Supply Visibility</h3>
               <p>Industrial buyers lack structured supply visibility and traceability.</p>
             </div>
-          </div>
+          </AnimateOnScrollStagger>
         </AnimateOnScroll>
       </section>
 
@@ -461,7 +462,7 @@ function Home({ onAdminLoginSuccess }) {
         <AnimateOnScroll className="section-inner" direction="right">
           <h2 className="section-title">The DigiLync Platform</h2>
           <p className="section-subtitle">Layered infrastructure for agricultural coordination</p>
-          <div className="platform-layers">
+          <AnimateOnScrollStagger className="platform-layers" effect="slide-left">
             <div className="platform-layer live">
               <span className="platform-badge">Live</span>
               <h3>Layer 1 – Coordination Engine</h3>
@@ -501,15 +502,15 @@ function Home({ onAdminLoginSuccess }) {
                 <li>Institutional dashboards</li>
               </ul>
             </div>
-          </div>
+          </AnimateOnScrollStagger>
         </AnimateOnScroll>
       </section>
 
       {/* Section 4: Services Offered */}
       <section id="services" className="section section-services">
-        <AnimateOnScroll className="section-inner" direction="left">
+        <AnimateOnScroll className="section-inner" direction="fade-up">
           <h2 className="section-title">Services Offered</h2>
-          <div className="services-grid">
+          <AnimateOnScrollStagger className="services-grid" effect="scale-in">
             <div className="services-category">
               <h3>Pre-Production</h3>
               <ul><li>Land clearing</li><li>Plowing</li><li>Harrowing</li><li>Ridging</li></ul>
@@ -534,13 +535,13 @@ function Home({ onAdminLoginSuccess }) {
               <h3>Logistics</h3>
               <ul><li>Farm-to-market transport</li><li>Produce aggregation</li></ul>
             </div>
-          </div>
+          </AnimateOnScrollStagger>
         </AnimateOnScroll>
       </section>
 
       {/* Section 5: Geospatial Intelligence */}
       <section id="geospatial" className="section section-geospatial">
-        <AnimateOnScroll className="section-inner" direction="right">
+        <AnimateOnScroll className="section-inner" direction="scale-in">
           <h2 className="section-title">Geospatial Agricultural Intelligence</h2>
           <p className="section-desc">
             DigiLync geo-tags farms and mechanized service providers to build structured regional production maps.
@@ -559,15 +560,15 @@ function Home({ onAdminLoginSuccess }) {
 
       {/* Section 6: AI & Intelligent Coordination */}
       <section id="ai-coordination" className="section section-ai">
-        <AnimateOnScroll className="section-inner" direction="left">
+        <AnimateOnScroll className="section-inner" direction="fade-in">
           <h2 className="section-title">AI-Driven Agricultural Coordination</h2>
           <p className="section-badge-inline">AI modules under progressive development</p>
-          <div className="ai-features">
+          <AnimateOnScrollStagger className="ai-features" effect="fade-up">
             <div className="ai-feature">Matching optimization</div>
             <div className="ai-feature">Capacity analysis</div>
             <div className="ai-feature">Production clustering</div>
             <div className="ai-feature">Supply forecasting</div>
-          </div>
+          </AnimateOnScrollStagger>
         </AnimateOnScroll>
       </section>
 
@@ -576,18 +577,18 @@ function Home({ onAdminLoginSuccess }) {
         <AnimateOnScroll className="section-inner" direction="right">
           <h2 className="section-title">How It Works</h2>
           <p className="section-subtitle">Current version – grounded and real</p>
-          <div className="how-steps">
+          <AnimateOnScrollStagger className="how-steps" effect="slide-left">
             <div className="how-step"><span className="how-num">1</span><p>Register via WhatsApp</p></div>
             <div className="how-step"><span className="how-num">2</span><p>Request service</p></div>
             <div className="how-step"><span className="how-num">3</span><p>Provider confirms</p></div>
             <div className="how-step"><span className="how-num">4</span><p>Service completed</p></div>
-          </div>
+          </AnimateOnScrollStagger>
         </AnimateOnScroll>
       </section>
 
       {/* Section 8: Vision Statement */}
       <section id="vision" className="section section-vision">
-        <AnimateOnScroll className="section-inner" direction="left">
+        <AnimateOnScroll className="section-inner" direction="fade-up">
           <h2 className="section-title">Building Africa's Agricultural Infrastructure Layer</h2>
           <div className="vision-content">
             <p>Structured capacity coordination across farmers, providers, and buyers.</p>
@@ -600,7 +601,7 @@ function Home({ onAdminLoginSuccess }) {
 
       {/* Partner With DigiLync */}
       <section id="partner" className="section section-partner">
-        <AnimateOnScroll className="section-inner" direction="right">
+        <AnimateOnScroll className="section-inner" direction="fade-in">
           <h2 className="section-title">Partner With DigiLync</h2>
           <div className="partner-content">
             <p>
@@ -623,12 +624,12 @@ function Home({ onAdminLoginSuccess }) {
 
       {/* Contact Section */}
       <section id="contact-section" className="section section-contact-inline">
-        <AnimateOnScroll className="section-inner" direction="left">
+        <AnimateOnScroll className="section-inner" direction="scale-in">
           <h2 className="section-title">Get In Touch</h2>
           <p className="section-subtitle">
             Whether you are a farmer, service provider, industrial buyer, or partner — we would like to hear from you.
           </p>
-          <div className="contact-inline-grid">
+          <AnimateOnScrollStagger className="contact-inline-grid" effect="fade-up">
             <div className="contact-inline-info">
               <h3>Reach Us</h3>
               <p><strong>Email:</strong> contact@digilync.com</p>
@@ -638,7 +639,7 @@ function Home({ onAdminLoginSuccess }) {
               </p>
             </div>
             <ContactFormInline />
-          </div>
+          </AnimateOnScrollStagger>
         </AnimateOnScroll>
       </section>
 
