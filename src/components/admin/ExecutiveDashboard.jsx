@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FiAlertCircle, FiTrendingDown, FiUsers, FiUserPlus, FiCalendar, FiStar, FiMapPin } from 'react-icons/fi';
+import { FiAlertCircle, FiTrendingDown, FiUserPlus, FiCalendar, FiStar, FiMapPin } from 'react-icons/fi';
 import { api } from '../../api';
 import './ExecutiveDashboard.css';
 

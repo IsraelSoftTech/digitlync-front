@@ -12,7 +12,6 @@ function LandingMap() {
   const markersRef = useRef([]);
   const [locations, setLocations] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
   useEffect(() => {
     let cancelled = false;
@@ -21,7 +20,6 @@ function LandingMap() {
       if (!cancelled) {
         const list = data?.locations ?? [];
         setLocations(list.filter((l) => l.gps_lat != null && l.gps_lng != null));
-        setError('');
         setLoading(false);
       }
     })();
