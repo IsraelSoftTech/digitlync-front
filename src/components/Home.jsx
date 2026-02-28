@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { FaWhatsapp, FaCogs, FaTractor, FaClock, FaChartLine, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { HiOutlineChevronDown, HiMenu, HiX } from 'react-icons/hi';
-import { IoMapOutline } from 'react-icons/io5';
 import logo from '../assets/logo.png';
 import home1 from '../assets/home1.jpg';
 import home2 from '../assets/home2.jpg';
 import home3 from '../assets/home3.jpg';
+import p1 from '../assets/p1.jpg';
+import p2 from '../assets/p2.jpg';
+import p3 from '../assets/p3.jpg';
+import p4 from '../assets/p4.jpg';
+import p5 from '../assets/p5.png';
 import Problem from './pages/Problem';
 import Platform from './pages/Platform';
 import Services from './pages/Services';
@@ -22,6 +26,7 @@ import SharedFooter from './SharedFooter';
 import AnimateOnScroll from './AnimateOnScroll';
 import AnimateOnScrollStagger from './AnimateOnScrollStagger';
 import LiveMetrics from './LiveMetrics';
+import LandingMap from './LandingMap';
 import ContactFormInline from './ContactFormInline';
 import './Home.css';
 
@@ -359,7 +364,10 @@ function Home({ onAdminLoginSuccess }) {
       </section>
 
       {/* Institutional Credibility */}
-      <section id="credibility" className="section section-credibility">
+      <section id="credibility" className="section section-credibility section-with-image">
+        <AnimateOnScroll className="section-img-wrap" direction="fade-up">
+          <img src={p1} alt="" className="section-scroll-img" aria-hidden />
+        </AnimateOnScroll>
         <AnimateOnScroll className="section-inner" direction="fade-in">
           <h2 className="section-title">Institutional Credibility</h2>
           <div className="credibility-content">
@@ -383,7 +391,10 @@ function Home({ onAdminLoginSuccess }) {
       <LiveMetrics />
 
       {/* Impact & Pilot Goals */}
-      <section id="impact" className="section section-impact">
+      <section id="impact" className="section section-impact section-with-image">
+        <AnimateOnScroll className="section-img-wrap" direction="right">
+          <img src={p2} alt="" className="section-scroll-img" aria-hidden />
+        </AnimateOnScroll>
         <AnimateOnScroll className="section-inner" direction="fade-up">
           <h2 className="section-title">Impact & Pilot Goals</h2>
           <p className="section-subtitle">
@@ -429,7 +440,10 @@ function Home({ onAdminLoginSuccess }) {
       </section>
 
       {/* Section 2: The Problem */}
-      <section id="problem" className="section section-problem">
+      <section id="problem" className="section section-problem section-with-image">
+        <AnimateOnScroll className="section-img-wrap" direction="left">
+          <img src={p3} alt="" className="section-scroll-img" aria-hidden />
+        </AnimateOnScroll>
         <AnimateOnScroll className="section-inner" direction="left">
           <h2 className="section-title">Agriculture in Africa Is Fragmented</h2>
           <AnimateOnScrollStagger className="problem-grid" effect="slide-right">
@@ -458,7 +472,10 @@ function Home({ onAdminLoginSuccess }) {
       </section>
 
       {/* Section 3: The DigiLync Platform */}
-      <section id="platform" className="section section-platform">
+      <section id="platform" className="section section-platform section-with-image">
+        <AnimateOnScroll className="section-img-wrap" direction="scale-in">
+          <img src={p4} alt="" className="section-scroll-img" aria-hidden />
+        </AnimateOnScroll>
         <AnimateOnScroll className="section-inner" direction="right">
           <h2 className="section-title">The DigiLync Platform</h2>
           <p className="section-subtitle">Layered infrastructure for agricultural coordination</p>
@@ -540,20 +557,17 @@ function Home({ onAdminLoginSuccess }) {
       </section>
 
       {/* Section 5: Geospatial Intelligence */}
-      <section id="geospatial" className="section section-geospatial">
+      <section id="geospatial" className="section section-geospatial section-with-image">
+        <AnimateOnScroll className="section-img-wrap" direction="fade-up">
+          <img src={p5} alt="" className="section-scroll-img" aria-hidden />
+        </AnimateOnScroll>
         <AnimateOnScroll className="section-inner" direction="scale-in">
           <h2 className="section-title">Geospatial Agricultural Intelligence</h2>
           <p className="section-desc">
             DigiLync geo-tags farms and mechanized service providers to build structured regional production maps.
           </p>
-          <div className="geospatial-visual">
-            <div className="geospatial-map-preview" aria-hidden="true">
-              <span className="geo-dot" />
-              <span className="geo-dot" />
-              <span className="geo-dot" />
-            </div>
-            <IoMapOutline className="geospatial-icon" />
-            <p>Map-style visualization • Regional production mapping • Clean, minimal preview</p>
+          <div className="geospatial-visual geospatial-map-wrap">
+            <LandingMap />
           </div>
         </AnimateOnScroll>
       </section>

@@ -17,6 +17,47 @@
   margin-bottom: 2.5rem;
 }
 
+.live-metrics-map-link {
+  color: var(--dl-green-light);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.live-metrics-map-link:hover {
+  color: var(--dl-white);
+}
+
+.live-metrics-error {
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: rgba(244, 67, 54, 0.15);
+  border: 1px solid rgba(244, 67, 54, 0.3);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.live-metrics-error p {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+}
+
+.live-metrics-retry {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--dl-white);
+  background: var(--dl-green-medium);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.live-metrics-retry:hover {
+  background: var(--dl-green-light);
+}
+
 .live-metrics-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));

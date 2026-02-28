@@ -3,7 +3,7 @@ import { FiAlertCircle, FiTrendingDown, FiUsers, FiUserPlus, FiCalendar, FiStar,
 import { api } from '../../api';
 import './ExecutiveDashboard.css';
 
-function ExecutiveDashboard() {
+function ExecutiveDashboard({ onViewFarmMap }) {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -98,13 +98,17 @@ function ExecutiveDashboard() {
 
       <section className="exec-section">
         <h2 className="exec-section-title">Geography</h2>
-        <div className="exec-geo-card">
+        <button
+          type="button"
+          className="exec-geo-card exec-geo-card-clickable"
+          onClick={onViewFarmMap}
+        >
           <div className="exec-geo-placeholder">
-            <FiUsers className="exec-geo-icon" />
-            <p>Map with farms per district, active providers, service heatmap, coverage gaps</p>
-            <span className="exec-geo-badge">Map module</span>
+            <FiMapPin className="exec-geo-icon" />
+            <p>View farm map with real locations — farms per district, active providers, GPS markers</p>
+            <span className="exec-geo-badge">View Map</span>
           </div>
-        </div>
+        </button>
       </section>
 
       <section className="exec-section">

@@ -5,8 +5,8 @@ import { FaTractor, FaUsers, FaClipboardList, FaCheckCircle, FaMapMarkerAlt, FaS
 import './LiveMetrics.css';
 
 const METRICS_CONFIG = [
-  { key: 'farmsOnboarded', label: 'Farms Onboarded', icon: FaTractor },
-  { key: 'serviceProvidersRegistered', label: 'Service Providers', icon: FaUsers },
+  { key: 'farmsOnboarded', label: 'Farmers', icon: FaTractor },
+  { key: 'serviceProvidersRegistered', label: 'Providers', icon: FaUsers },
   { key: 'serviceRequestsSubmitted', label: 'Service Requests', icon: FaClipboardList },
   { key: 'completedServices', label: 'Completed Services', icon: FaCheckCircle },
   { key: 'activeRegions', label: 'Active Regions', icon: FaMapMarkerAlt },
@@ -54,20 +54,39 @@ function AnimatedNumber({ value, decimals = 0, suffix = '', isInView }) {
 function LiveMetrics() {
   const [metrics, setMetrics] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
   const [ref, isInView] = useAnimateOnScroll({ threshold: 0.15 });
 
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      const { data, error } = await api.getPublicMetrics();
-      if (!cancelled) {
-        if (!error && data) setMetrics(data);
-        else setMetrics({}); // fallback to zeros when API unavailable
-        setLoading(false);
-      }
-    })();
-    return () => { cancelled = true; };
+  const fetchMetrics = React.useCallback(async () => {
+    setError('');
+    // Use same endpoint as admin dashboard (known to work)
+    const { data: dashData, error: err } = await api.getDashboardStats();
+    if (!err && dashData) {
+      // Try public metrics for extra fields (completed, regions, rating)
+      const { data: pubData } = await api.getPublicMetrics();
+      setMetrics({
+        farmsOnboarded: dashData.farmers ?? 0,
+        serviceProvidersRegistered: dashData.providers ?? 0,
+        serviceRequestsSubmitted: dashData.bookings ?? 0,
+        completedServices: pubData?.completedServices ?? 0,
+        activeRegions: pubData?.activeRegions ?? 0,
+        averageServiceRating: pubData?.averageServiceRating ?? null,
+        onTimeCompletionRatePercent: pubData?.onTimeCompletionRatePercent ?? null,
+      });
+      setLoading(false);
+      return;
+    }
+    setError(err || 'Could not reach API');
+    setMetrics({});
+    setLoading(false);
   }, []);
+
+  useEffect(() => {
+    fetchMetrics();
+    const interval = setInterval(fetchMetrics, 60000);
+    return () => clearInterval(interval);
+  }, [fetchMetrics]);
 
   if (loading && !metrics) {
     return (
@@ -91,7 +110,16 @@ function LiveMetrics() {
     <section id="live-metrics" className="section section-live-metrics" ref={ref}>
       <div className="section-inner">
         <h2 className="section-title">Live Platform Metrics</h2>
-        <p className="section-subtitle">Real-time coordination data from the DigiLync platform</p>
+        <p className="section-subtitle">
+          Real-time coordination data from the DigiLync platform.{' '}
+          <a href="#geospatial" className="live-metrics-map-link">View farm locations on map →</a>
+        </p>
+        {error && (
+          <div className="live-metrics-error">
+            <p>{error}. In development, ensure the backend is running (e.g. <code>npm start</code> in backend folder).</p>
+            <button type="button" className="live-metrics-retry" onClick={fetchMetrics}>Retry</button>
+          </div>
+        )}
         <div className="live-metrics-grid">
           {METRICS_CONFIG.map(({ key, label, icon: Icon, suffix = '', decimals = 0 }) => {
             const val = metrics?.[key];

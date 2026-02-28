@@ -17,18 +17,24 @@ const API_BASE_URL =
  * @param {RequestInit} options - Fetch options (method, headers, body, etc.)
  * @returns {Promise<{ data?: any, error?: string }>}
  */
+const API_TIMEOUT_MS = 6000;
+
 async function apiRequest(endpoint, options = {}) {
   const url = `${API_BASE_URL}${endpoint}`;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
   const config = {
+    ...options,
     headers: {
       'Content-Type': 'application/json',
       ...options.headers,
     },
-    ...options,
+    signal: controller.signal,
   };
 
   try {
     const response = await fetch(url, config);
+    clearTimeout(timeoutId);
     const data = await response.json().catch(() => null);
 
     if (!response.ok) {
@@ -40,8 +46,12 @@ async function apiRequest(endpoint, options = {}) {
 
     return { data, status: response.status };
   } catch (err) {
+    clearTimeout(timeoutId);
+    const msg = err.name === 'AbortError'
+      ? 'Request timed out - is the backend running?'
+      : (err.message || 'Network error - could not reach API');
     return {
-      error: err.message || 'Network error - could not reach API',
+      error: msg,
       status: null,
     };
   }
@@ -56,6 +66,9 @@ export const api = {
 
   /** Public metrics (for landing page live stats) */
   getPublicMetrics: () => apiRequest('/api/public/metrics'),
+
+  /** Public map locations (farmers with GPS for landing page map) */
+  getPublicLocations: () => apiRequest('/api/public/locations'),
 
   /** Admin auth */
   login: (username, password) =>

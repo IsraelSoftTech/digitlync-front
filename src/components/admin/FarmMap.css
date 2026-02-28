@@ -27,6 +27,35 @@
 }
 .farm-map-legend h3 { margin: 0 0 16px; font-size: 0.875rem; font-weight: 600; color: var(--admin-text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
 .farm-map-legend ul { margin: 0; padding: 0; list-style: none; }
-.farm-map-legend li { padding: 12px 0; font-size: 0.9375rem; color: var(--admin-text-secondary); cursor: pointer; border-bottom: 1px solid var(--admin-card-border); transition: color 0.2s; }
+.farm-map-legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 12px 0;
+  font-size: 0.9375rem;
+  color: var(--admin-text-secondary);
+  cursor: pointer;
+  border-bottom: 1px solid var(--admin-card-border);
+  transition: color 0.2s;
+}
 .farm-map-legend li:last-child { border-bottom: none; }
 .farm-map-legend li:hover, .farm-map-legend li.selected { color: var(--admin-accent); font-weight: 500; }
+.farm-map-loc-btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: rgba(67, 160, 71, 0.15);
+  border: 1px solid rgba(67, 160, 71, 0.3);
+  border-radius: 6px;
+  color: var(--admin-accent);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.farm-map-loc-btn:hover {
+  background: rgba(67, 160, 71, 0.25);
+  color: var(--admin-accent);
+}

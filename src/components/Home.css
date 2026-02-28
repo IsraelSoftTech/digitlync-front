@@ -814,6 +814,44 @@
   margin-bottom: 1.5rem;
 }
 
+/* Section images (p1-p5) - scroll-triggered reveal */
+.section-with-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.section-img-wrap {
+  max-width: 980px;
+  margin: 0 auto 2rem;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(27, 94, 32, 0.15), 0 0 0 1px rgba(27, 94, 32, 0.08);
+}
+
+.section-scroll-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  max-height: 780px;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.section-img-wrap:hover .section-scroll-img {
+  transform: scale(1.03);
+}
+
+@media (max-width: 768px) {
+  .section-img-wrap {
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-scroll-img {
+    max-height: 700px;
+  }
+}
+
 /* Institutional Credibility */
 .section-credibility {
   background: var(--dl-white);
@@ -1144,6 +1182,18 @@
 /* Section 5: Geospatial */
 .section-geospatial {
   background: var(--dl-lime-light);
+}
+
+.geospatial-visual.geospatial-map-wrap {
+  max-width: 100%;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.geospatial-map-wrap::before {
+  display: none;
 }
 
 .geospatial-visual {

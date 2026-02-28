@@ -113,7 +113,7 @@ function AdminDash({ onLogout }) {
 
   const renderContent = () => {
     switch (view) {
-      case VIEW_DASHBOARD: return <ExecutiveDashboard />;
+      case VIEW_DASHBOARD: return <ExecutiveDashboard onViewFarmMap={() => nav(VIEW_FARM_MAP)} />;
       case VIEW_FARMERS: return <FarmersList onSelectFarmer={showFarmerProfile} onAddFarmer={showAddFarmer} />;
       case VIEW_FARMER_PROFILE: return <FarmerProfile farmerId={selectedFarmer?.id} onBack={showFarmers} onEdit={showEditFarmer} />;
       case VIEW_FARMER_ADD: return <FarmerForm onSuccess={handleFarmerFormSuccess} onCancel={() => setView(VIEW_FARMERS)} />;

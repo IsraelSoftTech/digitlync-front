@@ -1,5 +1,5 @@
 import React from 'react';
-import { IoMapOutline } from 'react-icons/io5';
+import LandingMap from '../LandingMap';
 import SharedFooter from '../SharedFooter';
 import './Geospatial.css';
 
@@ -14,15 +14,13 @@ function Geospatial({ onAdminLogin }) {
           </p>
           <p className="geospatial-intro anim-page-enter anim-delay-2">
             Geographic intelligence enables better matching, coverage planning, and supply chain visibility. 
-            Our mapping module is in development and will support district-level analysis, service heatmaps, 
-            and identification of underserved zones.
+            Our mapping module supports district-level analysis and identification of farm locations.
           </p>
-          <div className="geospatial-visual anim-page-enter anim-delay-3">
-            <IoMapOutline className="geospatial-icon" />
-            <p>Map-style visualization • Regional production mapping • Clean, minimal preview</p>
+          <div className="geospatial-visual geospatial-map-wrap anim-page-enter anim-delay-3">
+            <LandingMap />
           </div>
           <p className="geospatial-outro anim-page-enter anim-delay-4">
-            No fake analytics. We present real capability with honest development staging.
+            Real farm locations from the DigiLync platform. Add farmers with GPS coordinates in the admin dashboard to see them here.
           </p>
         </div>
       </section>

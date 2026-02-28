@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 import { api } from '../../api';
 import './FarmMap.css';
 
-// Default center: Cameroon
-const DEFAULT_LAT = 6.3703;
-const DEFAULT_LNG = 2.3912;
+// Default center: Cameroon (Buea region)
+const DEFAULT_LAT = 4.15;
+const DEFAULT_LNG = 9.24;
 
 function FarmMap() {
   const mapRef = useRef(null);
@@ -57,11 +58,21 @@ function FarmMap() {
       mapInstanceRef.current = map;
 
       farmers.forEach((f) => {
-        const marker = L.marker([parseFloat(f.gps_lat), parseFloat(f.gps_lng)])
+        const lat = parseFloat(f.gps_lat);
+        const lng = parseFloat(f.gps_lng);
+        if (isNaN(lat) || isNaN(lng)) return;
+        const marker = L.marker([lat, lng])
           .addTo(map)
           .bindPopup(`<strong>${f.full_name}</strong><br/>${f.village || ''}<br/>${f.phone || ''}`);
         markersRef.current.push(marker);
       });
+
+      const validCoords = farmers
+        .map((f) => [parseFloat(f.gps_lat), parseFloat(f.gps_lng)])
+        .filter(([lat, lng]) => !isNaN(lat) && !isNaN(lng));
+      if (validCoords.length > 0) {
+        map.fitBounds(L.latLngBounds(validCoords), { padding: [30, 30], maxZoom: 14 });
+      }
     };
 
     initMap();
@@ -74,6 +85,21 @@ function FarmMap() {
       }
     };
   }, [loading, farmers]);
+
+  const handleFocusFarmer = (farmer) => {
+    setSelectedFarmer(farmer);
+    const map = mapInstanceRef.current;
+    if (!map) return;
+    const lat = parseFloat(farmer.gps_lat);
+    const lng = parseFloat(farmer.gps_lng);
+    if (isNaN(lat) || isNaN(lng)) return;
+    map.panTo([lat, lng], { animate: true, duration: 0.5 });
+    map.setZoom(Math.max(map.getZoom(), 14));
+    const idx = farmers.findIndex((f) => f.id === farmer.id);
+    if (idx >= 0 && markersRef.current[idx]) {
+      markersRef.current[idx].openPopup();
+    }
+  };
 
   if (loading) return <div className="farm-map-loading">Loading map...</div>;
   if (error) return <div className="farm-map-error">{error}</div>;
@@ -97,8 +123,21 @@ function FarmMap() {
           <h3>Farms</h3>
           <ul>
             {farmersWithGps.map((f) => (
-              <li key={f.id} onClick={() => setSelectedFarmer(f)} className={selectedFarmer?.id === f.id ? 'selected' : ''}>
-                {f.full_name} — {f.village || 'No village'}
+              <li
+                key={f.id}
+                onClick={() => handleFocusFarmer(f)}
+                className={selectedFarmer?.id === f.id ? 'selected' : ''}
+              >
+                <button
+                  type="button"
+                  className="farm-map-loc-btn"
+                  onClick={(e) => { e.stopPropagation(); handleFocusFarmer(f); }}
+                  aria-label={`View ${f.full_name} on map`}
+                  title="View on map"
+                >
+                  <FaMapMarkerAlt />
+                </button>
+                <span>{f.full_name} — {f.village || 'No village'}</span>
               </li>
             ))}
           </ul>
