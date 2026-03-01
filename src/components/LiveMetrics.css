@@ -17,16 +17,6 @@
   margin-bottom: 2.5rem;
 }
 
-.live-metrics-map-link {
-  color: var(--dl-green-light);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.live-metrics-map-link:hover {
-  color: var(--dl-white);
-}
-
 .live-metrics-error {
   margin-bottom: 1.5rem;
   padding: 1rem 1.25rem;

@@ -60,19 +60,16 @@ function LiveMetrics() {
 
   const fetchMetrics = React.useCallback(async () => {
     setError('');
-    // Use same endpoint as admin dashboard (known to work)
-    const { data: dashData, error: err } = await api.getDashboardStats();
-    if (!err && dashData) {
-      // Try public metrics for extra fields (completed, regions, rating)
-      const { data: pubData } = await api.getPublicMetrics();
+    const { data, error: err } = await api.getPublicMetrics();
+    if (!err && data) {
       setMetrics({
-        farmsOnboarded: dashData.farmers ?? 0,
-        serviceProvidersRegistered: dashData.providers ?? 0,
-        serviceRequestsSubmitted: dashData.bookings ?? 0,
-        completedServices: pubData?.completedServices ?? 0,
-        activeRegions: pubData?.activeRegions ?? 0,
-        averageServiceRating: pubData?.averageServiceRating ?? null,
-        onTimeCompletionRatePercent: pubData?.onTimeCompletionRatePercent ?? null,
+        farmsOnboarded: data.farmsOnboarded ?? 0,
+        serviceProvidersRegistered: data.serviceProvidersRegistered ?? 0,
+        serviceRequestsSubmitted: data.serviceRequestsSubmitted ?? 0,
+        completedServices: data.completedServices ?? 0,
+        activeRegions: data.activeRegions ?? 0,
+        averageServiceRating: data.averageServiceRating ?? null,
+        onTimeCompletionRatePercent: data.onTimeCompletionRatePercent ?? null,
       });
       setLoading(false);
       return;
@@ -111,8 +108,7 @@ function LiveMetrics() {
       <div className="section-inner">
         <h2 className="section-title">Live Platform Metrics</h2>
         <p className="section-subtitle">
-          Real-time coordination data from the DigiLync platform.{' '}
-          <a href="#geospatial" className="live-metrics-map-link">View farm locations on map →</a>
+          Real-time coordination data from the DigiLync platform.
         </p>
         {error && (
           <div className="live-metrics-error">
