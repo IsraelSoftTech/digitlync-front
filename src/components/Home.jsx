@@ -334,9 +334,12 @@ function Home({ onAdminLoginSuccess }) {
           </div>
         </div>
         <div className="hero-content">
-          <h1 className="hero-title">
-            <span className="hero-brand">DigiLync</span>
-            <span className="hero-tagline">Africa's AI-Enabled Geospatial Agricultural Coordination Infrastructure</span>
+          <div className="hero-floating-dots" aria-hidden="true">
+            <span className="hero-dot hero-dot-1" /><span className="hero-dot hero-dot-2" /><span className="hero-dot hero-dot-3" /><span className="hero-dot hero-dot-4" />
+          </div>
+          <h1 className="hero-title hero-title-stagger">
+            <span className="hero-brand hero-brand-char">DigiLync</span>
+            <span className="hero-tagline hero-tagline-stagger">Africa's AI-Enabled Geospatial Agricultural Coordination Infrastructure</span>
           </h1>
           <p className="hero-subheadline">
             Linking farmers, mechanized service providers, and industrial buyers through structured scheduling, geospatial mapping, and AI-Powered intelligent coordination.
@@ -346,7 +349,7 @@ function Home({ onAdminLoginSuccess }) {
               href="https://wa.me/237697799186"
               target="_blank"
               rel="noopener noreferrer"
-              className="hero-btn hero-btn-primary"
+              className="hero-btn hero-btn-primary hero-btn-shine"
             >
               <FaWhatsapp className="hero-btn-icon" />
               Start on WhatsApp
@@ -363,120 +366,142 @@ function Home({ onAdminLoginSuccess }) {
         </div>
       </section>
 
-      {/* Institutional Credibility */}
-      <section id="credibility" className="section section-credibility section-with-image">
-        <AnimateOnScroll className="section-img-wrap" direction="fade-up">
-          <img src={p1} alt="" className="section-scroll-img" aria-hidden />
-        </AnimateOnScroll>
-        <AnimateOnScroll className="section-inner" direction="fade-in">
-          <h2 className="section-title">Institutional Credibility</h2>
-          <div className="credibility-content">
-            <p className="credibility-lead">
-              DigiLync is developed by a women-founded and women-led agritech company headquartered in Buea, Cameroon.
-            </p>
-            <p>
-              We have deployed three field pilots in Meme Division (Kumba, Mabonji, and Malende), testing structured agricultural service coordination in real rural environments.
-            </p>
-            <p>
-              Our team combines expertise in agricultural engineering, geospatial systems, AI-enabled platform development, and development-sector financial management — with a combined 3 decades of experience working directly with smallholder farmers and public agricultural institutions.
-            </p>
-            <p className="credibility-tagline">
-              We build digital coordination infrastructure grounded in field realities — not theory.
-            </p>
-          </div>
-        </AnimateOnScroll>
+      {/* Institutional Credibility - horizontal layout: image left, text right */}
+      <section id="credibility" className="section section-credibility section-layout-horizontal">
+        <div className="section-layout-inner">
+          <AnimateOnScroll className="section-img-wrap section-img-left" direction="right">
+            <div className="img-float-wrap">
+              <img src={p1} alt="" className="section-scroll-img img-float" aria-hidden />
+            </div>
+          </AnimateOnScroll>
+          <AnimateOnScroll className="section-text-block" direction="left">
+            <h2 className="section-title">Institutional Credibility</h2>
+            <div className="credibility-content">
+              <p className="credibility-lead">
+                DigiLync is developed by a women-founded and women-led agritech company headquartered in Buea, Cameroon.
+              </p>
+              <p>
+                We have deployed three field pilots in Meme Division (Kumba, Mabonji, and Malende), testing structured agricultural service coordination in real rural environments.
+              </p>
+              <p>
+                Our team combines expertise in agricultural engineering, geospatial systems, AI-enabled platform development, and development-sector financial management — with a combined 3 decades of experience working directly with smallholder farmers and public agricultural institutions.
+              </p>
+              <p className="credibility-tagline">
+                We build digital coordination infrastructure grounded in field realities — not theory.
+              </p>
+            </div>
+          </AnimateOnScroll>
+        </div>
+        <div className="floating-shapes" aria-hidden="true">
+          <span className="shape shape-circle shape-1" /><span className="shape shape-square shape-2" /><span className="shape shape-dot shape-3" />
+        </div>
       </section>
 
       {/* Live Platform Metrics */}
       <LiveMetrics />
 
-      {/* Impact & Pilot Goals */}
-      <section id="impact" className="section section-impact section-with-image">
-        <AnimateOnScroll className="section-img-wrap" direction="right">
-          <img src={p2} alt="" className="section-scroll-img" aria-hidden />
-        </AnimateOnScroll>
-        <AnimateOnScroll className="section-inner" direction="fade-up">
-          <h2 className="section-title">Impact & Pilot Goals</h2>
-          <p className="section-subtitle">
-            DigiLync is designed to scale structured agricultural service delivery across fragile and underserved rural regions.
-          </p>
-          <AnimateOnScrollStagger className="impact-grid" effect="fade-up">
-            <div className="impact-card">
-              <h3>3-Year Target</h3>
-              <ul>
-                <li><strong>20,000</strong> farmers</li>
-                <li><strong>3,000</strong> service providers</li>
-              </ul>
+      {/* Impact & Pilot Goals - horizontal reverse: image right, text left */}
+      <section id="impact" className="section section-impact section-layout-horizontal-reverse">
+        <div className="section-layout-inner">
+          <AnimateOnScroll className="section-text-block" direction="right">
+            <h2 className="section-title">Impact & Pilot Goals</h2>
+            <p className="section-subtitle">
+              DigiLync is designed to scale structured agricultural service delivery across fragile and underserved rural regions.
+            </p>
+            <AnimateOnScrollStagger className="impact-grid" effect="fade-up">
+              <div className="impact-card">
+                <h3>3-Year Target</h3>
+                <ul>
+                  <li><strong>20,000</strong> farmers</li>
+                  <li><strong>3,000</strong> service providers</li>
+                </ul>
+              </div>
+              <div className="impact-card">
+                <h3>Current & Upcoming Pilot Regions</h3>
+                <ul>
+                  <li>Meme Division – Kumba, Mabonji, Malende</li>
+                  <li>Fako Division – Muyuka, Ombe, Tiko</li>
+                  <li>Ndian Division</li>
+                </ul>
+              </div>
+              <div className="impact-card">
+                <h3>Expected Outcomes</h3>
+                <ul>
+                  <li>Faster and more reliable service scheduling</li>
+                  <li>Reduced seasonal delays in land preparation and harvesting</li>
+                  <li>Improved service quality accountability</li>
+                  <li>Increased visibility of regional production capacity</li>
+                </ul>
+              </div>
+              <div className="impact-card">
+                <h3>Key Performance Indicators</h3>
+                <ul>
+                  <li>% reduction in service delays</li>
+                  <li>% increase in successful service completion</li>
+                  <li>Farmer satisfaction ratings</li>
+                  <li>Geographic coverage growth</li>
+                  <li>Service response time</li>
+                </ul>
+              </div>
+            </AnimateOnScrollStagger>
+          </AnimateOnScroll>
+          <AnimateOnScroll className="section-img-wrap section-img-right" direction="left">
+            <div className="img-float-wrap">
+              <img src={p2} alt="" className="section-scroll-img img-float img-float-delay" aria-hidden />
             </div>
-            <div className="impact-card">
-              <h3>Current & Upcoming Pilot Regions</h3>
-              <ul>
-                <li>Meme Division – Kumba, Mabonji, Malende</li>
-                <li>Fako Division – Muyuka, Ombe, Tiko</li>
-                <li>Ndian Division</li>
-              </ul>
-            </div>
-            <div className="impact-card">
-              <h3>Expected Outcomes</h3>
-              <ul>
-                <li>Faster and more reliable service scheduling</li>
-                <li>Reduced seasonal delays in land preparation and harvesting</li>
-                <li>Improved service quality accountability</li>
-                <li>Increased visibility of regional production capacity</li>
-              </ul>
-            </div>
-            <div className="impact-card">
-              <h3>Key Performance Indicators</h3>
-              <ul>
-                <li>% reduction in service delays</li>
-                <li>% increase in successful service completion</li>
-                <li>Farmer satisfaction ratings</li>
-                <li>Geographic coverage growth</li>
-                <li>Service response time</li>
-              </ul>
-            </div>
-          </AnimateOnScrollStagger>
-        </AnimateOnScroll>
+          </AnimateOnScroll>
+        </div>
+        <div className="floating-shapes" aria-hidden="true">
+          <span className="shape shape-leaf shape-4" /><span className="shape shape-circle shape-5" />
+        </div>
       </section>
 
-      {/* Section 2: The Problem */}
-      <section id="problem" className="section section-problem section-with-image">
-        <AnimateOnScroll className="section-img-wrap" direction="left">
-          <img src={p3} alt="" className="section-scroll-img" aria-hidden />
+      {/* Section 2: The Problem - vertical layout: image top, cards below */}
+      <section id="problem" className="section section-problem section-layout-vertical">
+        <AnimateOnScroll className="section-img-wrap section-img-top" direction="scale-in">
+          <div className="img-float-wrap">
+            <img src={p3} alt="" className="section-scroll-img img-float" aria-hidden />
+          </div>
         </AnimateOnScroll>
-        <AnimateOnScroll className="section-inner" direction="left">
+        <AnimateOnScroll className="section-inner" direction="fade-up">
           <h2 className="section-title">Agriculture in Africa Is Fragmented</h2>
           <AnimateOnScrollStagger className="problem-grid" effect="slide-right">
             <div className="problem-card">
-              <FaCogs className="problem-icon" />
+              <span className="problem-icon-wrap"><FaCogs className="problem-icon" /></span>
               <h3>Under-Coordinated Mechanization</h3>
               <p>Mechanization exists but is under-coordinated across regions and seasons.</p>
             </div>
             <div className="problem-card">
-              <FaTractor className="problem-icon" />
+              <span className="problem-icon-wrap"><FaTractor className="problem-icon" /></span>
               <h3>Disconnected Providers</h3>
               <p>Service providers operate in isolation with no structured marketplace.</p>
             </div>
             <div className="problem-card">
-              <FaClock className="problem-icon" />
+              <span className="problem-icon-wrap"><FaClock className="problem-icon" /></span>
               <h3>Timing & Availability Gaps</h3>
               <p>Farmers struggle with timing and availability of critical services.</p>
             </div>
             <div className="problem-card">
-              <FaChartLine className="problem-icon" />
+              <span className="problem-icon-wrap"><FaChartLine className="problem-icon" /></span>
               <h3>Lack of Supply Visibility</h3>
               <p>Industrial buyers lack structured supply visibility and traceability.</p>
             </div>
           </AnimateOnScrollStagger>
         </AnimateOnScroll>
+        <div className="floating-shapes" aria-hidden="true">
+          <span className="shape shape-dot shape-6" /><span className="shape shape-square shape-7" />
+        </div>
       </section>
 
-      {/* Section 3: The DigiLync Platform */}
-      <section id="platform" className="section section-platform section-with-image">
-        <AnimateOnScroll className="section-img-wrap" direction="scale-in">
-          <img src={p4} alt="" className="section-scroll-img" aria-hidden />
-        </AnimateOnScroll>
-        <AnimateOnScroll className="section-inner" direction="right">
+      {/* Section 3: The DigiLync Platform - horizontal: image left, layers right */}
+      <section id="platform" className="section section-platform section-layout-horizontal">
+        <div className="section-layout-inner">
+          <AnimateOnScroll className="section-img-wrap section-img-left" direction="right">
+            <div className="img-float-wrap">
+              <img src={p4} alt="" className="section-scroll-img img-float" aria-hidden />
+            </div>
+          </AnimateOnScroll>
+          <AnimateOnScroll className="section-text-block" direction="left">
           <h2 className="section-title">The DigiLync Platform</h2>
           <p className="section-subtitle">Layered infrastructure for agricultural coordination</p>
           <AnimateOnScrollStagger className="platform-layers" effect="slide-left">
@@ -520,7 +545,11 @@ function Home({ onAdminLoginSuccess }) {
               </ul>
             </div>
           </AnimateOnScrollStagger>
-        </AnimateOnScroll>
+          </AnimateOnScroll>
+        </div>
+        <div className="floating-shapes" aria-hidden="true">
+          <span className="shape shape-circle shape-8" /><span className="shape shape-dot shape-9" />
+        </div>
       </section>
 
       {/* Section 4: Services Offered */}
@@ -556,20 +585,27 @@ function Home({ onAdminLoginSuccess }) {
         </AnimateOnScroll>
       </section>
 
-      {/* Section 5: Geospatial Intelligence */}
-      <section id="geospatial" className="section section-geospatial section-with-image">
-        <AnimateOnScroll className="section-img-wrap" direction="fade-up">
-          <img src={p5} alt="" className="section-scroll-img" aria-hidden />
-        </AnimateOnScroll>
-        <AnimateOnScroll className="section-inner" direction="scale-in">
-          <h2 className="section-title">Geospatial Agricultural Intelligence</h2>
-          <p className="section-desc">
-            DigiLync geo-tags farms and mechanized service providers to build structured regional production maps.
-          </p>
-          <div className="geospatial-visual geospatial-map-wrap">
-            <LandingMap />
-          </div>
-        </AnimateOnScroll>
+      {/* Section 5: Geospatial Intelligence - horizontal reverse: text left, map+image right */}
+      <section id="geospatial" className="section section-geospatial section-layout-horizontal-reverse">
+        <div className="section-layout-inner">
+          <AnimateOnScroll className="section-text-block" direction="right">
+            <h2 className="section-title">Geospatial Agricultural Intelligence</h2>
+            <p className="section-desc">
+              DigiLync geo-tags farms and mechanized service providers to build structured regional production maps.
+            </p>
+            <div className="geospatial-visual geospatial-map-wrap">
+              <LandingMap />
+            </div>
+          </AnimateOnScroll>
+          <AnimateOnScroll className="section-img-wrap section-img-right" direction="left">
+            <div className="img-float-wrap">
+              <img src={p5} alt="" className="section-scroll-img img-float img-float-delay" aria-hidden />
+            </div>
+          </AnimateOnScroll>
+        </div>
+        <div className="floating-shapes" aria-hidden="true">
+          <span className="shape shape-dot shape-10" /><span className="shape shape-circle shape-11" />
+        </div>
       </section>
 
       {/* Section 6: AI & Intelligent Coordination */}
