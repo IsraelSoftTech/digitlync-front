@@ -108,6 +108,9 @@ function Home({ onAdminLoginSuccess }) {
         return;
       }
       if (data?.success) {
+        try {
+          if (data.admin) localStorage.setItem('digilync_admin', JSON.stringify(data.admin));
+        } catch (_) {}
         closeLoginModal();
         onAdminLoginSuccess?.();
       } else {

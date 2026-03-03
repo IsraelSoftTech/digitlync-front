@@ -19,14 +19,29 @@ const API_BASE_URL =
  */
 const API_TIMEOUT_MS = 6000;
 
+function getAdminHeaders() {
+  try {
+    const stored = localStorage.getItem('digilync_admin');
+    if (!stored) return {};
+    const admin = JSON.parse(stored);
+    return admin?.id != null
+      ? { 'X-Admin-Id': String(admin.id), 'X-Admin-Username': admin.username || '' }
+      : {};
+  } catch {
+    return {};
+  }
+}
+
 async function apiRequest(endpoint, options = {}) {
   const url = `${API_BASE_URL}${endpoint}`;
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+  const adminHeaders = endpoint.startsWith('/api/auth/login') ? {} : getAdminHeaders();
   const config = {
     ...options,
     headers: {
       'Content-Type': 'application/json',
+      ...adminHeaders,
       ...options.headers,
     },
     signal: controller.signal,
@@ -127,6 +142,12 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(data),
     }),
+
+  /** Audit logs */
+  getAuditLogs: (params) => {
+    const q = new URLSearchParams(params || {}).toString();
+    return apiRequest(`/api/audit-logs${q ? `?${q}` : ''}`);
+  },
 };
 
 /**

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { api } from '../api';
 import { useAnimateOnScroll } from '../hooks/useAnimateOnScroll';
 import { FaTractor, FaUsers, FaClipboardList, FaCheckCircle, FaMapMarkerAlt, FaStar, FaClock } from 'react-icons/fa';
@@ -15,14 +15,13 @@ const METRICS_CONFIG = [
 ];
 
 function AnimatedNumber({ value, decimals = 0, suffix = '', isInView }) {
-  const [display, setDisplay] = useState(0);
-  const hasAnimated = useRef(false);
+  const target = value ?? 0;
+  const [display, setDisplay] = useState(target);
 
   useEffect(() => {
-    if (!isInView) return;
-    const target = value ?? 0;
-    if (!hasAnimated.current) {
-      hasAnimated.current = true;
+    if (!isInView) {
+      setDisplay(target);
+      return;
     }
     const duration = 1500;
     const start = performance.now();
@@ -37,7 +36,7 @@ function AnimatedNumber({ value, decimals = 0, suffix = '', isInView }) {
     };
 
     requestAnimationFrame(tick);
-  }, [isInView, value]);
+  }, [isInView, target]);
 
   const formatted =
     decimals > 0
@@ -112,7 +111,7 @@ function LiveMetrics() {
         </p>
         {error && (
           <div className="live-metrics-error">
-            <p>{error}. In development, ensure the backend is running (e.g. <code>npm start</code> in backend folder).</p>
+            <p>{error}. In development, ensure the backend is running on port 5000. In production, verify the API at <code>{process.env.REACT_APP_API_URL || 'https://api.digilync.net'}</code> is reachable.</p>
             <button type="button" className="live-metrics-retry" onClick={fetchMetrics}>Retry</button>
           </div>
         )}

@@ -25,6 +25,7 @@ function App() {
     } else {
       try {
         localStorage.removeItem(ADMIN_SESSION_KEY);
+        localStorage.removeItem('digilync_admin');
       } catch (_) {}
     }
   }, [isAdminLoggedIn]);
