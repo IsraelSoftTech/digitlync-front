@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { FiTrash2 } from 'react-icons/fi';
 import { api } from '../../api';
+import ConfirmModal from './ConfirmModal';
 import './BookingsList.css';
 
 const STATUS_OPTIONS = [
@@ -11,11 +13,13 @@ const STATUS_OPTIONS = [
   { value: 'cancelled', label: 'Cancelled' },
 ];
 
-function BookingsList({ onSelectBooking, onAddBooking }) {
+function BookingsList({ onSelectBooking, onBookingDeleted }) {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
+  const [deleteTarget, setDeleteTarget] = useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   const fetchBookings = useCallback(async () => {
     setLoading(true);
@@ -33,13 +37,32 @@ function BookingsList({ onSelectBooking, onAddBooking }) {
   const formatDate = (d) => (d ? new Date(d).toLocaleDateString() : '—');
   const statusClass = (s) => `booking-status booking-status-${(s || 'pending').replace('_', '-')}`;
 
+  const handleDeleteClick = (b, e) => {
+    e.stopPropagation();
+    setDeleteTarget(b);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!deleteTarget) return;
+    setDeleting(true);
+    const { error: err } = await api.deleteBooking(deleteTarget.id);
+    setDeleting(false);
+    setDeleteTarget(null);
+    if (!err) {
+      fetchBookings();
+      onBookingDeleted?.();
+    }
+  };
+
+  const handleCancelDelete = () => {
+    if (!deleting) setDeleteTarget(null);
+  };
+
   return (
     <div className="bookings-list">
       <div className="bookings-list-header">
         <h2 className="bookings-list-title">Bookings</h2>
-        <button type="button" className="bookings-add-btn" onClick={onAddBooking}>
-          New Booking
-        </button>
+        <p className="bookings-list-hint">Bookings are created via the WhatsApp bot.</p>
       </div>
       <div className="bookings-filters">
         <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="bookings-filter-select">
@@ -77,7 +100,18 @@ function BookingsList({ onSelectBooking, onAddBooking }) {
                   >
                     <div className="bookings-card-top">
                       <span className="bookings-card-service">{b.service_type || 'Service'}</span>
-                      <span className={statusClass(b.status)}>{b.status || 'pending'}</span>
+                      <div className="bookings-card-actions">
+                        <span className={statusClass(b.status)}>{b.status || 'pending'}</span>
+                        <button
+                          type="button"
+                          className="bookings-trash-btn"
+                          onClick={(e) => handleDeleteClick(b, e)}
+                          title="Delete booking"
+                          aria-label="Delete booking"
+                        >
+                          <FiTrash2 />
+                        </button>
+                      </div>
                     </div>
                     <div className="bookings-card-meta">
                       <span>{b.farmer_name || '—'} → {b.provider_name || '—'}</span>
@@ -95,6 +129,7 @@ function BookingsList({ onSelectBooking, onAddBooking }) {
                       <th>Provider</th>
                       <th>Date</th>
                       <th>Status</th>
+                      <th className="bookings-table-actions-col"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -105,6 +140,17 @@ function BookingsList({ onSelectBooking, onAddBooking }) {
                         <td>{b.provider_name || '—'}</td>
                         <td>{formatDate(b.scheduled_date)}</td>
                         <td><span className={statusClass(b.status)}>{b.status || 'pending'}</span></td>
+                        <td className="bookings-table-actions-col" onClick={(e) => e.stopPropagation()}>
+                          <button
+                            type="button"
+                            className="bookings-trash-btn"
+                            onClick={(e) => handleDeleteClick(b, e)}
+                            title="Delete booking"
+                            aria-label="Delete booking"
+                          >
+                            <FiTrash2 />
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -114,6 +160,19 @@ function BookingsList({ onSelectBooking, onAddBooking }) {
           )}
         </>
       )}
+      <ConfirmModal
+        open={!!deleteTarget}
+        title="Delete Booking"
+        message={deleteTarget
+          ? `Are you sure you want to delete this booking? ${deleteTarget.service_type || 'Service'} — ${deleteTarget.farmer_name || 'Farmer'} → ${deleteTarget.provider_name || 'Provider'}. This cannot be undone.`
+          : ''}
+        confirmLabel="Delete"
+        variant="danger"
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancelDelete}
+        loading={deleting}
+        loadingLabel="Deleting..."
+      />
     </div>
   );
 }

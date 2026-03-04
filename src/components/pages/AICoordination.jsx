@@ -2,7 +2,7 @@ import React from 'react';
 import SharedFooter from '../SharedFooter';
 import './AICoordination.css';
 
-function AICoordination({ onAdminLogin }) {
+function AICoordination() {
   return (
     <div className="page-wrap page-layout">
       <section className="ai-page">
@@ -26,7 +26,7 @@ function AICoordination({ onAdminLogin }) {
           </p>
         </div>
       </section>
-      <SharedFooter onAdminLogin={onAdminLogin} />
+      <SharedFooter />
     </div>
   );
 }

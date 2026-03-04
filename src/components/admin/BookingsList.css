@@ -1,7 +1,8 @@
 /* Bookings List - Professional */
 .bookings-list { padding: var(--admin-space); max-width: 1400px; margin: 0 auto; }
-.bookings-list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.bookings-list-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
 .bookings-list-title { margin: 0; font-size: 1.25rem; font-weight: 600; color: var(--admin-text-primary); }
+.bookings-list-hint { margin: 0; font-size: 0.8125rem; color: var(--admin-text-muted); }
 .bookings-add-btn { align-self: flex-start; padding: 10px 20px; font-family: inherit; font-size: 0.875rem; font-weight: 600; color: #fff; background: var(--admin-accent); border: none; border-radius: var(--admin-radius); cursor: pointer; transition: all 0.2s ease; }
 .bookings-add-btn:hover { background: var(--admin-accent-hover); transform: translateY(-1px); }
 .bookings-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
@@ -15,6 +16,10 @@
 .bookings-card:hover { border-color: var(--admin-accent); box-shadow: var(--admin-card-shadow-hover); }
 .bookings-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
 .bookings-card-service { font-weight: 600; font-size: 1rem; color: var(--admin-text-primary); }
+.bookings-card-actions { display: flex; align-items: center; gap: 10px; }
+.bookings-trash-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; padding: 0; color: var(--admin-text-muted); background: transparent; border: none; border-radius: var(--admin-radius); cursor: pointer; transition: all 0.2s ease; }
+.bookings-trash-btn:hover { color: var(--admin-danger); background: var(--admin-danger-light); }
+.bookings-table-actions-col { width: 48px; text-align: center; }
 .bookings-card-meta { font-size: 0.875rem; color: var(--admin-text-secondary); line-height: 1.5; }
 .bookings-card-meta span { display: block; margin-top: 4px; }
 .booking-status { display: inline-block; padding: 4px 10px; font-size: 0.6875rem; font-weight: 600; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.04em; }

@@ -59,6 +59,7 @@
   cursor: pointer;
   padding: 0;
   transition: color 0.2s ease;
+  text-decoration: none;
 }
 
 .shared-footer-admin-btn:hover {

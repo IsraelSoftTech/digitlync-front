@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { FiTrash2 } from 'react-icons/fi';
 import { api } from '../../api';
+import ConfirmModal from './ConfirmModal';
 import './BookingDetail.css';
 
 const STATUS_OPTIONS = ['pending', 'accepted', 'in_progress', 'completed', 'cancelled'];
@@ -11,6 +13,8 @@ function BookingDetail({ bookingId, onBack, onUpdate }) {
   const [editing, setEditing] = useState(false);
   const [status, setStatus] = useState('');
   const [saving, setSaving] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     if (!bookingId) return;
@@ -37,6 +41,18 @@ function BookingDetail({ bookingId, onBack, onUpdate }) {
     } else alert(err);
   };
 
+  const handleDelete = async () => {
+    if (!bookingId) return;
+    setDeleting(true);
+    const { error: err } = await api.deleteBooking(bookingId);
+    setDeleting(false);
+    setShowDeleteModal(false);
+    if (!err) {
+      onBack?.();
+      onUpdate?.();
+    } else alert(err);
+  };
+
   if (loading) return <div className="booking-detail-loading">Loading...</div>;
   if (error) return <div className="booking-detail-error">{error}</div>;
   if (!booking) return null;
@@ -49,6 +65,15 @@ function BookingDetail({ bookingId, onBack, onUpdate }) {
     <div className="booking-detail">
       <div className="booking-detail-header">
         <button type="button" className="booking-detail-back" onClick={onBack}>← Back</button>
+        <button
+          type="button"
+          className="booking-detail-trash-btn"
+          onClick={() => setShowDeleteModal(true)}
+          title="Delete booking"
+          aria-label="Delete booking"
+        >
+          <FiTrash2 /> Delete
+        </button>
       </div>
       <h2 className="booking-detail-title">Booking #{booking.id}</h2>
       <div className="booking-detail-grid">
@@ -109,6 +134,17 @@ function BookingDetail({ bookingId, onBack, onUpdate }) {
         )}
       </div>
       <p className="booking-detail-meta">Created {formatDate(booking.created_at)}</p>
+      <ConfirmModal
+        open={showDeleteModal}
+        title="Delete Booking"
+        message={`Are you sure you want to delete Booking #${booking.id}? ${booking.service_type || 'Service'} — ${booking.farmer_name || 'Farmer'} → ${booking.provider_name || 'Provider'}. This cannot be undone.`}
+        confirmLabel="Delete"
+        variant="danger"
+        onConfirm={handleDelete}
+        onCancel={() => !deleting && setShowDeleteModal(false)}
+        loading={deleting}
+        loadingLabel="Deleting..."
+      />
     </div>
   );
 }

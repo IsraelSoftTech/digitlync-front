@@ -1,0 +1,142 @@
+/* Admin Login Page - Secure /admin route */
+.admin-login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0d1f12 0%, #1a2e1e 50%, #1B5E20 100%);
+  padding: 1.5rem;
+  font-family: 'Poppins', system-ui, sans-serif;
+}
+
+.admin-login-card {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  padding: 2.5rem;
+}
+
+.admin-login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.admin-login-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.admin-login-header h1 {
+  font-size: 1.5rem;
+  color: #1B5E20;
+  margin: 0 0 0.5rem;
+}
+
+.admin-login-header p {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+}
+
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.admin-login-error {
+  color: #c62828;
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0.5rem;
+  background: #ffebee;
+  border-radius: 6px;
+}
+
+.admin-login-field label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.4rem;
+}
+
+.admin-login-field input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.admin-login-field input:focus {
+  outline: none;
+  border-color: #2E7D32;
+  box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
+}
+
+.admin-login-password-wrap {
+  position: relative;
+}
+
+.admin-login-password-wrap input {
+  padding-right: 2.75rem;
+}
+
+.admin-login-password-toggle {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.admin-login-password-toggle:hover {
+  color: #1B5E20;
+}
+
+.admin-login-submit {
+  margin-top: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  background: #2E7D32;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s;
+}
+
+.admin-login-submit:hover:not(:disabled) {
+  background: #1B5E20;
+}
+
+.admin-login-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.admin-login-back {
+  display: block;
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #2E7D32;
+  text-decoration: none;
+}
+
+.admin-login-back:hover {
+  text-decoration: underline;
+}

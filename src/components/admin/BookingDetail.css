@@ -1,7 +1,9 @@
 /* Booking Detail - Professional */
 .booking-detail { padding: var(--admin-space); max-width: 800px; margin: 0 auto; }
-.booking-detail-header { margin-bottom: 24px; }
+.booking-detail-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
 .booking-detail-back { padding: 10px 18px; font-family: inherit; font-size: 0.875rem; font-weight: 500; color: var(--admin-text-secondary); background: transparent; border: 1px solid var(--admin-card-border); border-radius: var(--admin-radius); cursor: pointer; transition: all 0.2s; }
+.booking-detail-trash-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; font-family: inherit; font-size: 0.875rem; font-weight: 500; color: var(--admin-danger); background: var(--admin-danger-light); border: 1px solid rgba(220, 38, 38, 0.2); border-radius: var(--admin-radius); cursor: pointer; transition: all 0.2s; }
+.booking-detail-trash-btn:hover { background: #fecaca; color: #b91c1c; }
 .booking-detail-back:hover { background: #f8fafc; border-color: #cbd5e1; }
 .booking-detail-title { margin: 0 0 24px; font-size: 1.5rem; font-weight: 600; color: var(--admin-text-primary); letter-spacing: -0.02em; }
 .booking-detail-loading, .booking-detail-error { padding: 48px 24px; text-align: center; font-size: 0.9375rem; color: var(--admin-text-secondary); }

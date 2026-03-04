@@ -2,7 +2,7 @@ import React from 'react';
 import SharedFooter from '../SharedFooter';
 import './Credibility.css';
 
-function Credibility({ onAdminLogin }) {
+function Credibility() {
   return (
     <div className="page-wrap page-layout">
       <section className="credibility-page">
@@ -24,7 +24,7 @@ function Credibility({ onAdminLogin }) {
           </div>
         </div>
       </section>
-      <SharedFooter onAdminLogin={onAdminLogin} />
+      <SharedFooter />
     </div>
   );
 }

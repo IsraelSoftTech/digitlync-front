@@ -2,7 +2,7 @@ import React from 'react';
 import SharedFooter from '../SharedFooter';
 import './Services.css';
 
-function Services({ onAdminLogin }) {
+function Services() {
   return (
     <div className="page-wrap page-layout">
       <section className="services-page">
@@ -40,7 +40,7 @@ function Services({ onAdminLogin }) {
           </p>
         </div>
       </section>
-      <SharedFooter onAdminLogin={onAdminLogin} />
+      <SharedFooter />
     </div>
   );
 }

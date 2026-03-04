@@ -3,7 +3,7 @@ import LandingMap from '../LandingMap';
 import SharedFooter from '../SharedFooter';
 import './Geospatial.css';
 
-function Geospatial({ onAdminLogin }) {
+function Geospatial() {
   return (
     <div className="page-wrap page-layout">
       <section className="geospatial-page">
@@ -24,7 +24,7 @@ function Geospatial({ onAdminLogin }) {
           </p>
         </div>
       </section>
-      <SharedFooter onAdminLogin={onAdminLogin} />
+      <SharedFooter />
     </div>
   );
 }

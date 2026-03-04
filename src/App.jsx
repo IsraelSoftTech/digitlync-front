@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Loader from './components/Loader';
 import Home from './components/Home';
 import AdminDash from './components/AdminDash';
+import AdminLogin from './components/AdminLogin';
 import './App.css';
 import './components/PageAnimations.css';
 
@@ -37,11 +39,24 @@ function App() {
   return (
     <div className="App">
       {!loaderDone && <Loader onComplete={handleLoaderComplete} />}
-      {loaderDone && isAdminLoggedIn && (
-        <AdminDash onLogout={handleAdminLogout} />
-      )}
-      {loaderDone && !isAdminLoggedIn && (
-        <Home onAdminLoginSuccess={handleAdminLoginSuccess} />
+      {loaderDone && (
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home onAdminLoginSuccess={handleAdminLoginSuccess} />} />
+            <Route
+              path="/admin"
+              element={
+                isAdminLoggedIn ? (
+                  <AdminDash onLogout={handleAdminLogout} />
+                ) : (
+                  <AdminLogin onAdminLoginSuccess={handleAdminLoginSuccess} />
+                )
+              }
+            />
+            <Route path="/admin/dashboard" element={<Navigate to="/admin" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </BrowserRouter>
       )}
     </div>
   );

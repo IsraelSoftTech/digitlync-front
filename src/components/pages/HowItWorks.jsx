@@ -2,7 +2,7 @@ import React from 'react';
 import SharedFooter from '../SharedFooter';
 import './HowItWorks.css';
 
-function HowItWorks({ onAdminLogin }) {
+function HowItWorks() {
   return (
     <div className="page-wrap page-layout">
       <section className="how-page">
@@ -25,7 +25,7 @@ function HowItWorks({ onAdminLogin }) {
           </p>
         </div>
       </section>
-      <SharedFooter onAdminLogin={onAdminLogin} />
+      <SharedFooter />
     </div>
   );
 }

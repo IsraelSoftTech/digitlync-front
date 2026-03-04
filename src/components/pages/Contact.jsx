@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SharedFooter from '../SharedFooter';
 import './Contact.css';
 
-function Contact({ onAdminLogin }) {
+function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
 
@@ -89,7 +89,7 @@ function Contact({ onAdminLogin }) {
           </div>
         </div>
       </section>
-      <SharedFooter onAdminLogin={onAdminLogin} />
+      <SharedFooter />
     </div>
   );
 }

@@ -130,6 +130,107 @@
   line-height: 1.6;
 }
 
+.farmer-profile-hint {
+  margin: 8px 0 0;
+  font-size: 0.8125rem;
+  color: var(--admin-text-muted);
+}
+
+.farmer-profile-plots {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.875rem;
+  color: var(--admin-text-secondary);
+}
+
+.farmer-profile-plots li {
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  background: #f8fafc;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.farmer-profile-plot-del {
+  background: none;
+  border: none;
+  color: var(--admin-text-muted);
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0 4px;
+}
+
+.farmer-profile-plot-del:hover {
+  color: var(--admin-danger);
+}
+
+.farmer-profile-add-plot {
+  margin-top: 12px;
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--admin-accent);
+  background: var(--admin-accent-light);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: var(--admin-radius);
+  cursor: pointer;
+}
+
+.farmer-profile-add-plot:hover {
+  background: #bbf7d0;
+}
+
+.farmer-profile-plot-form {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.farmer-profile-plot-form input {
+  padding: 6px 10px;
+  font-size: 0.875rem;
+  border: 1px solid var(--admin-card-border);
+  border-radius: 6px;
+  width: 80px;
+}
+
+.farmer-profile-plot-form input[placeholder="Plot name"],
+.farmer-profile-plot-form input[placeholder="Crop"] {
+  width: 100px;
+}
+
+.farmer-profile-plot-form-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.farmer-profile-plot-form-actions button {
+  padding: 6px 14px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.farmer-profile-plot-form-actions button[type="submit"] {
+  background: var(--admin-accent);
+  color: #fff;
+  border: none;
+}
+
+.farmer-profile-plot-form-actions button[type="button"] {
+  background: transparent;
+  border: 1px solid var(--admin-card-border);
+  color: var(--admin-text-secondary);
+}
+
 .farmer-profile-meta {
   margin-top: 24px;
   font-size: 0.8125rem;

@@ -2,7 +2,7 @@ import React from 'react';
 import SharedFooter from '../SharedFooter';
 import './Impact.css';
 
-function Impact({ onAdminLogin }) {
+function Impact() {
   return (
     <div className="page-wrap page-layout">
       <section className="impact-page">
@@ -49,7 +49,7 @@ function Impact({ onAdminLogin }) {
           </div>
         </div>
       </section>
-      <SharedFooter onAdminLogin={onAdminLogin} />
+      <SharedFooter />
     </div>
   );
 }

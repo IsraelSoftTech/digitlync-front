@@ -99,6 +99,7 @@ export const api = {
   getDashboardStats: () => apiRequest('/api/dashboard/stats'),
 
   /** Farmers */
+  getFarmersMapData: () => apiRequest('/api/farmers/map-data'),
   getFarmers: (params) => {
     const q = new URLSearchParams(params || {}).toString();
     return apiRequest(`/api/farmers${q ? `?${q}` : ''}`);
@@ -145,6 +146,16 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(data),
     }),
+
+  /** Farm plots (multiple GPS per farmer) */
+  getFarmPlots: (farmerId) =>
+    apiRequest(`/api/farm-plots?farmer_id=${farmerId}`),
+  createFarmPlot: (data) =>
+    apiRequest('/api/farm-plots', { method: 'POST', body: JSON.stringify(data) }),
+  updateFarmPlot: (id, data) =>
+    apiRequest(`/api/farm-plots/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  deleteFarmPlot: (id) =>
+    apiRequest(`/api/farm-plots/${id}`, { method: 'DELETE' }),
 
   /** Audit logs */
   getAuditLogs: (params) => {

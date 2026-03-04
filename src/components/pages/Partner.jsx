@@ -3,7 +3,7 @@ import SharedFooter from '../SharedFooter';
 import ContactFormInline from '../ContactFormInline';
 import './Partner.css';
 
-function Partner({ onAdminLogin }) {
+function Partner() {
   const scrollToContact = () => {
     const el = document.querySelector('.partner-contact-section');
     el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -52,7 +52,7 @@ function Partner({ onAdminLogin }) {
           </div>
         </div>
       </section>
-      <SharedFooter onAdminLogin={onAdminLogin} />
+      <SharedFooter />
     </div>
   );
 }

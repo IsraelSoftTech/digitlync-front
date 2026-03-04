@@ -24,7 +24,18 @@
 
 .farm-map-intel-actions {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.farm-map-intel-edit-toggle {
+  display: flex;
+  align-items: center;
   gap: 8px;
+  font-size: 0.875rem;
+  color: var(--admin-text-secondary);
+  cursor: pointer;
 }
 
 .farm-map-intel-btn {
@@ -115,6 +126,12 @@
   background: var(--admin-card-bg);
   border: 1px solid var(--admin-card-border);
   border-radius: var(--admin-radius);
+}
+
+.farm-map-intel-legend-note {
+  margin: 0 0 8px;
+  font-size: 0.8125rem;
+  color: var(--admin-text-muted);
 }
 
 .farm-map-intel-legend h3 {

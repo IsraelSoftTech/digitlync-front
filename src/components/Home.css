@@ -208,6 +208,7 @@
   font-weight: 700;
   color: var(--dl-earth-brown-light);
   text-decoration: none;
+  text-decoration: none;
   padding: 0.5rem 0.75rem;
   transition: color 0.2s ease;
 }

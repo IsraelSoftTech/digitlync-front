@@ -23,7 +23,6 @@ import ProviderProfile from './admin/ProviderProfile';
 import ProviderForm from './admin/ProviderForm';
 import BookingsList from './admin/BookingsList';
 import BookingDetail from './admin/BookingDetail';
-import AddBookingForm from './admin/AddBookingForm';
 import FarmMapIntelligence from './admin/FarmMapIntelligence';
 import RatingsDisputes from './admin/RatingsDisputes';
 import MatchingEngine from './admin/MatchingEngine';
@@ -45,7 +44,6 @@ const VIEW_PROVIDER_ADD = 'provider_add';
 const VIEW_PROVIDER_EDIT = 'provider_edit';
 const VIEW_BOOKINGS = 'bookings';
 const VIEW_BOOKING_DETAIL = 'booking_detail';
-const VIEW_BOOKING_ADD = 'booking_add';
 const VIEW_FARM_MAP = 'farm_map';
 const VIEW_RATINGS = 'ratings';
 const VIEW_MATCHING = 'matching';
@@ -107,8 +105,6 @@ function AdminDash({ onLogout }) {
 
   const showBookings = () => { setView(VIEW_BOOKINGS); setSelectedBooking(null); closeSidebar(); };
   const showBookingDetail = (b) => { setSelectedBooking(b); setView(VIEW_BOOKING_DETAIL); };
-  const showAddBooking = () => { setView(VIEW_BOOKING_ADD); setSelectedBooking(null); closeSidebar(); };
-  const handleBookingFormSuccess = () => { setView(VIEW_BOOKINGS); };
   const handleBookingUpdate = () => {};
 
   const renderContent = () => {
@@ -122,9 +118,8 @@ function AdminDash({ onLogout }) {
       case VIEW_PROVIDER_PROFILE: return <ProviderProfile providerId={selectedProvider?.id} onBack={showProviders} onEdit={showEditProvider} />;
       case VIEW_PROVIDER_ADD: return <ProviderForm onSuccess={handleProviderFormSuccess} onCancel={() => setView(VIEW_PROVIDERS)} />;
       case VIEW_PROVIDER_EDIT: return <ProviderForm provider={editProvider} onSuccess={handleProviderFormSuccess} onCancel={handleProviderFormCancel} />;
-      case VIEW_BOOKINGS: return <BookingsList onSelectBooking={showBookingDetail} onAddBooking={showAddBooking} />;
+      case VIEW_BOOKINGS: return <BookingsList onSelectBooking={showBookingDetail} />;
       case VIEW_BOOKING_DETAIL: return <BookingDetail bookingId={selectedBooking?.id} onBack={showBookings} onUpdate={handleBookingUpdate} />;
-      case VIEW_BOOKING_ADD: return <AddBookingForm onSuccess={handleBookingFormSuccess} onCancel={() => setView(VIEW_BOOKINGS)} />;
       case VIEW_FARM_MAP: return <FarmMapIntelligence onFarmerClick={showFarmerProfile} />;
       case VIEW_RATINGS: return <RatingsDisputes />;
       case VIEW_MATCHING: return <MatchingEngine />;

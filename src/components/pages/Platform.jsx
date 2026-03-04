@@ -2,7 +2,7 @@ import React from 'react';
 import SharedFooter from '../SharedFooter';
 import './Platform.css';
 
-function Platform({ onAdminLogin }) {
+function Platform() {
   return (
     <div className="page-wrap page-layout">
       <section className="platform-page">
@@ -60,7 +60,7 @@ function Platform({ onAdminLogin }) {
           </p>
         </div>
       </section>
-      <SharedFooter onAdminLogin={onAdminLogin} />
+      <SharedFooter />
     </div>
   );
 }

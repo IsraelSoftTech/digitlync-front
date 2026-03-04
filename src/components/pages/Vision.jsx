@@ -2,7 +2,7 @@ import React from 'react';
 import SharedFooter from '../SharedFooter';
 import './Vision.css';
 
-function Vision({ onAdminLogin }) {
+function Vision() {
   return (
     <div className="page-wrap page-layout">
       <section className="vision-page">
@@ -24,7 +24,7 @@ function Vision({ onAdminLogin }) {
           </p>
         </div>
       </section>
-      <SharedFooter onAdminLogin={onAdminLogin} />
+      <SharedFooter />
     </div>
   );
 }

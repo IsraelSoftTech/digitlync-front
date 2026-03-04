@@ -3,7 +3,7 @@ import { FaCogs, FaTractor, FaClock, FaChartLine } from 'react-icons/fa';
 import SharedFooter from '../SharedFooter';
 import './Problem.css';
 
-function Problem({ onAdminLogin }) {
+function Problem() {
   return (
     <div className="page-wrap page-layout">
       <section className="problem-page">
@@ -41,7 +41,7 @@ function Problem({ onAdminLogin }) {
           </p>
         </div>
       </section>
-      <SharedFooter onAdminLogin={onAdminLogin} />
+      <SharedFooter />
     </div>
   );
 }

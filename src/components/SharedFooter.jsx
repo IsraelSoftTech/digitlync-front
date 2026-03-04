@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import AnimateOnScroll from './AnimateOnScroll';
 import './SharedFooter.css';
 
-function SharedFooter({ onAdminLogin }) {
+function SharedFooter() {
   return (
     <footer className="shared-footer">
       <AnimateOnScroll className="shared-footer-inner">
@@ -16,9 +17,7 @@ function SharedFooter({ onAdminLogin }) {
           <a href="https://wa.me/237697799186" target="_blank" rel="noopener noreferrer">WhatsApp: +237 697 799 186</a>
           <a href="/terms">Terms & Conditions</a>
           <a href="/privacy">Privacy Policy</a>
-          {onAdminLogin && (
-            <button type="button" className="shared-footer-admin-btn" onClick={onAdminLogin}>Admin Login</button>
-          )}
+          <Link to="/admin" className="shared-footer-admin-btn">Admin Login</Link>
         </div>
         <p className="shared-footer-copy">© DigiLync. Powered by Izzy Tech Team.</p>
       </AnimateOnScroll>

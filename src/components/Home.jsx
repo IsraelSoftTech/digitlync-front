@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FaWhatsapp, FaCogs, FaTractor, FaClock, FaChartLine, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { FaWhatsapp, FaCogs, FaTractor, FaClock, FaChartLine } from 'react-icons/fa';
 import { HiOutlineChevronDown, HiMenu, HiX } from 'react-icons/hi';
 import logo from '../assets/logo.png';
 import home1 from '../assets/home1.jpg';
@@ -81,56 +82,8 @@ const NAV_MOBILE = [
 function Home({ onAdminLoginSuccess }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(null); // 'platform' | 'about' | null
-  const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState('home');
   const [bannerIndex, setBannerIndex] = useState(0);
-  const [loginForm, setLoginForm] = useState({ username: '', password: '' });
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [loginError, setLoginError] = useState('');
-  const [loginLoading, setLoginLoading] = useState(false);
-
-  const closeLoginModal = () => {
-    setLoginModalOpen(false);
-    setLoginForm({ username: '', password: '' });
-    setPasswordVisible(false);
-    setLoginError('');
-  };
-
-  const handleLoginSubmit = async (e) => {
-    e.preventDefault();
-    setLoginError('');
-    setLoginLoading(true);
-    try {
-      const { api } = await import('../api');
-      const { data, error } = await api.login(loginForm.username, loginForm.password);
-      if (error) {
-        setLoginError(error);
-        return;
-      }
-      if (data?.success) {
-        try {
-          if (data.admin) localStorage.setItem('digilync_admin', JSON.stringify(data.admin));
-        } catch (_) {}
-        closeLoginModal();
-        onAdminLoginSuccess?.();
-      } else {
-        setLoginError(data?.error || 'Login failed');
-      }
-    } catch (err) {
-      setLoginError(err.message || 'Login failed');
-    } finally {
-      setLoginLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (loginModalOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => { document.body.style.overflow = ''; };
-  }, [loginModalOpen]);
 
   useEffect(() => {
     const bannerTimer = setInterval(() => {
@@ -170,63 +123,6 @@ function Home({ onAdminLoginSuccess }) {
 
   return (
     <div className="home">
-      {/* Admin Login Modal */}
-      {loginModalOpen && (
-        <div className="login-modal-overlay" onClick={closeLoginModal}>
-          <div className="login-modal" onClick={(e) => e.stopPropagation()}>
-            <button type="button" className="login-modal-close" onClick={closeLoginModal} aria-label="Close">
-              <HiX />
-            </button>
-            <div className="login-modal-header">
-              <img src={logo} alt="" className="login-modal-logo" />
-              <h2>Admin Login</h2>
-              <p>Sign in to access the DigiLync dashboard</p>
-            </div>
-            <form className="login-form" onSubmit={handleLoginSubmit}>
-              {loginError && (
-                <p className="login-error" role="alert">{loginError}</p>
-              )}
-              <div className="login-field">
-                <label htmlFor="login-username">Username</label>
-                <input
-                  id="login-username"
-                  type="text"
-                  placeholder="Enter your username"
-                  value={loginForm.username}
-                  onChange={(e) => setLoginForm((f) => ({ ...f, username: e.target.value }))}
-                  autoComplete="username"
-                  required
-                />
-              </div>
-              <div className="login-field">
-                <label htmlFor="login-password">Password</label>
-                <div className="login-password-wrap">
-                  <input
-                    id="login-password"
-                    type={passwordVisible ? 'text' : 'password'}
-                    placeholder="Enter your password"
-                    value={loginForm.password}
-                    onChange={(e) => setLoginForm((f) => ({ ...f, password: e.target.value }))}
-                    autoComplete="current-password"
-                    required
-                  />
-                  <button
-                    type="button"
-                    className="login-password-toggle"
-                    onClick={() => setPasswordVisible((v) => !v)}
-                    aria-label={passwordVisible ? 'Hide password' : 'Show password'}
-                  >
-                    {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-                  </button>
-                </div>
-              </div>
-              <button type="submit" className="login-submit" disabled={loginLoading}>
-                {loginLoading ? 'Signing in…' : 'Sign In'}
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
       {/* Header with logo, nav, Admin Login */}
       <header className="hero-header">
         <div className="hero-header-inner">
@@ -278,7 +174,7 @@ function Home({ onAdminLoginSuccess }) {
           </nav>
 
           <div className="hero-header-right">
-            <button type="button" className="hero-admin-link hero-admin-btn" onClick={() => setLoginModalOpen(true)}>Admin Login</button>
+            <Link to="/admin" className="hero-admin-link">Admin Login</Link>
             <button
               type="button"
               className="hero-mobile-toggle"
@@ -303,7 +199,7 @@ function Home({ onAdminLoginSuccess }) {
                 {item.label}
               </button>
             ))}
-            <button type="button" className="hero-mobile-link hero-mobile-admin" onClick={() => { setLoginModalOpen(true); setMobileMenuOpen(false); }}>Admin Login</button>
+            <Link to="/admin" className="hero-mobile-link hero-mobile-admin" onClick={() => setMobileMenuOpen(false)}>Admin Login</Link>
           </div>
         )}
       </header>
@@ -342,10 +238,10 @@ function Home({ onAdminLoginSuccess }) {
           </div>
           <h1 className="hero-title hero-title-stagger">
             <span className="hero-brand hero-brand-char">DigiLync</span>
-            <span className="hero-tagline hero-tagline-stagger">Africa's AI-Enabled Geospatial Agricultural Coordination Infrastructure</span>
+            <span className="hero-tagline hero-tagline-stagger">Africa's Agricultural Coordination & Intelligence Infrastructure</span>
           </h1>
           <p className="hero-subheadline">
-            Linking farmers, mechanized service providers, and industrial buyers through structured scheduling, geospatial mapping, and AI-Powered intelligent coordination.
+            Linking farmers, mechanized service providers, and industrial buyers through structured scheduling, geospatial mapping, and intelligent coordination.
           </p>
           <div className="hero-cta">
             <a
@@ -696,68 +592,68 @@ function Home({ onAdminLoginSuccess }) {
         </AnimateOnScroll>
       </section>
 
-      <SharedFooter onAdminLogin={() => setLoginModalOpen(true)} />
+      <SharedFooter />
         </>
       )}
 
       {currentPage === 'problem' && (
         <div className="page-transition-wrap" key="problem">
-          <Problem onAdminLogin={() => setLoginModalOpen(true)} />
+          <Problem />
         </div>
       )}
       {currentPage === 'platform' && (
         <div className="page-transition-wrap" key="platform">
-          <Platform onAdminLogin={() => setLoginModalOpen(true)} />
+          <Platform />
         </div>
       )}
       {currentPage === 'services' && (
         <div className="page-transition-wrap" key="services">
-          <Services onAdminLogin={() => setLoginModalOpen(true)} />
+          <Services />
         </div>
       )}
       {currentPage === 'geospatial' && (
         <div className="page-transition-wrap" key="geospatial">
-          <Geospatial onAdminLogin={() => setLoginModalOpen(true)} />
+          <Geospatial />
         </div>
       )}
       {currentPage === 'ai-coordination' && (
         <div className="page-transition-wrap" key="ai-coordination">
-          <AICoordination onAdminLogin={() => setLoginModalOpen(true)} />
+          <AICoordination />
         </div>
       )}
       {currentPage === 'how-it-works' && (
         <div className="page-transition-wrap" key="how-it-works">
-          <HowItWorks onAdminLogin={() => setLoginModalOpen(true)} />
+          <HowItWorks />
         </div>
       )}
       {currentPage === 'credibility' && (
         <div className="page-transition-wrap" key="credibility">
-          <Credibility onAdminLogin={() => setLoginModalOpen(true)} />
+          <Credibility />
         </div>
       )}
       {currentPage === 'impact' && (
         <div className="page-transition-wrap" key="impact">
-          <Impact onAdminLogin={() => setLoginModalOpen(true)} />
+          <Impact />
         </div>
       )}
       {currentPage === 'vision' && (
         <div className="page-transition-wrap" key="vision">
-          <Vision onAdminLogin={() => setLoginModalOpen(true)} />
+          <Vision />
         </div>
       )}
       {currentPage === 'partner' && (
         <div className="page-transition-wrap" key="partner">
-          <Partner onAdminLogin={() => setLoginModalOpen(true)} />
+          <Partner />
         </div>
       )}
       {currentPage === 'live-metrics' && (
         <div className="page-transition-wrap" key="live-metrics">
-          <Metrics onAdminLogin={() => setLoginModalOpen(true)} />
+          <Metrics />
         </div>
       )}
       {currentPage === 'footer' && (
         <div className="page-transition-wrap" key="footer">
-          <Contact onAdminLogin={() => setLoginModalOpen(true)} />
+          <Contact />
         </div>
       )}
     </div>

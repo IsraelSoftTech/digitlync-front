@@ -3,7 +3,7 @@ import SharedFooter from '../SharedFooter';
 import LiveMetrics from '../LiveMetrics';
 import './Metrics.css';
 
-function Metrics({ onAdminLogin }) {
+function Metrics() {
   return (
     <div className="page-wrap page-layout">
       <section className="metrics-page">
@@ -17,7 +17,7 @@ function Metrics({ onAdminLogin }) {
           </div>
         </div>
       </section>
-      <SharedFooter onAdminLogin={onAdminLogin} />
+      <SharedFooter />
     </div>
   );
 }

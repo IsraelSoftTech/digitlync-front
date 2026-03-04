@@ -11,16 +11,35 @@ function FarmMapIntelligence({ onFarmerClick }) {
   const mapInstanceRef = useRef(null);
   const markersRef = useRef([]);
   const [farmers, setFarmers] = useState([]);
+  const [plots, setPlots] = useState([]);
   const [loading, setLoading] = useState(true);
   const [layers, setLayers] = useState({ farms: true, providers: true, coverage: false, heatmap: false });
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const { data } = await api.getFarmers();
+      const { data } = await api.getFarmersMapData();
       setFarmers(data?.farmers ?? []);
+      setPlots(data?.plots ?? []);
       setLoading(false);
     })();
   }, []);
+
+  const refreshData = async () => {
+    const { data } = await api.getFarmersMapData();
+    setFarmers(data?.farmers ?? []);
+    setPlots(data?.plots ?? []);
+  };
+
+  const handleMarkerDragEnd = async (item, lat, lng) => {
+    if (item.type === 'farmer') {
+      const { error } = await api.updateFarmer(item.id, { gps_lat: lat, gps_lng: lng });
+      if (!error) refreshData();
+    } else if (item.type === 'plot') {
+      const { error } = await api.updateFarmPlot(item.id, { gps_lat: lat, gps_lng: lng });
+      if (!error) refreshData();
+    }
+  };
 
   useEffect(() => {
     if (loading || !mapRef.current) return;
@@ -45,22 +64,62 @@ function FarmMapIntelligence({ onFarmerClick }) {
       const map = L.map(mapRef.current).setView([DEFAULT_LAT, DEFAULT_LNG], 6);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
       mapInstanceRef.current = map;
-      const withGps = farmers.filter((f) => f.gps_lat != null && f.gps_lng != null);
-      withGps.forEach((f) => {
+      markersRef.current = [];
+
+      const farmerMap = new Map(farmers.map((f) => [f.id, f]));
+
+      // Farmer main locations
+      farmers.filter((f) => f.gps_lat != null && f.gps_lng != null).forEach((f) => {
         const loc = [parseFloat(f.gps_lat), parseFloat(f.gps_lng)];
-        const m = L.marker(loc)
+        const m = L.marker(loc, { draggable: editMode })
           .addTo(map)
-          .bindTooltip(f.full_name || 'Farmer', { permanent: false, direction: 'top' })
+          .bindTooltip(f.full_name || 'Farmer (main)', { permanent: false, direction: 'top' })
           .bindPopup(
             `<div class="farm-map-popup">
-              <strong>${(f.full_name || 'Farmer').replace(/</g, '&lt;')}</strong><br/>
+              <strong>${(f.full_name || 'Farmer').replace(/</g, '&lt;')}</strong> (main)<br/>
               ${(f.district || f.region || f.village || '').replace(/</g, '&lt;')}<br/>
-              ${(f.phone || '').replace(/</g, '&lt;')}<br/>
               ${(f.crop_type ? `Crop: ${f.crop_type}` : '').replace(/</g, '&lt;')}
-              ${onFarmerClick ? `<br/><button type="button" class="farm-map-view-profile" data-farmer-id="${f.id}">View full profile</button>` : ''}
+              ${onFarmerClick ? `<br/><button type="button" class="farm-map-view-profile" data-farmer-id="${f.id}">View profile</button>` : ''}
             </div>`
           );
+        if (editMode) {
+          m.on('dragend', () => {
+            const pos = m.getLatLng();
+            handleMarkerDragEnd({ type: 'farmer', id: f.id }, pos.lat, pos.lng);
+          });
+        }
         if (onFarmerClick) {
+          m.on('popupopen', () => {
+            const btn = document.querySelector('.farm-map-view-profile');
+            if (btn) btn.onclick = () => onFarmerClick(f);
+          });
+        }
+        markersRef.current.push(m);
+      });
+
+      // Farm plots (multiple plots per farmer)
+      plots.forEach((p) => {
+        const f = farmerMap.get(p.farmer_id);
+        const loc = [parseFloat(p.gps_lat), parseFloat(p.gps_lng)];
+        const label = p.plot_name || (f ? `${f.full_name} (plot)` : 'Plot');
+        const m = L.marker(loc, { draggable: editMode })
+          .addTo(map)
+          .bindTooltip(label, { permanent: false, direction: 'top' })
+          .bindPopup(
+            `<div class="farm-map-popup">
+              <strong>${(p.plot_name || 'Plot').replace(/</g, '&lt;')}</strong><br/>
+              ${(f ? f.full_name : '').replace(/</g, '&lt;')}<br/>
+              ${(p.crop_type ? `Crop: ${p.crop_type}` : '').replace(/</g, '&lt;')}
+              ${onFarmerClick && f ? `<br/><button type="button" class="farm-map-view-profile" data-farmer-id="${f.id}">View farmer</button>` : ''}
+            </div>`
+          );
+        if (editMode) {
+          m.on('dragend', () => {
+            const pos = m.getLatLng();
+            handleMarkerDragEnd({ type: 'plot', id: p.id }, pos.lat, pos.lng);
+          });
+        }
+        if (onFarmerClick && f) {
           m.on('popupopen', () => {
             const btn = document.querySelector('.farm-map-view-profile');
             if (btn) btn.onclick = () => onFarmerClick(f);
@@ -73,17 +132,25 @@ function FarmMapIntelligence({ onFarmerClick }) {
     return () => {
       markersRef.current.forEach((m) => m.remove?.());
       markersRef.current = [];
-      if (mapInstanceRef.current) { mapInstanceRef.current.remove(); mapInstanceRef.current = null; }
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
     };
-  }, [loading, farmers, onFarmerClick]);
+  }, [loading, farmers, plots, onFarmerClick, editMode]);
 
   const farmersWithGps = farmers.filter((f) => f.gps_lat != null && f.gps_lng != null);
+  const totalLocations = farmersWithGps.length + plots.length;
 
   return (
     <div className="farm-map-intel">
       <header className="farm-map-intel-header">
         <h1 className="farm-map-intel-title">Farm Map</h1>
         <div className="farm-map-intel-actions">
+          <label className="farm-map-intel-edit-toggle">
+            <input type="checkbox" checked={editMode} onChange={(e) => setEditMode(e.target.checked)} />
+            <span>Manual edit (drag markers)</span>
+          </label>
           <button type="button" className="farm-map-intel-btn" title="Bulk farm import">
             <FiUpload /> Import
           </button>
@@ -103,27 +170,31 @@ function FarmMapIntelligence({ onFarmerClick }) {
         ))}
       </div>
 
-      <div className="farm-map-intel-tools">
-        <span className="farm-map-intel-tool">Detect farm clusters</span>
-        <span className="farm-map-intel-tool">Identify underserved zones</span>
-        <span className="farm-map-intel-tool">Density analysis</span>
-        <span className="farm-map-intel-tool">Manual coordinate correction</span>
-      </div>
-
       {loading ? (
         <div className="farm-map-intel-loading">Loading map...</div>
       ) : (
         <>
           <div ref={mapRef} className="farm-map-intel-container" />
           <div className="farm-map-intel-legend">
-            <h3>Farms ({farmersWithGps.length})</h3>
+            <h3>Locations ({totalLocations})</h3>
+            <p className="farm-map-legend-note">Main farms + multiple plots per farmer</p>
             <ul>
-              {farmersWithGps.slice(0, 10).map((f) => (
-                <li key={f.id} onClick={() => onFarmerClick?.(f)} className={onFarmerClick ? 'farm-map-legend-clickable' : ''}>
+              {farmersWithGps.slice(0, 8).map((f) => (
+                <li key={`f-${f.id}`} onClick={() => onFarmerClick?.(f)} className={onFarmerClick ? 'farm-map-legend-clickable' : ''}>
                   {f.full_name} — {f.district || f.region || f.village || '—'}
                 </li>
               ))}
-              {farmersWithGps.length > 10 && <li>+{farmersWithGps.length - 10} more</li>}
+              {plots.slice(0, 4).map((p) => {
+                const f = farmers.find((x) => x.id === p.farmer_id);
+                return (
+                  <li key={`p-${p.id}`} onClick={() => f && onFarmerClick?.(f)} className={onFarmerClick ? 'farm-map-legend-clickable' : ''}>
+                    {p.plot_name || 'Plot'} — {f?.full_name || '—'}
+                  </li>
+                );
+              })}
+              {(farmersWithGps.length > 8 || plots.length > 4) && (
+                <li>+{Math.max(0, farmersWithGps.length - 8) + Math.max(0, plots.length - 4)} more</li>
+              )}
             </ul>
           </div>
         </>
