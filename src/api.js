@@ -1,15 +1,18 @@
 /**
  * DigiLync API Client
  * Handles communication between frontend, backend API, and file storage URLs.
- * Automatically uses correct base URL based on NODE_ENV (development vs production).
+ * Uses correct backend based on where the frontend is hosted (runtime detection).
  */
 
-// In dev: use proxy (empty base) or explicit localhost. In prod: api.digilync.net
-const API_BASE_URL =
-  process.env.REACT_APP_API_URL ||
-  (process.env.NODE_ENV === 'production'
-    ? 'https://api.digilync.net'
-    : ''); // '' = use CRA proxy to localhost:5000
+function getApiBaseUrl() {
+  if (process.env.REACT_APP_API_URL) return process.env.REACT_APP_API_URL;
+  if (process.env.NODE_ENV !== 'production') return ''; // '' = CRA proxy to localhost:5000
+  // Runtime: Render frontend → Render backend; custom domain → api.digilync.net
+  const origin = typeof window !== 'undefined' ? window.location.origin : '';
+  if (origin.includes('digitlync-front.onrender.com')) return 'https://digitlync-back.onrender.com';
+  return 'https://api.digilync.net';
+}
+const API_BASE_URL = getApiBaseUrl();
 
 /**
  * Base fetch wrapper with error handling and JSON parsing
