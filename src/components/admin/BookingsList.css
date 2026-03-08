@@ -8,6 +8,8 @@
 .bookings-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
 .bookings-filter-select { padding: 12px 16px; font-family: inherit; font-size: 0.9375rem; border: 1px solid var(--admin-card-border); border-radius: var(--admin-radius); outline: none; background: var(--admin-card-bg); min-width: 160px; }
 .bookings-filter-select:focus { border-color: var(--admin-accent); }
+.bookings-filter-check { display: flex; align-items: center; gap: 8px; padding: 12px 16px; font-size: 0.9375rem; color: var(--admin-text-secondary); cursor: pointer; }
+.bookings-filter-check input { cursor: pointer; }
 .bookings-loading, .bookings-error, .bookings-empty { padding: 48px 24px; text-align: center; font-size: 0.9375rem; color: var(--admin-text-secondary); }
 .bookings-error { color: var(--admin-danger); }
 .bookings-cards { display: flex; flex-direction: column; gap: 12px; }
@@ -24,7 +26,9 @@
 .bookings-card-meta span { display: block; margin-top: 4px; }
 .booking-status { display: inline-block; padding: 4px 10px; font-size: 0.6875rem; font-weight: 600; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
 .booking-status-pending { background: #fef3c7; color: #b45309; }
+.booking-status-confirmed { background: #dbeafe; color: #1d4ed8; }
 .booking-status-accepted { background: #dbeafe; color: #1d4ed8; }
+.booking-status-rejected { background: #fee2e2; color: #b91c1c; }
 .booking-status-in-progress { background: #d1fae5; color: #047857; }
 .booking-status-completed { background: #dcfce7; color: #15803d; }
 .booking-status-cancelled { background: #fee2e2; color: #b91c1c; }

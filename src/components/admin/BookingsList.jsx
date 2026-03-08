@@ -7,28 +7,32 @@ import './BookingsList.css';
 const STATUS_OPTIONS = [
   { value: '', label: 'All' },
   { value: 'pending', label: 'Pending' },
-  { value: 'accepted', label: 'Accepted' },
+  { value: 'confirmed', label: 'Confirmed' },
   { value: 'in_progress', label: 'In Progress' },
   { value: 'completed', label: 'Completed' },
+  { value: 'rejected', label: 'Rejected' },
   { value: 'cancelled', label: 'Cancelled' },
 ];
 
-function BookingsList({ onSelectBooking, onBookingDeleted }) {
+function BookingsList({ onSelectBooking, onAddBooking, onBookingDeleted }) {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
+  const [unassignedOnly, setUnassignedOnly] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [deleting, setDeleting] = useState(false);
 
   const fetchBookings = useCallback(async () => {
     setLoading(true);
-    const params = statusFilter ? { status: statusFilter } : {};
+    const params = {};
+    if (statusFilter) params.status = statusFilter;
+    if (unassignedOnly) params.unassigned = '1';
     const { data, error: err } = await api.getBookings(params);
     if (err) setError(err);
     else setBookings(data?.bookings ?? []);
     setLoading(false);
-  }, [statusFilter]);
+  }, [statusFilter, unassignedOnly]);
 
   useEffect(() => {
     fetchBookings();
@@ -61,8 +65,13 @@ function BookingsList({ onSelectBooking, onBookingDeleted }) {
   return (
     <div className="bookings-list">
       <div className="bookings-list-header">
-        <h2 className="bookings-list-title">Bookings</h2>
-        <p className="bookings-list-hint">Bookings are created via the WhatsApp bot.</p>
+        <div>
+          <h2 className="bookings-list-title">Bookings</h2>
+          <p className="bookings-list-hint">Bookings are created via the WhatsApp bot. Click a booking to assign a provider or update status.</p>
+        </div>
+        {onAddBooking && (
+          <button type="button" className="bookings-add-btn" onClick={onAddBooking}>+ Add Booking</button>
+        )}
       </div>
       <div className="bookings-filters">
         <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="bookings-filter-select">
@@ -70,9 +79,10 @@ function BookingsList({ onSelectBooking, onBookingDeleted }) {
             <option key={o.value || 'all'} value={o.value}>{o.label}</option>
           ))}
         </select>
-        <select className="bookings-filter-select" disabled title="By region (future)">
-          <option>All regions</option>
-        </select>
+        <label className="bookings-filter-check">
+          <input type="checkbox" checked={unassignedOnly} onChange={(e) => setUnassignedOnly(e.target.checked)} />
+          Needs matching
+        </label>
         <select className="bookings-filter-select" disabled title="By crop (future)">
           <option>All crops</option>
         </select>
@@ -114,7 +124,7 @@ function BookingsList({ onSelectBooking, onBookingDeleted }) {
                       </div>
                     </div>
                     <div className="bookings-card-meta">
-                      <span>{b.farmer_name || '—'} → {b.provider_name || '—'}</span>
+                      <span>{b.farmer_name || '—'} → {b.provider_name || (!b.provider_id ? 'Needs matching' : '—')}</span>
                       <span>{formatDate(b.scheduled_date)}</span>
                     </div>
                   </div>

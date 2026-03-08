@@ -4,7 +4,7 @@ import { api } from '../../api';
 import ConfirmModal from './ConfirmModal';
 import './BookingDetail.css';
 
-const STATUS_OPTIONS = ['pending', 'accepted', 'in_progress', 'completed', 'cancelled'];
+const STATUS_OPTIONS = ['pending', 'confirmed', 'accepted', 'in_progress', 'completed', 'rejected', 'cancelled'];
 
 function BookingDetail({ bookingId, onBack, onUpdate }) {
   const [booking, setBooking] = useState(null);
@@ -15,6 +15,9 @@ function BookingDetail({ bookingId, onBack, onUpdate }) {
   const [saving, setSaving] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [providers, setProviders] = useState([]);
+  const [assignProviderId, setAssignProviderId] = useState('');
+  const [assigning, setAssigning] = useState(false);
 
   useEffect(() => {
     if (!bookingId) return;
@@ -29,6 +32,13 @@ function BookingDetail({ bookingId, onBack, onUpdate }) {
     })();
   }, [bookingId]);
 
+  useEffect(() => {
+    (async () => {
+      const { data } = await api.getProviders();
+      setProviders(data?.providers ?? []);
+    })();
+  }, []);
+
   const handleStatusUpdate = async () => {
     if (!bookingId) return;
     setSaving(true);
@@ -37,6 +47,19 @@ function BookingDetail({ bookingId, onBack, onUpdate }) {
     if (!err) {
       setBooking((b) => (b ? { ...b, status: data.status } : null));
       setEditing(false);
+      onUpdate?.();
+    } else alert(err);
+  };
+
+  const handleAssignProvider = async () => {
+    if (!bookingId || !assignProviderId) return;
+    setAssigning(true);
+    const { error: err } = await api.updateBooking(bookingId, { provider_id: parseInt(assignProviderId, 10) });
+    setAssigning(false);
+    if (!err) {
+      const { data } = await api.getBooking(bookingId);
+      if (data) setBooking(data);
+      setAssignProviderId('');
       onUpdate?.();
     } else alert(err);
   };
@@ -117,14 +140,47 @@ function BookingDetail({ bookingId, onBack, onUpdate }) {
         </div>
         <div className="booking-detail-section">
           <h3>Provider</h3>
-          <dl>
-            <dt>Name</dt>
-            <dd>{booking.provider_name || '—'}</dd>
-            <dt>Phone</dt>
-            <dd>{booking.provider_phone || '—'}</dd>
-            <dt>Services</dt>
-            <dd>{booking.services_offered || '—'}</dd>
-          </dl>
+          {!booking.provider_id && booking.status === 'pending' ? (
+            <div className="booking-detail-assign">
+              <p className="booking-detail-assign-hint">No provider assigned. Select one to notify via WhatsApp:</p>
+              <div className="booking-detail-assign-row">
+                <select
+                  value={assignProviderId}
+                  onChange={(e) => setAssignProviderId(e.target.value)}
+                  className="booking-detail-assign-select"
+                >
+                  <option value="">Select provider</option>
+                  {(() => {
+                    const filtered = providers.filter((p) =>
+                      !booking.service_type || (p.services_offered || '').toLowerCase().includes((booking.service_type || '').toLowerCase())
+                    );
+                    const list = filtered.length > 0 ? filtered : providers;
+                    return list.map((p) => (
+                      <option key={p.id} value={p.id}>{p.full_name} ({p.services_offered || '—'})</option>
+                    ));
+                  })()}
+                </select>
+                <button
+                  type="button"
+                  className="booking-detail-assign-btn"
+                  onClick={handleAssignProvider}
+                  disabled={!assignProviderId || assigning}
+                >
+                  {assigning ? 'Assigning...' : 'Assign & Notify'}
+                </button>
+              </div>
+              {providers.length === 0 && <p className="booking-detail-assign-empty">No providers registered yet.</p>}
+            </div>
+          ) : (
+            <dl>
+              <dt>Name</dt>
+              <dd>{booking.provider_name || '—'}</dd>
+              <dt>Phone</dt>
+              <dd>{booking.provider_phone || '—'}</dd>
+              <dt>Services</dt>
+              <dd>{booking.services_offered || '—'}</dd>
+            </dl>
+          )}
         </div>
         {booking.notes && (
           <div className="booking-detail-section">

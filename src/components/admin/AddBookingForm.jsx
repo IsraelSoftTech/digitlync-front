@@ -36,8 +36,8 @@ function AddBookingForm({ onSuccess, onCancel }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.farmer_id || !form.provider_id) {
-      setError('Farmer and provider are required');
+    if (!form.farmer_id) {
+      setError('Farmer is required');
       return;
     }
     setSaving(true);
@@ -45,7 +45,7 @@ function AddBookingForm({ onSuccess, onCancel }) {
     const farmProduceVal = form.farm_produce_type === 'Other' ? (form.farm_produce_type_other?.trim() || null) : (form.farm_produce_type || null);
     const payload = {
       farmer_id: parseInt(form.farmer_id, 10),
-      provider_id: parseInt(form.provider_id, 10),
+      provider_id: form.provider_id ? parseInt(form.provider_id, 10) : null,
       service_type: form.service_type?.trim() || null,
       scheduled_date: form.scheduled_date || null,
       scheduled_time: form.scheduled_time || null,
@@ -75,8 +75,8 @@ function AddBookingForm({ onSuccess, onCancel }) {
             </select>
           </div>
           <div className="add-booking-field">
-            <label htmlFor="provider_id">Provider *</label>
-            <select id="provider_id" name="provider_id" value={form.provider_id} onChange={handleChange} required>
+            <label htmlFor="provider_id">Provider (optional – assign later)</label>
+            <select id="provider_id" name="provider_id" value={form.provider_id} onChange={handleChange}>
               <option value="">Select provider</option>
               {providers.map((p) => (
                 <option key={p.id} value={p.id}>{p.full_name} ({p.services_offered || '—'})</option>

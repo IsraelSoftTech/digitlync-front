@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { FiDownload, FiUpload } from 'react-icons/fi';
 import { api } from '../../api';
 import './FarmMapIntelligence.css';
@@ -25,13 +25,13 @@ function FarmMapIntelligence({ onFarmerClick }) {
     })();
   }, []);
 
-  const refreshData = async () => {
+  const refreshData = useCallback(async () => {
     const { data } = await api.getFarmersMapData();
     setFarmers(data?.farmers ?? []);
     setPlots(data?.plots ?? []);
-  };
+  }, []);
 
-  const handleMarkerDragEnd = async (item, lat, lng) => {
+  const handleMarkerDragEnd = useCallback(async (item, lat, lng) => {
     if (item.type === 'farmer') {
       const { error } = await api.updateFarmer(item.id, { gps_lat: lat, gps_lng: lng });
       if (!error) refreshData();
@@ -39,7 +39,7 @@ function FarmMapIntelligence({ onFarmerClick }) {
       const { error } = await api.updateFarmPlot(item.id, { gps_lat: lat, gps_lng: lng });
       if (!error) refreshData();
     }
-  };
+  }, [refreshData]);
 
   useEffect(() => {
     if (loading || !mapRef.current) return;
@@ -137,7 +137,7 @@ function FarmMapIntelligence({ onFarmerClick }) {
         mapInstanceRef.current = null;
       }
     };
-  }, [loading, farmers, plots, onFarmerClick, editMode]);
+  }, [loading, farmers, plots, onFarmerClick, editMode, handleMarkerDragEnd]);
 
   const farmersWithGps = farmers.filter((f) => f.gps_lat != null && f.gps_lng != null);
   const totalLocations = farmersWithGps.length + plots.length;

@@ -20,3 +20,13 @@
 .booking-detail-status-edit select { padding: 8px 12px; font-size: 0.875rem; border: 1px solid var(--admin-card-border); border-radius: var(--admin-radius); }
 .booking-detail-status-edit button { padding: 8px 16px; font-size: 0.875rem; font-weight: 500; border-radius: var(--admin-radius); cursor: pointer; }
 .booking-detail-meta { margin-top: 24px; font-size: 0.8125rem; color: var(--admin-text-muted); }
+
+/* Assign Provider */
+.booking-detail-assign { padding: 0; }
+.booking-detail-assign-hint { margin: 0 0 12px; font-size: 0.875rem; color: var(--admin-text-secondary); }
+.booking-detail-assign-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.booking-detail-assign-select { flex: 1; min-width: 200px; padding: 10px 14px; font-size: 0.9375rem; border: 1px solid var(--admin-card-border); border-radius: var(--admin-radius); }
+.booking-detail-assign-btn { padding: 10px 20px; font-size: 0.9375rem; font-weight: 600; color: #fff; background: var(--admin-accent, #16a34a); border: none; border-radius: var(--admin-radius); cursor: pointer; }
+.booking-detail-assign-btn:hover:not(:disabled) { background: #15803d; }
+.booking-detail-assign-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.booking-detail-assign-empty { margin: 12px 0 0; font-size: 0.8125rem; color: var(--admin-text-muted); }
