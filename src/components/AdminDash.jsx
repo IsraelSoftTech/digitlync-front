@@ -77,6 +77,7 @@ function AdminDash({ onLogout }) {
   const [selectedProvider, setSelectedProvider] = useState(null);
   const [editProvider, setEditProvider] = useState(null);
   const [selectedBooking, setSelectedBooking] = useState(null);
+  const [bookingsFilterUnassigned, setBookingsFilterUnassigned] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const closeSidebar = () => setSidebarOpen(false);
@@ -105,7 +106,12 @@ function AdminDash({ onLogout }) {
   const handleProviderFormSuccess = () => { setView(VIEW_PROVIDERS); setEditProvider(null); };
   const handleProviderFormCancel = () => { if (editProvider) { setView(VIEW_PROVIDER_PROFILE); setSelectedProvider(editProvider); } else setView(VIEW_PROVIDERS); setEditProvider(null); };
 
-  const showBookings = () => { setView(VIEW_BOOKINGS); setSelectedBooking(null); closeSidebar(); };
+  const showBookings = (opts) => {
+    setView(VIEW_BOOKINGS);
+    setSelectedBooking(null);
+    setBookingsFilterUnassigned(opts?.unassigned ?? false);
+    closeSidebar();
+  };
   const showBookingDetail = (b) => { setSelectedBooking(b); setView(VIEW_BOOKING_DETAIL); };
   const showAddBooking = () => { setView(VIEW_BOOKING_ADD); setSelectedBooking(null); closeSidebar(); };
   const handleBookingUpdate = () => { setSelectedBooking(null); };
@@ -121,17 +127,17 @@ function AdminDash({ onLogout }) {
       case VIEW_PROVIDER_PROFILE: return <ProviderProfile providerId={selectedProvider?.id} onBack={showProviders} onEdit={showEditProvider} />;
       case VIEW_PROVIDER_ADD: return <ProviderForm onSuccess={handleProviderFormSuccess} onCancel={() => setView(VIEW_PROVIDERS)} />;
       case VIEW_PROVIDER_EDIT: return <ProviderForm provider={editProvider} onSuccess={handleProviderFormSuccess} onCancel={handleProviderFormCancel} />;
-      case VIEW_BOOKINGS: return <BookingsList onSelectBooking={showBookingDetail} onAddBooking={showAddBooking} />;
+      case VIEW_BOOKINGS: return <BookingsList onSelectBooking={showBookingDetail} onAddBooking={showAddBooking} initialUnassignedOnly={bookingsFilterUnassigned} />;
       case VIEW_BOOKING_DETAIL: return <BookingDetail bookingId={selectedBooking?.id} onBack={showBookings} onUpdate={handleBookingUpdate} />;
       case VIEW_BOOKING_ADD: return <AddBookingForm onSuccess={() => { handleBookingUpdate(); showBookings(); }} onCancel={showBookings} />;
       case VIEW_FARM_MAP: return <FarmMapIntelligence onFarmerClick={showFarmerProfile} />;
-      case VIEW_RATINGS: return <RatingsDisputes />;
-      case VIEW_MATCHING: return <MatchingEngine />;
+      case VIEW_RATINGS: return <RatingsDisputes onViewProvider={showProviderProfile} />;
+      case VIEW_MATCHING: return <MatchingEngine onViewBookings={showBookings} />;
       case VIEW_DATA: return <DataAnalytics />;
       case VIEW_ROLES: return <UserRoles />;
       case VIEW_SETTINGS: return <SystemSettings />;
       case VIEW_AUDIT: return <AuditLogs />;
-      case VIEW_NOTIFICATIONS: return <NotificationCenter />;
+      case VIEW_NOTIFICATIONS: return <NotificationCenter onNavigate={(view, opts) => { if (view === 'bookings') showBookings(opts || {}); }} />;
       default: return <ExecutiveDashboard />;
     }
   };

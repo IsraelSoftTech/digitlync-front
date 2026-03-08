@@ -83,6 +83,13 @@
   color: var(--admin-text-muted);
 }
 
+.notification-center-action {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--admin-accent);
+  flex-shrink: 0;
+}
+
 .notification-center-empty {
   padding: 40px;
   text-align: center;

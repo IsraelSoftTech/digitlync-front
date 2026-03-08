@@ -98,6 +98,19 @@ export const api = {
   /** Dashboard */
   getDashboardStats: () => apiRequest('/api/dashboard/stats'),
 
+  /** Analytics */
+  getAnalyticsOverview: () => apiRequest('/api/analytics/overview'),
+  getAnalyticsServices: () => apiRequest('/api/analytics/services'),
+  getAnalyticsCrops: () => apiRequest('/api/analytics/crops'),
+  getAnalyticsBookingsTrend: () => apiRequest('/api/analytics/bookings-trend'),
+
+  /** Ratings (farmer ratings of providers) */
+  getRatingsSummary: () => apiRequest('/api/ratings/summary'),
+  getRatingsRecent: () => apiRequest('/api/ratings/recent'),
+
+  /** Notifications */
+  getNotifications: () => apiRequest('/api/notifications'),
+
   /** Farmers */
   getFarmersMapData: () => apiRequest('/api/farmers/map-data'),
   getFarmers: (params) => {

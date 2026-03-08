@@ -1,62 +1,71 @@
-import React, { useState } from 'react';
-import { FiAlertCircle, FiTrendingDown, FiMapPin, FiX } from 'react-icons/fi';
+import React, { useState, useEffect } from 'react';
+import { FiAlertCircle, FiTrendingDown, FiCalendar, FiInfo } from 'react-icons/fi';
+import { api } from '../../api';
 import './NotificationCenter.css';
 
-const ALERT_TYPES = {
-  dispute: { icon: FiAlertCircle, label: 'New dispute', color: 'danger' },
-  performance: { icon: FiTrendingDown, label: 'Provider performance drop', color: 'warning' },
-  shortage: { icon: FiMapPin, label: 'District service shortage', color: 'info' },
-  error: { icon: FiX, label: 'System error', color: 'danger' },
+const ALERT_CONFIG = {
+  matching: { icon: FiCalendar, label: 'Matching', color: 'warning' },
+  performance: { icon: FiTrendingDown, label: 'Performance', color: 'warning' },
+  info: { icon: FiInfo, label: 'Info', color: 'info' },
 };
 
-const MOCK_ALERTS = [
-  { id: 1, type: 'dispute', text: 'New dispute opened for booking #B012', time: '5 min ago', read: false },
-  { id: 2, type: 'performance', text: 'Provider John K. rating dropped below 3.5', time: '2 hrs ago', read: true },
-  { id: 3, type: 'shortage', text: 'Low provider coverage in North District', time: '1 day ago', read: true },
-];
+function NotificationCenter({ onNavigate }) {
+  const [alerts, setAlerts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-function NotificationCenter() {
-  const [alerts, setAlerts] = useState(MOCK_ALERTS);
+  useEffect(() => {
+    (async () => {
+      const { data } = await api.getNotifications();
+      setAlerts(data?.alerts ?? []);
+      setLoading(false);
+    })();
+  }, []);
 
-  const markRead = (id) => {
-    setAlerts((s) => s.map((a) => (a.id === id ? { ...a, read: true } : a)));
+  const handleClick = (alert) => {
+    if (alert.link && onNavigate) {
+      if (alert.link.includes('bookings')) {
+        onNavigate('bookings', alert.link.includes('unassigned') ? { unassigned: true } : { status: 'pending' });
+      }
+    }
   };
 
   return (
     <div className="notification-center">
       <header className="notification-center-header">
         <h1 className="notification-center-title">Notifications</h1>
+        <p className="notification-center-subtitle">Alerts from your platform</p>
       </header>
 
       <div className="notification-center-list">
-        {alerts.length === 0 ? (
-          <p className="notification-center-empty">No alerts.</p>
+        {loading ? (
+          <p className="notification-center-empty">Loading...</p>
+        ) : alerts.length === 0 ? (
+          <p className="notification-center-empty">All clear. No alerts at the moment.</p>
         ) : (
           alerts.map((alert) => {
-            const config = ALERT_TYPES[alert.type] || ALERT_TYPES.error;
+            const config = ALERT_CONFIG[alert.type] || ALERT_CONFIG.info;
             const Icon = config.icon;
             return (
-              <div key={alert.id} className={`notification-center-item ${alert.read ? 'read' : ''} notification-center-${config.color}`} onClick={() => markRead(alert.id)}>
+              <div
+                key={alert.id}
+                className={`notification-center-item notification-center-${config.color}`}
+                onClick={() => handleClick(alert)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && handleClick(alert)}
+              >
                 <Icon className="notification-center-icon" />
                 <div className="notification-center-content">
-                  <strong>{config.label}</strong>
-                  <p>{alert.text}</p>
-                  <span className="notification-center-time">{alert.time}</span>
+                  <strong>{alert.title}</strong>
+                  <p>{alert.message}</p>
                 </div>
+                {(alert.link || alert.providerId) && (
+                  <span className="notification-center-action">View →</span>
+                )}
               </div>
             );
           })
         )}
-      </div>
-
-      <div className="notification-center-types">
-        <h3>Alert Types</h3>
-        <ul>
-          <li>New dispute alert</li>
-          <li>Provider performance drop alert</li>
-          <li>District service shortage alert</li>
-          <li>System error alert</li>
-        </ul>
       </div>
     </div>
   );

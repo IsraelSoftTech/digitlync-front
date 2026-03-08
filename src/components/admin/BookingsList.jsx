@@ -14,12 +14,12 @@ const STATUS_OPTIONS = [
   { value: 'cancelled', label: 'Cancelled' },
 ];
 
-function BookingsList({ onSelectBooking, onAddBooking, onBookingDeleted }) {
+function BookingsList({ onSelectBooking, onAddBooking, onBookingDeleted, initialUnassignedOnly }) {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
-  const [unassignedOnly, setUnassignedOnly] = useState(false);
+  const [unassignedOnly, setUnassignedOnly] = useState(!!initialUnassignedOnly);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [deleting, setDeleting] = useState(false);
 

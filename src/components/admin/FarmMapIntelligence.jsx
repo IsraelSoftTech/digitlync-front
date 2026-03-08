@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
-import { FiDownload, FiUpload } from 'react-icons/fi';
+import { FiDownload } from 'react-icons/fi';
 import { api } from '../../api';
 import './FarmMapIntelligence.css';
 
@@ -67,9 +67,10 @@ function FarmMapIntelligence({ onFarmerClick }) {
       markersRef.current = [];
 
       const farmerMap = new Map(farmers.map((f) => [f.id, f]));
+      const showFarms = layers.farms;
 
       // Farmer main locations
-      farmers.filter((f) => f.gps_lat != null && f.gps_lng != null).forEach((f) => {
+      (showFarms ? farmers.filter((f) => f.gps_lat != null && f.gps_lng != null) : []).forEach((f) => {
         const loc = [parseFloat(f.gps_lat), parseFloat(f.gps_lng)];
         const m = L.marker(loc, { draggable: editMode })
           .addTo(map)
@@ -98,7 +99,7 @@ function FarmMapIntelligence({ onFarmerClick }) {
       });
 
       // Farm plots (multiple plots per farmer)
-      plots.forEach((p) => {
+      (showFarms ? plots : []).forEach((p) => {
         const f = farmerMap.get(p.farmer_id);
         const loc = [parseFloat(p.gps_lat), parseFloat(p.gps_lng)];
         const label = p.plot_name || (f ? `${f.full_name} (plot)` : 'Plot');
@@ -142,32 +143,48 @@ function FarmMapIntelligence({ onFarmerClick }) {
   const farmersWithGps = farmers.filter((f) => f.gps_lat != null && f.gps_lng != null);
   const totalLocations = farmersWithGps.length + plots.length;
 
+  const handleExport = () => {
+    const rows = [
+      ['type', 'name', 'farmer_id', 'lat', 'lng', 'village', 'crop_type'].join(','),
+      ...farmersWithGps.map((f) => ['farmer', (f.full_name || '').replace(/"/g, '""'), f.id, f.gps_lat, f.gps_lng, (f.village || '').replace(/"/g, '""'), (f.crop_type || '').replace(/"/g, '""')].join(',')),
+      ...plots.map((p) => {
+        const f = farmers.find((x) => x.id === p.farmer_id);
+        return ['plot', (p.plot_name || 'Plot').replace(/"/g, '""'), p.farmer_id, p.gps_lat, p.gps_lng, (f?.village || '').replace(/"/g, '""'), (p.crop_type || '').replace(/"/g, '""')].join(',');
+      }),
+    ];
+    const blob = new Blob([rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'digilync-farm-locations.csv';
+    link.click();
+    URL.revokeObjectURL(link.href);
+  };
+
   return (
     <div className="farm-map-intel">
       <header className="farm-map-intel-header">
-        <h1 className="farm-map-intel-title">Farm Map</h1>
+        <div>
+          <h1 className="farm-map-intel-title">Farm Map</h1>
+          <p className="farm-map-intel-subtitle">Geo-tagged farms from WhatsApp location sharing and admin entry</p>
+        </div>
         <div className="farm-map-intel-actions">
           <label className="farm-map-intel-edit-toggle">
             <input type="checkbox" checked={editMode} onChange={(e) => setEditMode(e.target.checked)} />
-            <span>Manual edit (drag markers)</span>
+            <span>Edit mode (drag to move)</span>
           </label>
-          <button type="button" className="farm-map-intel-btn" title="Bulk farm import">
-            <FiUpload /> Import
-          </button>
-          <button type="button" className="farm-map-intel-btn" title="Export coordinates CSV">
-            <FiDownload /> Export
+          <button type="button" className="farm-map-intel-btn" onClick={handleExport} title="Export locations as CSV">
+            <FiDownload /> Export CSV
           </button>
         </div>
       </header>
 
       <div className="farm-map-intel-layers">
-        <h3>Map Layers</h3>
-        {['farms', 'providers', 'coverage', 'heatmap'].map((key) => (
-          <label key={key} className="farm-map-intel-layer-toggle">
-            <input type="checkbox" checked={layers[key]} onChange={(e) => setLayers((s) => ({ ...s, [key]: e.target.checked }))} />
-            <span>{key.charAt(0).toUpperCase() + key.slice(1)}</span>
-          </label>
-        ))}
+        <h3>Layers</h3>
+        <label className="farm-map-intel-layer-toggle">
+          <input type="checkbox" checked={layers.farms} onChange={(e) => setLayers((s) => ({ ...s, farms: e.target.checked }))} />
+          <span>Farms</span>
+        </label>
+        <span className="farm-map-intel-layer-note">Provider & coverage layers coming in future phases</span>
       </div>
 
       {loading ? (

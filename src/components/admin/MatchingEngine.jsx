@@ -1,63 +1,87 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { FiZap, FiCalendar, FiUsers, FiCheckCircle } from 'react-icons/fi';
+import { api } from '../../api';
 import './MatchingEngine.css';
 
-function MatchingEngine() {
-  const [weights, setWeights] = useState({
-    distance: 30,
-    rating: 35,
-    availability: 20,
-    capacity: 15,
-  });
-  const [config, setConfig] = useState({
-    maxRadius: 50,
-    minRating: 3.0,
-    minPerformance: 70,
-  });
+function MatchingEngine({ onViewBookings }) {
+  const [stats, setStats] = useState({ unassigned: 0, providers: 0, pending: 0 });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      const [dRes, bRes] = await Promise.all([
+        api.getDashboardStats(),
+        api.getBookings({ unassigned: '1' }),
+      ]);
+      const d = dRes.data;
+      const bookings = bRes.data?.bookings ?? [];
+      setStats({
+        unassigned: d?.pendingRequests ?? bookings.length,
+        providers: d?.providers ?? 0,
+        pending: bookings.filter((b) => b.status === 'pending').length,
+      });
+      setLoading(false);
+    })();
+  }, []);
 
   return (
     <div className="matching-engine">
       <header className="matching-engine-header">
-        <h1 className="matching-engine-title">Matching Engine</h1>
+        <h1 className="matching-engine-title">Matching</h1>
+        <p className="matching-engine-subtitle">
+          Assign providers to farmer requests. Phase 1 uses service-based matching; AI ranking is on the roadmap.
+        </p>
       </header>
 
       <section className="me-section">
-        <h2>Weight Configuration</h2>
-        <p className="me-desc">Control how each factor influences provider ranking. Total should be 100%.</p>
-        <div className="me-weights">
-          {Object.entries(weights).map(([key, val]) => (
-            <div key={key} className="me-weight-row">
-              <label>{key.charAt(0).toUpperCase() + key.slice(1)}</label>
-              <input type="range" min="0" max="100" value={val} onChange={(e) => setWeights((s) => ({ ...s, [key]: +e.target.value }))} />
-              <span>{val}%</span>
+        <h2>Overview</h2>
+        <p className="me-desc">Requests needing your attention</p>
+        {loading ? (
+          <p className="me-empty">Loading...</p>
+        ) : (
+          <div className="me-overview-cards">
+            <div className="me-overview-card me-overview-card-action">
+              <FiCalendar className="me-overview-icon" />
+              <span className="me-overview-value">{stats.unassigned}</span>
+              <span className="me-overview-label">Need matching</span>
+              <p className="me-overview-hint">No provider assigned yet</p>
+              {stats.unassigned > 0 && onViewBookings && (
+                <button type="button" className="me-overview-btn" onClick={() => onViewBookings({ unassigned: true })}>
+                  Go to Bookings →
+                </button>
+              )}
             </div>
-          ))}
-        </div>
+            <div className="me-overview-card">
+              <FiUsers className="me-overview-icon" />
+              <span className="me-overview-value">{stats.providers}</span>
+              <span className="me-overview-label">Providers</span>
+              <p className="me-overview-hint">Available for matching</p>
+            </div>
+            <div className="me-overview-card">
+              <FiCheckCircle className="me-overview-icon" />
+              <span className="me-overview-value">{stats.pending}</span>
+              <span className="me-overview-label">Awaiting confirmation</span>
+              <p className="me-overview-hint">Provider notified, pending accept</p>
+            </div>
+          </div>
+        )}
       </section>
 
       <section className="me-section">
-        <h2>Thresholds</h2>
-        <div className="me-thresholds">
-          <div className="me-threshold">
-            <label>Max matching radius (km)</label>
-            <input type="number" value={config.maxRadius} onChange={(e) => setConfig((s) => ({ ...s, maxRadius: +e.target.value }))} min="5" max="200" />
-          </div>
-          <div className="me-threshold">
-            <label>Minimum rating threshold</label>
-            <input type="number" step="0.1" value={config.minRating} onChange={(e) => setConfig((s) => ({ ...s, minRating: +e.target.value }))} min="0" max="5" />
-          </div>
-          <div className="me-threshold">
-            <label>Auto-reject below performance %</label>
-            <input type="number" value={config.minPerformance} onChange={(e) => setConfig((s) => ({ ...s, minPerformance: +e.target.value }))} min="0" max="100" />
-          </div>
-        </div>
+        <h2>How matching works</h2>
+        <ol className="me-steps">
+          <li>Farmer requests a service via WhatsApp</li>
+          <li>System tries to auto-match by service type (e.g. Plowing, Spraying)</li>
+          <li>If no match, the request appears in Bookings as &quot;Needs matching&quot;</li>
+          <li>You assign a provider → they receive a WhatsApp notification</li>
+          <li>Provider accepts or rejects via WhatsApp</li>
+        </ol>
       </section>
 
       <section className="me-section">
-        <h2>Logs</h2>
-        <p className="me-empty">Matching decision logs, ranking breakdown per booking, override history — backend integration required</p>
+        <h2>Roadmap</h2>
+        <p className="me-desc">AI matching (distance, rating, availability) is planned for future phases.</p>
       </section>
-
-      <button type="button" className="me-save-btn">Save Configuration</button>
     </div>
   );
 }
