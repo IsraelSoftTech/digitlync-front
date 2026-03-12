@@ -68,3 +68,30 @@ export const DISTRICTS_SAMPLE = ['Douala I', 'Douala II', 'Douala III', 'Douala 
 
 /** Farm produce types for booking (aligned with crops) */
 export const FARM_PRODUCE_TYPES = [...CROPS.filter((c) => c !== 'Other'), 'Other'];
+
+/** Soil types (farmer Layer 2) */
+export const SOIL_TYPES = ['Sandy', 'Clay', 'Loam', 'Silty', 'Peaty', 'Chalky', 'Mixed', 'Other'];
+
+/** Irrigation types */
+export const IRRIGATION_TYPES = ['Rain-fed', 'Drip', 'Sprinkler', 'Flood', 'Manual', 'None', 'Other'];
+
+/** Planting seasons */
+export const PLANTING_SEASONS = ['Early season', 'Main season', 'Late season', 'Off-season', 'Year-round', 'Other'];
+
+/** Months */
+export const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+/** Land ownership */
+export const LAND_OWNERSHIP = ['Owned', 'Leased', 'Rented', 'Family', 'Communal', 'Other'];
+
+/** Mechanization level */
+export const MECHANIZATION_LEVELS = ['None', 'Low', 'Medium', 'High', 'Full'];
+
+/** Equipment condition (provider) */
+export const EQUIPMENT_CONDITION = ['New', 'Fair', 'Old'];
+
+/** Fuel type */
+export const FUEL_TYPES = ['Diesel', 'Petrol', 'Electric', 'Mixed'];
+
+/** Payment methods */
+export const PAYMENT_METHODS = ['Cash', 'Mobile money', 'Bank transfer', 'Cheque', 'Credit', 'Other'];

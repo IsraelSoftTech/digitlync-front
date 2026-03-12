@@ -15,8 +15,8 @@ function SharedFooter() {
         <div className="shared-footer-links">
           <a href="mailto:contact@digilync.com">Email</a>
           <a href="https://wa.me/237697799186" target="_blank" rel="noopener noreferrer">WhatsApp: +237 697 799 186</a>
-          <a href="/terms">Terms & Conditions</a>
-          <a href="/privacy">Privacy Policy</a>
+          <Link to="/terms">Terms & Conditions</Link>
+          <Link to="/privacy">Privacy Policy</Link>
           <Link to="/admin" className="shared-footer-admin-btn">Admin Login</Link>
         </div>
         <p className="shared-footer-copy">© DigiLync. Powered by Izzy Tech Team.</p>

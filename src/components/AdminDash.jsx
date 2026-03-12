@@ -130,7 +130,7 @@ function AdminDash({ onLogout }) {
       case VIEW_BOOKINGS: return <BookingsList onSelectBooking={showBookingDetail} onAddBooking={showAddBooking} initialUnassignedOnly={bookingsFilterUnassigned} />;
       case VIEW_BOOKING_DETAIL: return <BookingDetail bookingId={selectedBooking?.id} onBack={showBookings} onUpdate={handleBookingUpdate} />;
       case VIEW_BOOKING_ADD: return <AddBookingForm onSuccess={() => { handleBookingUpdate(); showBookings(); }} onCancel={showBookings} />;
-      case VIEW_FARM_MAP: return <FarmMapIntelligence onFarmerClick={showFarmerProfile} />;
+      case VIEW_FARM_MAP: return <FarmMapIntelligence onFarmerClick={showFarmerProfile} onProviderClick={showProviderProfile} />;
       case VIEW_RATINGS: return <RatingsDisputes onViewProvider={showProviderProfile} />;
       case VIEW_MATCHING: return <MatchingEngine onViewBookings={showBookings} />;
       case VIEW_DATA: return <DataAnalytics />;

@@ -36,3 +36,10 @@
 .provider-form-add-eq { align-self: flex-start; padding: 6px 12px; font-size: 0.8125rem; color: var(--admin-accent); background: transparent; border: 1px dashed var(--admin-accent); border-radius: 6px; cursor: pointer; }
 .provider-form-add-eq:hover { background: var(--admin-accent-light); }
 .provider-form-field select { padding: 12px 16px; font-family: inherit; font-size: 0.9375rem; border: 1px solid var(--admin-card-border); border-radius: var(--admin-radius); background: var(--admin-card-bg); }
+
+.provider-form-details { margin: 16px 0; border: 1px solid var(--admin-card-border); border-radius: var(--admin-radius); overflow: hidden; }
+.provider-form-details summary { padding: 14px 18px; font-weight: 600; font-size: 0.9375rem; color: var(--admin-text-primary); background: var(--admin-card-bg-2); cursor: pointer; list-style: none; }
+.provider-form-details summary::-webkit-details-marker { display: none; }
+.provider-form-details summary::after { content: '▶'; float: right; font-size: 0.75rem; transition: transform 0.2s; }
+.provider-form-details[open] summary::after { transform: rotate(90deg); }
+.provider-form-details > div { padding: 16px 18px; border-top: 1px solid var(--admin-card-border); }

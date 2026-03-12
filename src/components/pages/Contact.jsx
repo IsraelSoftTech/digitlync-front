@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SharedFooter from '../SharedFooter';
 import './Contact.css';
+
+const FORMSUBMIT_URL = 'https://formsubmit.co/greenwavetech17@gmail.com';
 
 function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setForm({ name: '', email: '', message: '' });
-  };
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('submitted') === '1') {
+      setSubmitted(true);
+      window.history.replaceState({}, '', window.location.pathname + window.location.hash);
+    }
+  }, []);
 
   return (
     <div className="page-wrap page-layout">
@@ -46,7 +50,15 @@ function Contact() {
               </p>
             </div>
 
-            <form className="contact-form anim-page-enter anim-swipe-right anim-delay-4" onSubmit={handleSubmit}>
+            <form
+              className="contact-form anim-page-enter anim-swipe-right anim-delay-4"
+              action={FORMSUBMIT_URL}
+              method="POST"
+            >
+              <input type="hidden" name="_subject" value="DigiLync Contact Form" />
+              <input type="hidden" name="_replyto" value={form.email} />
+              <input type="hidden" name="_next" value={`${window.location.origin}${window.location.pathname || '/'}?submitted=1#footer`} />
+              <input type="text" name="_honey" style={{ display: 'none' }} tabIndex="-1" autoComplete="off" />
               <h3>Send a Message</h3>
               {submitted && (
                 <p className="contact-form-success">Thank you. Your message has been sent. We will get back to you soon.</p>
@@ -55,6 +67,7 @@ function Contact() {
                 <label htmlFor="contact-name">Name</label>
                 <input
                   id="contact-name"
+                  name="name"
                   type="text"
                   placeholder="Your name"
                   value={form.name}
@@ -66,6 +79,7 @@ function Contact() {
                 <label htmlFor="contact-email">Email</label>
                 <input
                   id="contact-email"
+                  name="email"
                   type="email"
                   placeholder="your@email.com"
                   value={form.email}
@@ -77,6 +91,7 @@ function Contact() {
                 <label htmlFor="contact-message">Message</label>
                 <textarea
                   id="contact-message"
+                  name="message"
                   placeholder="Your message..."
                   rows={5}
                   value={form.message}

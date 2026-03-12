@@ -4,6 +4,8 @@ import Loader from './components/Loader';
 import Home from './components/Home';
 import AdminDash from './components/AdminDash';
 import AdminLogin from './components/AdminLogin';
+import Terms from './components/pages/Terms';
+import Privacy from './components/pages/Privacy';
 import './App.css';
 import './components/PageAnimations.css';
 
@@ -43,6 +45,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home onAdminLoginSuccess={handleAdminLoginSuccess} />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
             <Route
               path="/admin"
               element={

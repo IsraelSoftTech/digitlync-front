@@ -6,29 +6,38 @@ import './FarmMapIntelligence.css';
 const DEFAULT_LAT = 6.3703;
 const DEFAULT_LNG = 2.3912;
 
-function FarmMapIntelligence({ onFarmerClick }) {
+function FarmMapIntelligence({ onFarmerClick, onProviderClick }) {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const markersRef = useRef([]);
   const [farmers, setFarmers] = useState([]);
   const [plots, setPlots] = useState([]);
+  const [providers, setProviders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [layers, setLayers] = useState({ farms: true, providers: true, coverage: false, heatmap: false });
   const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const { data } = await api.getFarmersMapData();
-      setFarmers(data?.farmers ?? []);
-      setPlots(data?.plots ?? []);
+      const [farmRes, provRes] = await Promise.all([
+        api.getFarmersMapData(),
+        api.getProvidersMapData(),
+      ]);
+      setFarmers(farmRes.data?.farmers ?? []);
+      setPlots(farmRes.data?.plots ?? []);
+      setProviders(provRes.data?.providers ?? []);
       setLoading(false);
     })();
   }, []);
 
   const refreshData = useCallback(async () => {
-    const { data } = await api.getFarmersMapData();
-    setFarmers(data?.farmers ?? []);
-    setPlots(data?.plots ?? []);
+    const [farmRes, provRes] = await Promise.all([
+      api.getFarmersMapData(),
+      api.getProvidersMapData(),
+    ]);
+    setFarmers(farmRes.data?.farmers ?? []);
+    setPlots(farmRes.data?.plots ?? []);
+    setProviders(provRes.data?.providers ?? []);
   }, []);
 
   const handleMarkerDragEnd = useCallback(async (item, lat, lng) => {
@@ -38,8 +47,14 @@ function FarmMapIntelligence({ onFarmerClick }) {
     } else if (item.type === 'plot') {
       const { error } = await api.updateFarmPlot(item.id, { gps_lat: lat, gps_lng: lng });
       if (!error) refreshData();
+    } else if (item.type === 'provider') {
+      const { error } = await api.patchProvider(item.id, { gps_lat: lat, gps_lng: lng });
+      if (!error) refreshData();
     }
   }, [refreshData]);
+
+  const handleMarkerDragEndRef = useRef(handleMarkerDragEnd);
+  handleMarkerDragEndRef.current = handleMarkerDragEnd;
 
   useEffect(() => {
     if (loading || !mapRef.current) return;
@@ -86,7 +101,7 @@ function FarmMapIntelligence({ onFarmerClick }) {
         if (editMode) {
           m.on('dragend', () => {
             const pos = m.getLatLng();
-            handleMarkerDragEnd({ type: 'farmer', id: f.id }, pos.lat, pos.lng);
+            handleMarkerDragEndRef.current({ type: 'farmer', id: f.id }, pos.lat, pos.lng);
           });
         }
         if (onFarmerClick) {
@@ -117,13 +132,44 @@ function FarmMapIntelligence({ onFarmerClick }) {
         if (editMode) {
           m.on('dragend', () => {
             const pos = m.getLatLng();
-            handleMarkerDragEnd({ type: 'plot', id: p.id }, pos.lat, pos.lng);
+            handleMarkerDragEndRef.current({ type: 'plot', id: p.id }, pos.lat, pos.lng);
           });
         }
         if (onFarmerClick && f) {
           m.on('popupopen', () => {
             const btn = document.querySelector('.farm-map-view-profile');
             if (btn) btn.onclick = () => onFarmerClick(f);
+          });
+        }
+        markersRef.current.push(m);
+      });
+
+      // Provider locations (base GPS)
+      const showProviders = layers.providers;
+      (showProviders ? providers : []).forEach((pr) => {
+        const loc = [parseFloat(pr.gps_lat), parseFloat(pr.gps_lng)];
+        const m = L.marker(loc, { draggable: editMode })
+          .addTo(map)
+          .bindTooltip(pr.full_name || 'Provider', { permanent: false, direction: 'top' })
+          .bindPopup(
+            `<div class="farm-map-popup">
+              <strong>${(pr.full_name || 'Provider').replace(/</g, '&lt;')}</strong> (provider)<br/>
+              ${(pr.services_offered || '').replace(/</g, '&lt;')}<br/>
+              ${pr.service_radius_km ? `Radius: ${pr.service_radius_km} km` : ''}
+              ${onProviderClick ? `<br/><button type="button" class="farm-map-view-profile" data-provider-id="${pr.id}">View profile</button>` : ''}
+            </div>`
+          );
+        if (editMode) {
+          m.on('dragend', () => {
+            const pos = m.getLatLng();
+            handleMarkerDragEndRef.current({ type: 'provider', id: pr.id }, pos.lat, pos.lng);
+          });
+        }
+        if (onProviderClick) {
+          m.on('popupopen', (ev) => {
+            const container = ev.target?.getPopup?.()?.getElement?.();
+            const btn = container?.querySelector?.('.farm-map-view-profile');
+            if (btn) btn.onclick = () => onProviderClick(pr);
           });
         }
         markersRef.current.push(m);
@@ -138,10 +184,10 @@ function FarmMapIntelligence({ onFarmerClick }) {
         mapInstanceRef.current = null;
       }
     };
-  }, [loading, farmers, plots, onFarmerClick, editMode, handleMarkerDragEnd]);
+  }, [loading, farmers, plots, providers, layers, onFarmerClick, onProviderClick, editMode]);
 
   const farmersWithGps = farmers.filter((f) => f.gps_lat != null && f.gps_lng != null);
-  const totalLocations = farmersWithGps.length + plots.length;
+  const totalLocations = farmersWithGps.length + plots.length + providers.length;
 
   const handleExport = () => {
     const rows = [
@@ -184,7 +230,11 @@ function FarmMapIntelligence({ onFarmerClick }) {
           <input type="checkbox" checked={layers.farms} onChange={(e) => setLayers((s) => ({ ...s, farms: e.target.checked }))} />
           <span>Farms</span>
         </label>
-        <span className="farm-map-intel-layer-note">Provider & coverage layers coming in future phases</span>
+        <label className="farm-map-intel-layer-toggle">
+          <input type="checkbox" checked={layers.providers} onChange={(e) => setLayers((s) => ({ ...s, providers: e.target.checked }))} />
+          <span>Providers</span>
+        </label>
+        <span className="farm-map-intel-layer-note">Coverage & heatmap layers coming in future phases</span>
       </div>
 
       {loading ? (
@@ -194,7 +244,7 @@ function FarmMapIntelligence({ onFarmerClick }) {
           <div ref={mapRef} className="farm-map-intel-container" />
           <div className="farm-map-intel-legend">
             <h3>Locations ({totalLocations})</h3>
-            <p className="farm-map-legend-note">Main farms + multiple plots per farmer</p>
+            <p className="farm-map-legend-note">Farms, plots, and providers with GPS</p>
             <ul>
               {farmersWithGps.slice(0, 8).map((f) => (
                 <li key={`f-${f.id}`} onClick={() => onFarmerClick?.(f)} className={onFarmerClick ? 'farm-map-legend-clickable' : ''}>

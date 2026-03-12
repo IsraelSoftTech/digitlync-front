@@ -8,7 +8,6 @@ function AICoordination() {
       <section className="ai-page">
         <div className="ai-inner">
           <h1 className="ai-title anim-page-enter">AI-Driven Agricultural Coordination</h1>
-          <p className="ai-badge anim-page-enter anim-delay-1">AI modules under progressive development</p>
           <p className="ai-intro anim-page-enter anim-delay-2">
             Future capabilities will include intelligent service matching based on distance, availability, 
             and capacity. Demand forecasting and production clustering will support better planning 

@@ -109,11 +109,6 @@ function LandingMap() {
   return (
     <div className="landing-map">
       <div ref={mapRef} className="landing-map-container" />
-      {locations.length === 0 && (
-        <p className="landing-map-empty">
-          No farm locations with GPS yet. Add farmers with coordinates in the admin dashboard to see them here.
-        </p>
-      )}
       {locations.length > 0 && (
         <div className="landing-map-legend-wrap">
           <p className="landing-map-legend">{locations.length} farm{locations.length !== 1 ? 's' : ''} on map</p>

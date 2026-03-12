@@ -511,7 +511,6 @@ function Home({ onAdminLoginSuccess }) {
       <section id="ai-coordination" className="section section-ai">
         <AnimateOnScroll className="section-inner" direction="fade-in">
           <h2 className="section-title">AI-Driven Agricultural Coordination</h2>
-          <p className="section-badge-inline">AI modules under progressive development</p>
           <AnimateOnScrollStagger className="ai-features" effect="fade-up">
             <div className="ai-feature">Matching optimization</div>
             <div className="ai-feature">Capacity analysis</div>

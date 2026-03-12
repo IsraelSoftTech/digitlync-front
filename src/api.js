@@ -126,6 +126,7 @@ export const api = {
     apiRequest(`/api/farmers/${id}`, { method: 'DELETE' }),
 
   /** Providers */
+  getProvidersMapData: () => apiRequest('/api/providers/map-data'),
   getProviders: (params) => {
     const q = new URLSearchParams(params || {}).toString();
     return apiRequest(`/api/providers${q ? `?${q}` : ''}`);
@@ -135,6 +136,8 @@ export const api = {
     apiRequest('/api/providers', { method: 'POST', body: JSON.stringify(data) }),
   updateProvider: (id, data) =>
     apiRequest(`/api/providers/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  patchProvider: (id, data) =>
+    apiRequest(`/api/providers/${id}`, { method: 'PATCH', body: JSON.stringify(data) }),
   deleteProvider: (id) =>
     apiRequest(`/api/providers/${id}`, { method: 'DELETE' }),
 
