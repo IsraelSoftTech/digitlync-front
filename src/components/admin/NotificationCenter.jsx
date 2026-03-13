@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FiAlertCircle, FiTrendingDown, FiCalendar, FiInfo } from 'react-icons/fi';
+import { FiTrendingDown, FiCalendar, FiInfo } from 'react-icons/fi';
 import { api } from '../../api';
 import './NotificationCenter.css';
 

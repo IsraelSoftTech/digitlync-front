@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { api } from '../../api';
-import { FARMER_SERVICE_NEEDS, COUNTRIES, REGIONS_CAMEROON, REGIONS_GENERIC, DIVISIONS_SAMPLE, DISTRICTS_SAMPLE, EQUIPMENT_CONDITION, FUEL_TYPES, PAYMENT_METHODS } from '../../constants/lookups';
+import { FARMER_SERVICE_NEEDS, COUNTRIES, REGIONS_CAMEROON, REGIONS_GENERIC, DIVISIONS_SAMPLE, DISTRICTS_SAMPLE, EQUIPMENT_CONDITION, FUEL_TYPES } from '../../constants/lookups';
 import './ProviderForm.css';
 
 const emptyService = () => ({

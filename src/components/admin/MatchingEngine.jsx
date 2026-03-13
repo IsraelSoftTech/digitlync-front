@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FiZap, FiCalendar, FiUsers, FiCheckCircle } from 'react-icons/fi';
+import { FiCalendar, FiUsers, FiCheckCircle } from 'react-icons/fi';
 import { api } from '../../api';
 import './MatchingEngine.css';
 
