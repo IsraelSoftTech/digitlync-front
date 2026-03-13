@@ -7,9 +7,6 @@
 function getApiBaseUrl() {
   if (process.env.REACT_APP_API_URL) return process.env.REACT_APP_API_URL;
   if (process.env.NODE_ENV !== 'production') return ''; // '' = CRA proxy to localhost:5000
-  // Runtime: Render frontend → Render backend; custom domain → api.digilync.net
-  const origin = typeof window !== 'undefined' ? window.location.origin : '';
-  if (origin.includes('digitlync-front.onrender.com')) return 'https://digitlync-back.onrender.com';
   return 'https://api.digilync.net';
 }
 const API_BASE_URL = getApiBaseUrl();
