@@ -190,3 +190,35 @@
 .farm-map-view-profile:hover {
   background: #bbf7d0;
 }
+
+/* Custom pin markers - green (farmers), blue (providers) */
+.farm-map-marker {
+  background: none !important;
+  border: none !important;
+}
+
+.farm-map-marker-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.farm-map-legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 2px;
+  vertical-align: middle;
+}
+
+.farm-map-legend-farmer {
+  background: #22c55e;
+  border: 1px solid #15803d;
+}
+
+.farm-map-legend-provider {
+  background: #ef4444;
+  border: 1px solid #b91c1c;
+}

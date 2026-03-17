@@ -72,6 +72,19 @@
   min-height: 96px;
 }
 
+.farmer-form-map-pick { grid-column: 1 / -1; align-self: flex-end; }
+.farmer-form-map-btn {
+  padding: 10px 18px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--admin-accent);
+  background: var(--admin-accent-light);
+  border: 1px dashed var(--admin-accent);
+  border-radius: var(--admin-radius);
+  cursor: pointer;
+}
+.farmer-form-map-btn:hover { background: #bbf7d0; }
+
 .farmer-form-actions {
   display: flex;
   flex-direction: column;

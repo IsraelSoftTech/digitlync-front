@@ -1,0 +1,93 @@
+.map-picker-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.map-picker-modal {
+  background: var(--admin-card-bg, #fff);
+  border-radius: var(--admin-radius-lg, 8px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  max-width: 560px;
+  width: 95%;
+  max-height: 90vh;
+  overflow: hidden;
+}
+
+.map-picker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--admin-card-border, #e2e8f0);
+}
+
+.map-picker-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.map-picker-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--admin-text-muted, #64748b);
+  padding: 0 4px;
+}
+
+.map-picker-close:hover {
+  color: var(--admin-text-primary, #1e293b);
+}
+
+.map-picker-hint {
+  margin: 0;
+  padding: 8px 20px;
+  font-size: 0.875rem;
+  color: var(--admin-text-muted, #64748b);
+}
+
+.map-picker-container {
+  height: 320px;
+  margin: 0 20px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.map-picker-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--admin-card-border, #e2e8f0);
+}
+
+.map-picker-btn {
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.map-picker-btn-secondary {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+}
+
+.map-picker-btn-primary {
+  background: var(--admin-accent, #22c55e);
+  border: 1px solid #16a34a;
+  color: #fff;
+}
+
+.map-picker-btn-primary:hover {
+  background: #16a34a;
+}

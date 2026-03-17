@@ -138,6 +138,31 @@ function BookingDetail({ bookingId, onBack, onUpdate }) {
             <dd>{booking.farmer_village || '—'}</dd>
           </dl>
         </div>
+        {booking.provider_id && (booking.base_price_per_ha != null || booking.work_capacity_ha_per_hour != null) && (
+          <div className="booking-detail-section">
+            <h3>Pricing & Capacity</h3>
+            <dl>
+              {booking.base_price_per_ha != null && (
+                <>
+                  <dt>Price per hectare</dt>
+                  <dd>{Number(booking.base_price_per_ha).toLocaleString()} FCFA/ha</dd>
+                </>
+              )}
+              {booking.farm_size_ha != null && booking.base_price_per_ha != null && (
+                <>
+                  <dt>Estimated total cost</dt>
+                  <dd>~{Math.round(booking.farm_size_ha * booking.base_price_per_ha).toLocaleString()} FCFA</dd>
+                </>
+              )}
+              {booking.work_capacity_ha_per_hour != null && (
+                <>
+                  <dt>Provider work rate</dt>
+                  <dd>{Number(booking.work_capacity_ha_per_hour)} ha/hour</dd>
+                </>
+              )}
+            </dl>
+          </div>
+        )}
         <div className="booking-detail-section">
           <h3>Provider</h3>
           {!booking.provider_id && booking.status === 'pending' ? (
@@ -156,7 +181,9 @@ function BookingDetail({ bookingId, onBack, onUpdate }) {
                     );
                     const list = filtered.length > 0 ? filtered : providers;
                     return list.map((p) => (
-                      <option key={p.id} value={p.id}>{p.full_name} ({p.services_offered || '—'})</option>
+                      <option key={p.id} value={p.id}>
+                        {p.full_name} — {p.base_price_per_ha != null ? `${Number(p.base_price_per_ha).toLocaleString()} FCFA/ha` : '—'} ({p.services_offered || '—'})
+                      </option>
                     ));
                   })()}
                 </select>

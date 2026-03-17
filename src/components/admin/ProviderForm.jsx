@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import MapPicker from './MapPicker';
 import { api } from '../../api';
 import { FARMER_SERVICE_NEEDS, COUNTRIES, REGIONS_CAMEROON, REGIONS_GENERIC, DIVISIONS_SAMPLE, DISTRICTS_SAMPLE, EQUIPMENT_CONDITION, FUEL_TYPES } from '../../constants/lookups';
 import './ProviderForm.css';
@@ -38,6 +39,7 @@ function ProviderForm({ provider, onSuccess, onCancel }) {
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [showMapPicker, setShowMapPicker] = useState(false);
 
   const mapProviderToForm = useCallback((p) => {
     const services = p.services?.length
@@ -221,7 +223,21 @@ function ProviderForm({ provider, onSuccess, onCancel }) {
             <label htmlFor="gps_lng">GPS Longitude</label>
             <input id="gps_lng" name="gps_lng" type="number" step="any" value={form.gps_lng} onChange={handleChange} placeholder="e.g. 2.3912" />
           </div>
+          <div className="provider-form-field provider-form-map-pick">
+            <label>Base location</label>
+            <button type="button" className="provider-form-map-btn" onClick={() => setShowMapPicker(true)}>
+              📍 Pick on map
+            </button>
+          </div>
         </div>
+        {showMapPicker && (
+          <MapPicker
+            lat={form.gps_lat || undefined}
+            lng={form.gps_lng || undefined}
+            onSelect={(lat, lng) => setForm((f) => ({ ...f, gps_lat: String(lat), gps_lng: String(lng) }))}
+            onClose={() => setShowMapPicker(false)}
+          />
+        )}
 
         <details className="provider-form-details">
           <summary>Layer 2 — Equipment & Operations</summary>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../../api';
+import MapPicker from './MapPicker';
 import { CROPS, FARMER_SERVICE_NEEDS, COUNTRIES, REGIONS_CAMEROON, REGIONS_GENERIC, DIVISIONS_SAMPLE, DISTRICTS_SAMPLE, SOIL_TYPES, IRRIGATION_TYPES, PLANTING_SEASONS, MONTHS, LAND_OWNERSHIP, MECHANIZATION_LEVELS } from '../../constants/lookups';
 import './FarmerForm.css';
 
@@ -31,6 +32,7 @@ function FarmerForm({ farmer, onSuccess, onCancel }) {
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [showMapPicker, setShowMapPicker] = useState(false);
 
   const regions = form.country === 'Cameroon' ? REGIONS_CAMEROON : (form.country ? REGIONS_GENERIC : []);
   const divisions = DIVISIONS_SAMPLE;
@@ -506,7 +508,21 @@ function FarmerForm({ farmer, onSuccess, onCancel }) {
               placeholder="e.g. 2.3912"
             />
           </div>
+          <div className="farmer-form-field farmer-form-map-pick">
+            <label>Location</label>
+            <button type="button" className="farmer-form-map-btn" onClick={() => setShowMapPicker(true)}>
+              📍 Pick on map
+            </button>
+          </div>
         </div>
+        {showMapPicker && (
+          <MapPicker
+            lat={form.gps_lat || undefined}
+            lng={form.gps_lng || undefined}
+            onSelect={(lat, lng) => setForm((f) => ({ ...f, gps_lat: String(lat), gps_lng: String(lng) }))}
+            onClose={() => setShowMapPicker(false)}
+          />
+        )}
         <div className="farmer-form-field">
           <label htmlFor="notes">Notes</label>
           <textarea

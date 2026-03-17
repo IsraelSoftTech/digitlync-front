@@ -84,17 +84,31 @@ function FarmMapIntelligence({ onFarmerClick, onProviderClick }) {
       const farmerMap = new Map(farmers.map((f) => [f.id, f]));
       const showFarms = layers.farms;
 
-      // Farmer main locations
+      const greenIcon = L.divIcon({
+        className: 'farm-map-marker farm-map-marker-farmer',
+        html: '<div class="farm-map-marker-dot" style="background:#22c55e;border:2px solid #15803d;"></div>',
+        iconSize: [16, 16],
+        iconAnchor: [8, 8],
+      });
+      const redIcon = L.divIcon({
+        className: 'farm-map-marker farm-map-marker-provider',
+        html: '<div class="farm-map-marker-dot" style="background:#ef4444;border:2px solid #b91c1c;"></div>',
+        iconSize: [16, 16],
+        iconAnchor: [8, 8],
+      });
+
+      // Farmer main locations (green pins)
       (showFarms ? farmers.filter((f) => f.gps_lat != null && f.gps_lng != null) : []).forEach((f) => {
         const loc = [parseFloat(f.gps_lat), parseFloat(f.gps_lng)];
-        const m = L.marker(loc, { draggable: editMode })
+        const m = L.marker(loc, { draggable: editMode, icon: greenIcon })
           .addTo(map)
           .bindTooltip(f.full_name || 'Farmer (main)', { permanent: false, direction: 'top' })
           .bindPopup(
             `<div class="farm-map-popup">
-              <strong>${(f.full_name || 'Farmer').replace(/</g, '&lt;')}</strong> (main)<br/>
+              <strong>${(f.full_name || 'Farmer').replace(/</g, '&lt;')}</strong> (farmer)<br/>
               ${(f.district || f.region || f.village || '').replace(/</g, '&lt;')}<br/>
               ${(f.crop_type ? `Crop: ${f.crop_type}` : '').replace(/</g, '&lt;')}
+              ${f.farm_size_ha != null ? `Farm: ${f.farm_size_ha} ha` : ''}
               ${onFarmerClick ? `<br/><button type="button" class="farm-map-view-profile" data-farmer-id="${f.id}">View profile</button>` : ''}
             </div>`
           );
@@ -113,12 +127,12 @@ function FarmMapIntelligence({ onFarmerClick, onProviderClick }) {
         markersRef.current.push(m);
       });
 
-      // Farm plots (multiple plots per farmer)
+      // Farm plots (green pins)
       (showFarms ? plots : []).forEach((p) => {
         const f = farmerMap.get(p.farmer_id);
         const loc = [parseFloat(p.gps_lat), parseFloat(p.gps_lng)];
         const label = p.plot_name || (f ? `${f.full_name} (plot)` : 'Plot');
-        const m = L.marker(loc, { draggable: editMode })
+        const m = L.marker(loc, { draggable: editMode, icon: greenIcon })
           .addTo(map)
           .bindTooltip(label, { permanent: false, direction: 'top' })
           .bindPopup(
@@ -126,6 +140,7 @@ function FarmMapIntelligence({ onFarmerClick, onProviderClick }) {
               <strong>${(p.plot_name || 'Plot').replace(/</g, '&lt;')}</strong><br/>
               ${(f ? f.full_name : '').replace(/</g, '&lt;')}<br/>
               ${(p.crop_type ? `Crop: ${p.crop_type}` : '').replace(/</g, '&lt;')}
+              ${p.plot_size_ha != null ? `Size: ${p.plot_size_ha} ha` : ''}
               ${onFarmerClick && f ? `<br/><button type="button" class="farm-map-view-profile" data-farmer-id="${f.id}">View farmer</button>` : ''}
             </div>`
           );
@@ -144,18 +159,22 @@ function FarmMapIntelligence({ onFarmerClick, onProviderClick }) {
         markersRef.current.push(m);
       });
 
-      // Provider locations (base GPS)
+      // Provider locations (blue pins)
       const showProviders = layers.providers;
       (showProviders ? providers : []).forEach((pr) => {
         const loc = [parseFloat(pr.gps_lat), parseFloat(pr.gps_lng)];
-        const m = L.marker(loc, { draggable: editMode })
+        const m = L.marker(loc, { draggable: editMode, icon: redIcon })
           .addTo(map)
           .bindTooltip(pr.full_name || 'Provider', { permanent: false, direction: 'top' })
           .bindPopup(
             `<div class="farm-map-popup">
               <strong>${(pr.full_name || 'Provider').replace(/</g, '&lt;')}</strong> (provider)<br/>
+              ${pr._has_gps === false ? '<em>Location not set — drag pin in Edit mode to set</em><br/>' : ''}
               ${(pr.services_offered || '').replace(/</g, '&lt;')}<br/>
               ${pr.service_radius_km ? `Radius: ${pr.service_radius_km} km` : ''}
+              ${pr.base_price_per_ha != null ? `Price: ${Number(pr.base_price_per_ha).toLocaleString()} FCFA/ha` : ''}
+              ${pr.work_capacity_ha_per_hour != null ? `Capacity: ${pr.work_capacity_ha_per_hour} ha/hr` : ''}
+              ${pr.avg_rating != null ? `Rating: ${pr.avg_rating}/5` : ''}
               ${onProviderClick ? `<br/><button type="button" class="farm-map-view-profile" data-provider-id="${pr.id}">View profile</button>` : ''}
             </div>`
           );
@@ -244,7 +263,9 @@ function FarmMapIntelligence({ onFarmerClick, onProviderClick }) {
           <div ref={mapRef} className="farm-map-intel-container" />
           <div className="farm-map-intel-legend">
             <h3>Locations ({totalLocations})</h3>
-            <p className="farm-map-legend-note">Farms, plots, and providers with GPS</p>
+            <p className="farm-map-legend-note">
+              <span className="farm-map-legend-dot farm-map-legend-farmer" /> Farmers — <span className="farm-map-legend-dot farm-map-legend-provider" /> Providers
+            </p>
             <ul>
               {farmersWithGps.slice(0, 8).map((f) => (
                 <li key={`f-${f.id}`} onClick={() => onFarmerClick?.(f)} className={onFarmerClick ? 'farm-map-legend-clickable' : ''}>

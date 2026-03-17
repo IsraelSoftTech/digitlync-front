@@ -92,6 +92,7 @@ function Home({ onAdminLoginSuccess }) {
     return () => clearInterval(bannerTimer);
   }, []);
 
+
   useEffect(() => {
     if (!dropdownOpen) return;
     const close = (e) => {
@@ -263,6 +264,29 @@ function Home({ onAdminLoginSuccess }) {
             </button>
           </div>
         </div>
+      </section>
+
+      {/* Video Section - just before Institutional Credibility */}
+      <section id="dig-video" className="section section-video">
+        <AnimateOnScroll className="video-section-inner">
+          <div className="video-wrapper">
+            <video
+              className="dig-video-player"
+              src={`${process.env.PUBLIC_URL || ''}/dig_vid/dig_vid.mp4`}
+              controls
+              playsInline
+              preload="metadata"
+              onError={(e) => {
+                if (!e.target.dataset.fallbackUsed) {
+                  e.target.dataset.fallbackUsed = '1';
+                  e.target.src = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+                }
+              }}
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </AnimateOnScroll>
       </section>
 
       {/* Institutional Credibility - horizontal layout: image left, text right */}
