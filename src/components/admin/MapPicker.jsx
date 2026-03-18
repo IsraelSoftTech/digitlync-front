@@ -58,7 +58,7 @@ function MapPicker({ lat, lng, onSelect, onClose }) {
       mapInstanceRef.current = null;
       markerRef.current = null;
     };
-  }, [ready]);
+  }, [ready, lat, lng]);
 
   return (
     <div className="map-picker-overlay" onClick={(e) => e.target === e.currentTarget && onClose?.()}>
