@@ -14,7 +14,7 @@ function SharedFooter() {
         </div>
         <div className="shared-footer-links">
           <a href="mailto:contact@digilync.com">Email</a>
-          <a href="https://wa.me/237697799186" target="_blank" rel="noopener noreferrer">WhatsApp: +237 697 799 186</a>
+          <a href="https://wa.me/237678699886" target="_blank" rel="noopener noreferrer">WhatsApp: +237 678 699 886</a>
           <Link to="/terms">Terms & Conditions</Link>
           <Link to="/privacy">Privacy Policy</Link>
           <Link to="/admin" className="shared-footer-admin-btn">Admin Login</Link>

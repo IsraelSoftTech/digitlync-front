@@ -246,7 +246,7 @@ function Home({ onAdminLoginSuccess }) {
           </p>
           <div className="hero-cta">
             <a
-              href="https://wa.me/237697799186"
+              href="https://wa.me/237678699886"
               target="_blank"
               rel="noopener noreferrer"
               className="hero-btn hero-btn-primary hero-btn-shine"
@@ -605,7 +605,7 @@ function Home({ onAdminLoginSuccess }) {
             <div className="contact-inline-info">
               <h3>Reach Us</h3>
               <p><strong>Email:</strong> contact@digilync.com</p>
-              <p><strong>WhatsApp:</strong> +237 697 799 186</p>
+              <p><strong>WhatsApp:</strong> +237 678 699 886</p>
               <p className="contact-inline-note">
                 For fastest response, start a conversation on WhatsApp. Farmers and providers can register directly via our WhatsApp bot.
               </p>

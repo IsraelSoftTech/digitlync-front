@@ -43,7 +43,7 @@ function Contact() {
             <div className="contact-info anim-page-enter anim-delay-3">
               <h3>Reach Us</h3>
               <p><strong>Email:</strong> contact@digilync.com</p>
-              <p><strong>WhatsApp:</strong> +237 697 799 186</p>
+              <p><strong>WhatsApp:</strong> +237 678 699 886</p>
               <p className="contact-info-note">
                 For fastest response, start a conversation on WhatsApp. 
                 Farmers and providers can register directly via our WhatsApp bot.

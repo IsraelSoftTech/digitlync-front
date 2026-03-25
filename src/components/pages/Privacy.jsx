@@ -70,7 +70,7 @@ function Privacy() {
             <h2>9. Contact</h2>
             <p>
               For privacy-related inquiries, contact us at{' '}
-              <a href="mailto:contact@digilync.com">contact@digilync.com</a> or via WhatsApp: +237 697 799 186.
+              <a href="mailto:contact@digilync.com">contact@digilync.com</a> or via WhatsApp: +237 678 699 886.
             </p>
           </div>
 
