@@ -7,10 +7,10 @@ function Platform() {
     <div className="page-wrap page-layout">
       <section className="platform-page">
         <div className="platform-inner">
-          <h1 className="platform-title anim-page-enter">The DigiLync Platform</h1>
+          <h1 className="platform-title anim-page-enter">The Farmfleet Platform</h1>
           <p className="platform-subtitle anim-page-enter anim-delay-1">Layered infrastructure for agricultural coordination</p>
           <p className="platform-intro anim-page-enter anim-delay-2">
-            DigiLync is built as a modular system. Each layer adds capability while the core coordination engine 
+            Farmfleet is built as a modular system. Each layer adds capability while the core coordination engine 
             remains live and operational. This approach ensures continuous value delivery as we expand.
           </p>
           <div className="platform-layers">

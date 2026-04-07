@@ -10,7 +10,7 @@ function HowItWorks() {
           <h1 className="how-title anim-page-enter">How It Works</h1>
           <p className="how-subtitle anim-page-enter anim-delay-1">Current version – grounded and real</p>
           <p className="how-intro anim-page-enter anim-delay-2">
-            Getting started with DigiLync is simple. Farmers and providers register via WhatsApp, 
+            Getting started with Farmfleet is simple. Farmers and providers register via WhatsApp, 
             and the coordination engine handles matching and confirmation. No app download required.
           </p>
           <div className="how-steps">

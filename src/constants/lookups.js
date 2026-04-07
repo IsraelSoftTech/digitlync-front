@@ -1,5 +1,5 @@
 /**
- * Predefined lookup values for DigiLync
+ * Predefined lookup values for Farmfleet
  * Supports standardized data, auto-selection, clustering & analytics
  */
 

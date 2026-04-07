@@ -11,7 +11,7 @@ function Problem() {
           <h1 className="problem-title anim-page-enter">Agriculture in Africa Is Fragmented</h1>
           <p className="problem-intro anim-page-enter anim-delay-1">
             Across the continent, agricultural systems face structural challenges that limit productivity and market access. 
-            DigiLync addresses these gaps through coordinated infrastructure.
+            Farmfleet addresses these gaps through coordinated infrastructure.
           </p>
           <div className="problem-grid">
             <div className="problem-card anim-page-enter anim-delay-2">

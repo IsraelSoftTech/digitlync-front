@@ -21,7 +21,7 @@ function ContactFormInline() {
       action={FORMSUBMIT_URL}
       method="POST"
     >
-      <input type="hidden" name="_subject" value="DigiLync Contact Form" />
+      <input type="hidden" name="_subject" value="Farmfleet Contact Form" />
       <input type="hidden" name="_replyto" value={form.email} />
       <input type="hidden" name="_next" value={`${window.location.origin}${window.location.pathname || '/'}?submitted=1#footer`} />
       <input type="text" name="_honey" style={{ display: 'none' }} tabIndex="-1" autoComplete="off" />

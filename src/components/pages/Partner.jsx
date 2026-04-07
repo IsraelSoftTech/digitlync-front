@@ -13,13 +13,13 @@ function Partner() {
     <div className="page-wrap page-layout">
       <section className="partner-page">
         <div className="partner-inner">
-          <h1 className="partner-title anim-page-enter">Partner With DigiLync</h1>
+          <h1 className="partner-title anim-page-enter">Partner With Farmfleet</h1>
           <div className="partner-content">
             <p className="anim-page-enter anim-delay-1">
               We collaborate with governments, development partners, agricultural institutions, cooperatives, and private sector actors to pilot and scale resilient agricultural coordination systems.
             </p>
             <p className="anim-page-enter anim-delay-2">
-              If you are working to strengthen food systems, improve rural service delivery, or build digital public infrastructure for agriculture, DigiLync is ready to partner.
+              If you are working to strengthen food systems, improve rural service delivery, or build digital public infrastructure for agriculture, Farmfleet is ready to partner.
             </p>
             <p className="partner-cta-text anim-page-enter anim-delay-3">
               Let's build accountable and scalable agricultural systems together.

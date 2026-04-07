@@ -128,8 +128,8 @@ function Home({ onAdminLoginSuccess }) {
       <header className="hero-header">
         <div className="hero-header-inner">
           <button type="button" className="hero-logo hero-logo-btn" onClick={() => handleNavClick('home')}>
-            <img src={logo} alt="DigiLync" className="hero-logo-img" />
-            <span className="hero-logo-text">DigiLync</span>
+            <img src={logo} alt="Farmfleet" className="hero-logo-img" />
+            <span className="hero-logo-text">Farmfleet</span>
           </button>
 
           <nav className="hero-nav">
@@ -238,7 +238,7 @@ function Home({ onAdminLoginSuccess }) {
             <span className="hero-dot hero-dot-1" /><span className="hero-dot hero-dot-2" /><span className="hero-dot hero-dot-3" /><span className="hero-dot hero-dot-4" />
           </div>
           <h1 className="hero-title hero-title-stagger">
-            <span className="hero-brand hero-brand-char">DigiLync</span>
+            <span className="hero-brand hero-brand-char">Farmfleet</span>
             <span className="hero-tagline hero-tagline-stagger">Africa's Agricultural Coordination & Intelligence Infrastructure</span>
           </h1>
           <p className="hero-subheadline">
@@ -301,7 +301,7 @@ function Home({ onAdminLoginSuccess }) {
             <h2 className="section-title">Institutional Credibility</h2>
             <div className="credibility-content">
               <p className="credibility-lead">
-                DigiLync is developed by a women-founded and women-led agritech company headquartered in Buea, Cameroon.
+                Farmfleet is developed by a women-founded and women-led agritech company headquartered in Buea, Cameroon.
               </p>
               <p>
                 We have deployed three field pilots in Meme Division (Kumba, Mabonji, and Malende), testing structured agricultural service coordination in real rural environments.
@@ -329,7 +329,7 @@ function Home({ onAdminLoginSuccess }) {
           <AnimateOnScroll className="section-text-block" direction="right">
             <h2 className="section-title">Impact & Pilot Goals</h2>
             <p className="section-subtitle">
-              DigiLync is designed to scale structured agricultural service delivery across fragile and underserved rural regions.
+              Farmfleet is designed to scale structured agricultural service delivery across fragile and underserved rural regions.
             </p>
             <AnimateOnScrollStagger className="impact-grid" effect="fade-up">
               <div className="impact-card">
@@ -416,7 +416,7 @@ function Home({ onAdminLoginSuccess }) {
         </div>
       </section>
 
-      {/* Section 3: The DigiLync Platform - horizontal: image left, layers right */}
+      {/* Section 3: The Farmfleet Platform - horizontal: image left, layers right */}
       <section id="platform" className="section section-platform section-layout-horizontal">
         <div className="section-layout-inner">
           <AnimateOnScroll className="section-img-wrap section-img-left" direction="right">
@@ -425,7 +425,7 @@ function Home({ onAdminLoginSuccess }) {
             </div>
           </AnimateOnScroll>
           <AnimateOnScroll className="section-text-block" direction="left">
-          <h2 className="section-title">The DigiLync Platform</h2>
+          <h2 className="section-title">The Farmfleet Platform</h2>
           <p className="section-subtitle">Layered infrastructure for agricultural coordination</p>
           <AnimateOnScrollStagger className="platform-layers" effect="slide-left">
             <div className="platform-layer live">
@@ -514,7 +514,7 @@ function Home({ onAdminLoginSuccess }) {
           <AnimateOnScroll className="section-text-block" direction="right">
             <h2 className="section-title">Geospatial Agricultural Intelligence</h2>
             <p className="section-desc">
-              DigiLync geo-tags farms and mechanized service providers to build structured regional production maps.
+              Farmfleet geo-tags farms and mechanized service providers to build structured regional production maps.
             </p>
             <div className="geospatial-visual geospatial-map-wrap">
               <LandingMap />
@@ -571,16 +571,16 @@ function Home({ onAdminLoginSuccess }) {
         </AnimateOnScroll>
       </section>
 
-      {/* Partner With DigiLync */}
+      {/* Partner With Farmfleet */}
       <section id="partner" className="section section-partner">
         <AnimateOnScroll className="section-inner" direction="fade-in">
-          <h2 className="section-title">Partner With DigiLync</h2>
+          <h2 className="section-title">Partner With Farmfleet</h2>
           <div className="partner-content">
             <p>
               We collaborate with governments, development partners, agricultural institutions, cooperatives, and private sector actors to pilot and scale resilient agricultural coordination systems.
             </p>
             <p>
-              If you are working to strengthen food systems, improve rural service delivery, or build digital public infrastructure for agriculture, DigiLync is ready to partner.
+              If you are working to strengthen food systems, improve rural service delivery, or build digital public infrastructure for agriculture, Farmfleet is ready to partner.
             </p>
             <p className="partner-cta-text">Let's build accountable and scalable agricultural systems together.</p>
             <button

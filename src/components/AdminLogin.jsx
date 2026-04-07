@@ -44,9 +44,9 @@ function AdminLogin({ onAdminLoginSuccess }) {
     <div className="admin-login-page">
       <div className="admin-login-card">
         <div className="admin-login-header">
-          <img src={logo} alt="DigiLync" className="admin-login-logo" />
+          <img src={logo} alt="Farmfleet" className="admin-login-logo" />
           <h1>Admin Login</h1>
-          <p>Sign in to access the DigiLync dashboard</p>
+          <p>Sign in to access the Farmfleet dashboard</p>
         </div>
         <form className="admin-login-form" onSubmit={handleSubmit}>
           {error && <p className="admin-login-error" role="alert">{error}</p>}
