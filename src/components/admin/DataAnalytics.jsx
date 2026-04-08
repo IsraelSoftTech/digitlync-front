@@ -43,19 +43,19 @@ function DataAnalytics() {
   const handleExportFarmers = async () => {
     const { data } = await api.getFarmers();
     const farmers = data?.farmers ?? [];
-    downloadCsv(farmers.map((f) => ({ id: f.id, full_name: f.full_name, phone: f.phone, village: f.village, crop_type: f.crop_type, farm_size_ha: f.farm_size_ha })), 'farmfleet-farmers.csv');
+    downloadCsv(farmers.map((f) => ({ id: f.id, full_name: f.full_name, phone: f.phone, village: f.village, crop_type: f.crop_type, farm_size_ha: f.farm_size_ha })), 'digilync-farmers.csv');
   };
 
   const handleExportProviders = async () => {
     const { data } = await api.getProviders();
     const providers = data?.providers ?? [];
-    downloadCsv(providers.map((p) => ({ id: p.id, full_name: p.full_name, phone: p.phone, services_offered: p.services_offered, base_price_per_ha: p.base_price_per_ha })), 'farmfleet-providers.csv');
+    downloadCsv(providers.map((p) => ({ id: p.id, full_name: p.full_name, phone: p.phone, services_offered: p.services_offered, base_price_per_ha: p.base_price_per_ha })), 'digilync-providers.csv');
   };
 
   const handleExportBookings = async () => {
     const { data } = await api.getBookings();
     const bookings = data?.bookings ?? [];
-    downloadCsv(bookings.map((b) => ({ id: b.id, service_type: b.service_type, status: b.status, scheduled_date: b.scheduled_date, farmer_name: b.farmer_name, provider_name: b.provider_name })), 'farmfleet-bookings.csv');
+    downloadCsv(bookings.map((b) => ({ id: b.id, service_type: b.service_type, status: b.status, scheduled_date: b.scheduled_date, farmer_name: b.farmer_name, provider_name: b.provider_name })), 'digilync-bookings.csv');
   };
 
   return (

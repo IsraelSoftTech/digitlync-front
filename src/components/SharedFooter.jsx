@@ -9,8 +9,8 @@ function SharedFooter() {
     <footer className="shared-footer">
       <AnimateOnScroll className="shared-footer-inner">
         <div className="shared-footer-brand">
-          <img src={logo} alt="Farmfleet" className="shared-footer-logo" />
-          <span>Farmfleet</span>
+          <img src={logo} alt="Digilync" className="shared-footer-logo" />
+          <span>Digilync</span>
         </div>
         <div className="shared-footer-links">
           <a href="mailto:contact@digilync.com">Email</a>
@@ -19,7 +19,7 @@ function SharedFooter() {
           <Link to="/privacy">Privacy Policy</Link>
           <Link to="/admin" className="shared-footer-admin-btn">Admin Login</Link>
         </div>
-        <p className="shared-footer-copy">© Farmfleet. Powered by Izzy Tech Team.</p>
+        <p className="shared-footer-copy">© Digilync. Powered by Izzy Tech Team.</p>
       </AnimateOnScroll>
     </footer>
   );

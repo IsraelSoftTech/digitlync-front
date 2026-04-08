@@ -107,7 +107,7 @@ function LiveMetrics() {
       <div className="section-inner">
         <h2 className="section-title">Live Platform Metrics</h2>
         <p className="section-subtitle">
-          Real-time coordination data from the Farmfleet platform.
+          Real-time coordination data from the Digilync platform.
         </p>
         {error && (
           <div className="live-metrics-error">

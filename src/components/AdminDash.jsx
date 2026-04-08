@@ -150,7 +150,7 @@ function AdminDash({ onLogout }) {
         <button type="button" className="admin-dash-menu-btn" onClick={() => setSidebarOpen((o) => !o)} aria-label={sidebarOpen ? 'Close menu' : 'Open menu'}>
           {sidebarOpen ? <HiX /> : <HiMenu />}
         </button>
-        <h1 className="admin-dash-title">Farmfleet Admin</h1>
+        <h1 className="admin-dash-title">Digilync Admin</h1>
         {onLogout && <button type="button" className="admin-dash-logout" onClick={onLogout}>Logout</button>}
       </header>
       <div className={`admin-sidebar-overlay ${sidebarOpen ? 'open' : ''}`} onClick={closeSidebar} aria-hidden="true" />

@@ -10,7 +10,7 @@ function Credibility() {
           <h1 className="credibility-title anim-page-enter">Institutional Credibility</h1>
           <div className="credibility-content">
             <p className="credibility-lead anim-page-enter anim-delay-1">
-              Farmfleet is developed by a women-founded and women-led agritech company headquartered in Buea, Cameroon.
+              Digilync is developed by a women-founded and women-led agritech company headquartered in Buea, Cameroon.
             </p>
             <p className="anim-page-enter anim-delay-2">
               We have deployed three field pilots in Meme Division (Kumba, Mabonji, and Malende), testing structured agricultural service coordination in real rural environments.

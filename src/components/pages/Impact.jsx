@@ -9,7 +9,7 @@ function Impact() {
         <div className="impact-inner">
           <h1 className="impact-title anim-page-enter">Impact & Pilot Goals</h1>
           <p className="impact-intro anim-page-enter anim-delay-1">
-            Farmfleet is designed to scale structured agricultural service delivery across fragile and underserved rural regions.
+            Digilync is designed to scale structured agricultural service delivery across fragile and underserved rural regions.
           </p>
           <div className="impact-grid anim-page-enter anim-delay-2">
             <div className="impact-card">

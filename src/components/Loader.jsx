@@ -18,7 +18,7 @@ function Loader({ onComplete }) {
           <div className="loader-square loader-square-2" />
           <div className="loader-square loader-square-3" />
         </div>
-        <h1 className="loader-title">Farmfleet</h1>
+        <h1 className="loader-title">Digilync</h1>
       </div>
     </div>
   );

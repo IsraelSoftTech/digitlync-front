@@ -22,13 +22,13 @@ function Contact() {
         <div className="contact-inner">
           <h1 className="contact-title anim-page-enter">Contact Us</h1>
           <p className="contact-intro anim-page-enter anim-delay-1">
-            Get in touch with the Farmfleet team. Whether you are a farmer, service provider, 
+            Get in touch with the Digilync team. Whether you are a farmer, service provider, 
             industrial buyer, or partner, we would like to hear from you.
           </p>
 
           <div className="contact-extra anim-page-enter anim-delay-2">
             <p>
-              Farmfleet connects smallholder farmers with mechanization providers and industrial buyers 
+              Digilync connects smallholder farmers with mechanization providers and industrial buyers 
               across Cameroon. Our platform uses geospatial intelligence and AI to match supply with 
               demand, reduce post-harvest loss, and improve livelihoods. We support farmers through 
               WhatsApp-based registration and booking, and help providers reach new customers.
@@ -55,7 +55,7 @@ function Contact() {
               action={FORMSUBMIT_URL}
               method="POST"
             >
-              <input type="hidden" name="_subject" value="Farmfleet Contact Form" />
+              <input type="hidden" name="_subject" value="Digilync Contact Form" />
               <input type="hidden" name="_replyto" value={form.email} />
               <input type="hidden" name="_next" value={`${window.location.origin}${window.location.pathname || '/'}?submitted=1#footer`} />
               <input type="text" name="_honey" style={{ display: 'none' }} tabIndex="-1" autoComplete="off" />

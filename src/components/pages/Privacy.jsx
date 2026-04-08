@@ -14,7 +14,7 @@ function Privacy() {
           <div className="legal-content">
             <h2>1. Introduction</h2>
             <p>
-              Farmfleet ("we", "our", "us") is committed to protecting your privacy. This Privacy Policy explains
+              Digilync ("we", "our", "us") is committed to protecting your privacy. This Privacy Policy explains
               how we collect, use, store, and protect your personal data when you use our agricultural coordination
               platform, including the WhatsApp bot, admin application, and public website.
             </p>

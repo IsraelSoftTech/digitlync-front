@@ -10,7 +10,7 @@ function Metrics() {
         <div className="metrics-inner">
           <h1 className="metrics-title anim-page-enter">Live Platform Metrics</h1>
           <p className="metrics-intro anim-page-enter anim-delay-1">
-            Real-time coordination data from the Farmfleet platform.
+            Real-time coordination data from the Digilync platform.
           </p>
           <div className="metrics-live-wrap anim-page-enter anim-delay-2">
             <LiveMetrics />

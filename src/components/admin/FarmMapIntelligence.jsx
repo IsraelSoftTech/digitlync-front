@@ -220,7 +220,7 @@ function FarmMapIntelligence({ onFarmerClick, onProviderClick }) {
     const blob = new Blob([rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'farmfleet-farm-locations.csv';
+    link.download = 'digilync-farm-locations.csv';
     link.click();
     URL.revokeObjectURL(link.href);
   };

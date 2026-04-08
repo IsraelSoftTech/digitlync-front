@@ -1,10 +1,10 @@
 /* ============================================
-   Farmfleet Hero Section
+   Digilync Hero Section
    Design: Deep green + earth brown + subtle blue
    Background: Green / lime (per user preference)
    ============================================ */
 
-/* CSS Variables - Farmfleet palette (navy/charcoal base, green/blue accents) */
+/* CSS Variables - Digilync palette (navy/charcoal base, green/blue accents) */
 :root {
   --dl-green-deep: #1B5E20;
   --dl-green-medium: #2E7D32;
@@ -1341,7 +1341,7 @@
   line-height: 1.5;
 }
 
-/* Partner With Farmfleet */
+/* Partner With Digilync */
 .section-partner {
   background: var(--dl-white);
   border-top: 1px solid rgba(27, 94, 32, 0.06);

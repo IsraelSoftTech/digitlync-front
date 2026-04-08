@@ -9,7 +9,7 @@ function Vision() {
         <div className="vision-inner">
           <h1 className="vision-title anim-page-enter">Building Africa's Agricultural Infrastructure Layer</h1>
           <p className="vision-intro anim-page-enter anim-delay-1">
-            Farmfleet is not just an app – it is infrastructure. We are building the coordination layer 
+            Digilync is not just an app – it is infrastructure. We are building the coordination layer 
             that connects Africa's agricultural actors at scale.
           </p>
           <div className="vision-content">

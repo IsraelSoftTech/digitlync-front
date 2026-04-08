@@ -1,5 +1,5 @@
 /**
- * Farmfleet API Client
+ * Digilync API Client
  * Handles communication between frontend, backend API, and file storage URLs.
  * Uses correct backend based on where the frontend is hosted (runtime detection).
  */

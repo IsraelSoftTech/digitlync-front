@@ -14,14 +14,14 @@ function Terms() {
           <div className="legal-content">
             <h2>1. Introduction</h2>
             <p>
-              Welcome to Farmfleet. These Terms and Conditions govern your use of the Farmfleet platform, including
+              Welcome to Digilync. These Terms and Conditions govern your use of the Digilync platform, including
               our WhatsApp-based agricultural coordination services, public website, and admin tools. By accessing
-              or using Farmfleet, you agree to be bound by these terms.
+              or using Digilync, you agree to be bound by these terms.
             </p>
 
             <h2>2. Definitions</h2>
             <p>
-              <strong>Platform</strong> means the Farmfleet system, including the WhatsApp bot, admin web application,
+              <strong>Platform</strong> means the Digilync system, including the WhatsApp bot, admin web application,
               public website, and associated APIs. <strong>Farmers</strong> are users seeking farm services.
               <strong>Providers</strong> are users offering mechanized farm services. <strong>Admins</strong> are
               authorized personnel managing the platform.
@@ -29,7 +29,7 @@ function Terms() {
 
             <h2>3. Service Description</h2>
             <p>
-              Farmfleet connects farmers with mechanized service providers through structured booking, scheduling,
+              Digilync connects farmers with mechanized service providers through structured booking, scheduling,
               and coordination. Services include land preparation, planting, crop management, harvesting, and
               post-harvest support. The platform facilitates matching, booking confirmation, reminders, and ratings.
             </p>
@@ -44,19 +44,19 @@ function Terms() {
             <h2>5. Booking & Cancellation</h2>
             <p>
               Bookings are binding once confirmed by both parties. Cancellation policies may vary by provider.
-              Farmfleet reserves the right to apply no-show penalties as agreed during provider onboarding.
+              Digilync reserves the right to apply no-show penalties as agreed during provider onboarding.
             </p>
 
             <h2>6. Limitation of Liability</h2>
             <p>
-              Farmfleet acts as a coordination platform. We do not guarantee the quality, timeliness, or outcome
+              Digilync acts as a coordination platform. We do not guarantee the quality, timeliness, or outcome
               of services performed by providers. Disputes between farmers and providers should be resolved
-              directly; Farmfleet may assist in mediation but is not liable for service delivery.
+              directly; Digilync may assist in mediation but is not liable for service delivery.
             </p>
 
             <h2>7. Intellectual Property</h2>
             <p>
-              The Farmfleet platform, including its design, branding, and software, is owned by Izzy Tech Team
+              The Digilync platform, including its design, branding, and software, is owned by Izzy Tech Team
               or its licensors. Unauthorized copying, modification, or distribution is prohibited.
             </p>
 
