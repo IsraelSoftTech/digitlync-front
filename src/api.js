@@ -34,15 +34,17 @@ function getAdminHeaders() {
 
 async function apiRequest(endpoint, options = {}) {
   const url = `${API_BASE_URL}${endpoint}`;
+  const timeoutMs = options.timeoutMs ?? API_TIMEOUT_MS;
+  const { timeoutMs: _omit, ...fetchOptions } = options;
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
   const adminHeaders = endpoint.startsWith('/api/auth/login') ? {} : getAdminHeaders();
   const config = {
-    ...options,
+    ...fetchOptions,
     headers: {
       'Content-Type': 'application/json',
       ...adminHeaders,
-      ...options.headers,
+      ...fetchOptions.headers,
     },
     signal: controller.signal,
   };
@@ -81,6 +83,14 @@ export const api = {
 
   /** Public metrics (for landing page live stats) */
   getPublicMetrics: () => apiRequest('/api/public/metrics'),
+
+  /** WhatsApp farmer registration — save GPS from web capture page */
+  submitFarmerRegisterGps: (body) =>
+    apiRequest('/api/public/farmer-register-gps', {
+      method: 'POST',
+      body: JSON.stringify(body),
+      timeoutMs: 20000,
+    }),
 
   /** Public map locations (farmers with GPS for landing page map) */
   getPublicLocations: () => apiRequest('/api/public/locations'),

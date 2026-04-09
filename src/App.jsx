@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Loader from './components/Loader';
 import Home from './components/Home';
+import GpsCapture from './components/GpsCapture';
 import AdminDash from './components/AdminDash';
 import AdminLogin from './components/AdminLogin';
 import Terms from './components/pages/Terms';
@@ -12,7 +13,13 @@ import './components/PageAnimations.css';
 const ADMIN_SESSION_KEY = 'digilync_admin_session';
 
 function App() {
-  const [loaderDone, setLoaderDone] = useState(false);
+  const [loaderDone, setLoaderDone] = useState(() => {
+    try {
+      return typeof window !== 'undefined' && window.location.pathname.startsWith('/gps');
+    } catch {
+      return false;
+    }
+  });
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(() => {
     try {
       return !!localStorage.getItem(ADMIN_SESSION_KEY);
@@ -45,6 +52,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home onAdminLoginSuccess={handleAdminLoginSuccess} />} />
+            <Route path="/gps" element={<GpsCapture />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route
