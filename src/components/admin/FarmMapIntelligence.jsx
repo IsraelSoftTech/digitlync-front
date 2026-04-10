@@ -90,9 +90,9 @@ function FarmMapIntelligence({ onFarmerClick, onProviderClick }) {
         iconSize: [16, 16],
         iconAnchor: [8, 8],
       });
-      const redIcon = L.divIcon({
+      const blueIcon = L.divIcon({
         className: 'farm-map-marker farm-map-marker-provider',
-        html: '<div class="farm-map-marker-dot" style="background:#ef4444;border:2px solid #b91c1c;"></div>',
+        html: '<div class="farm-map-marker-dot" style="background:#3b82f6;border:2px solid #1d4ed8;"></div>',
         iconSize: [16, 16],
         iconAnchor: [8, 8],
       });
@@ -163,7 +163,7 @@ function FarmMapIntelligence({ onFarmerClick, onProviderClick }) {
       const showProviders = layers.providers;
       (showProviders ? providers : []).forEach((pr) => {
         const loc = [parseFloat(pr.gps_lat), parseFloat(pr.gps_lng)];
-        const m = L.marker(loc, { draggable: editMode, icon: redIcon })
+        const m = L.marker(loc, { draggable: editMode, icon: blueIcon })
           .addTo(map)
           .bindTooltip(pr.full_name || 'Provider', { permanent: false, direction: 'top' })
           .bindPopup(

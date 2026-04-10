@@ -100,6 +100,14 @@ export const api = {
       timeoutMs: 20000,
     }),
 
+  /** WhatsApp service request — confirm job location (?purpose=request on /gps) */
+  submitServiceRequestGps: (body) =>
+    apiRequest('/api/public/service-request-gps', {
+      method: 'POST',
+      body: JSON.stringify(body),
+      timeoutMs: 20000,
+    }),
+
   /** Public map locations (farmers with GPS for landing page map) */
   getPublicLocations: () => apiRequest('/api/public/locations'),
 
