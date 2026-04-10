@@ -4,12 +4,14 @@ import { api } from '../api';
 import './GpsCapture.css';
 
 /**
- * WhatsApp deep link: complete farmer registration by capturing browser geolocation.
- * Query: ?t=<token from bot>
+ * WhatsApp deep link: complete farmer or provider registration by capturing browser geolocation.
+ * Query: ?t=<token>  farmer (default)
+ *        ?t=<token>&role=provider  service provider base location
  */
 function GpsCapture() {
   const [searchParams] = useSearchParams();
   const token = searchParams.get('t') || '';
+  const isProvider = String(searchParams.get('role') || '').toLowerCase() === 'provider';
 
   const [status, setStatus] = useState('idle'); // idle | locating | ready | saving | done | error
   const [error, setError] = useState('');
@@ -61,12 +63,15 @@ function GpsCapture() {
     if (!token || !coords || !consent) return;
     setStatus('saving');
     setError('');
-    const { data, error: apiErr } = await api.submitFarmerRegisterGps({
+    const payload = {
       token,
       gps_lat: coords.lat,
       gps_lng: coords.lng,
       consent: true,
-    });
+    };
+    const { data, error: apiErr } = isProvider
+      ? await api.submitProviderRegisterGps(payload)
+      : await api.submitFarmerRegisterGps(payload);
     if (apiErr) {
       setStatus('ready');
       setError(apiErr);
@@ -85,16 +90,19 @@ function GpsCapture() {
       <div className="gps-capture__bg" aria-hidden />
       <div className="gps-capture__card">
         <div className="gps-capture__brand">Digilync 🌱</div>
-        <h1 className="gps-capture__title">Farm location</h1>
+        <h1 className="gps-capture__title">{isProvider ? 'Base location' : 'Farm location'}</h1>
         <p className="gps-capture__lead">
-          We use your GPS once to place your farm on the map. Turn on location when your phone asks, then capture below.
+          {isProvider
+            ? 'We use your GPS once as your service base on the map. Turn on location when your phone asks, then capture below.'
+            : 'We use your GPS once to place your farm on the map. Turn on location when your phone asks, then capture below.'}
         </p>
 
         {status === 'done' && (
           <div className="gps-capture__success" role="status">
             <span className="gps-capture__success-icon">✓</span>
             <p>
-              <strong>Location saved.</strong> Return to WhatsApp — you should see <em>Registration Successful</em> and the main menu.
+              <strong>Location saved.</strong> Return to WhatsApp — you should see the next step
+              {isProvider ? ' (privacy consent).' : ' (Registration Successful and the main menu).'}
             </p>
           </div>
         )}
@@ -103,7 +111,7 @@ function GpsCapture() {
           <>
             {status === 'idle' && token && (
               <button type="button" className="gps-capture__btn gps-capture__btn--primary" onClick={requestLocation}>
-                Turn on location &amp; capture GPS
+                {isProvider ? 'Turn on location & capture base GPS' : 'Turn on location & capture GPS'}
               </button>
             )}
 
@@ -135,7 +143,8 @@ function GpsCapture() {
                     onChange={(e) => setConsent(e.target.checked)}
                   />
                   <span>
-                    I consent to Digilync storing this GPS point for my farm registration and service matching, as described in the{' '}
+                    I consent to Digilync storing this GPS point for my{' '}
+                    {isProvider ? 'provider base location and service matching' : 'farm registration and service matching'}, as described in the{' '}
                     <a href="/privacy" target="_blank" rel="noreferrer">
                       Privacy Policy
                     </a>
@@ -148,7 +157,7 @@ function GpsCapture() {
                   disabled={!consent}
                   onClick={submit}
                 >
-                  Save farm location
+                  {isProvider ? 'Save base location' : 'Save farm location'}
                 </button>
                 <button type="button" className="gps-capture__btn gps-capture__btn--ghost" onClick={requestLocation}>
                   Capture again

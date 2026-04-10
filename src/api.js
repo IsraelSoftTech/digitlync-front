@@ -92,6 +92,14 @@ export const api = {
       timeoutMs: 20000,
     }),
 
+  /** WhatsApp provider registration — save base location from same /gps page with role=provider */
+  submitProviderRegisterGps: (body) =>
+    apiRequest('/api/public/provider-register-gps', {
+      method: 'POST',
+      body: JSON.stringify(body),
+      timeoutMs: 20000,
+    }),
+
   /** Public map locations (farmers with GPS for landing page map) */
   getPublicLocations: () => apiRequest('/api/public/locations'),
 
