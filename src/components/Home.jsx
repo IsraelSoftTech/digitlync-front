@@ -246,7 +246,7 @@ function Home({ onAdminLoginSuccess }) {
           </p>
           <div className="hero-cta">
             <a
-              href="https://wa.me/237678699886"
+              href="https://wa.me/237689869421"
               target="_blank"
               rel="noopener noreferrer"
               className="hero-btn hero-btn-primary hero-btn-shine"
