@@ -64,9 +64,15 @@ async function apiRequest(endpoint, options = {}) {
     return { data, status: response.status };
   } catch (err) {
     clearTimeout(timeoutId);
-    const msg = err.name === 'AbortError'
-      ? 'Request timed out - is the backend running?'
-      : (err.message || 'Network error - could not reach API');
+    const raw = String(err.message || '');
+    const looksLikeFetchFail =
+      err.name === 'TypeError' || /failed to fetch|networkerror|load failed/i.test(raw);
+    const msg =
+      err.name === 'AbortError'
+        ? 'Request timed out - is the backend running?'
+        : looksLikeFetchFail
+          ? 'Could not reach the server. Check your connection, or try again in a moment. (If you used a bookmark, open the link from WhatsApp again.)'
+          : raw || 'Network error - could not reach API';
     return {
       error: msg,
       status: null,
