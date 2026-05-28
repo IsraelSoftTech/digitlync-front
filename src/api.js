@@ -114,7 +114,7 @@ export const api = {
       timeoutMs: 20000,
     }),
 
-  /** Public map locations (farmers with GPS for landing page map) */
+  /** Public map locations (farmers, plots, providers with GPS for landing page map) */
   getPublicLocations: () => apiRequest('/api/public/locations'),
 
   /** Admin auth */

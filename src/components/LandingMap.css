@@ -40,8 +40,51 @@
   border-top: 1px solid rgba(27, 94, 32, 0.08);
 }
 
+.landing-map-legend-keys {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 1.5rem;
+  padding: 0.75rem 1rem 0.25rem;
+}
+
+.landing-map-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--dl-earth-brown);
+}
+
+.landing-map-key-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 2px solid #15803d;
+  flex-shrink: 0;
+}
+
+.landing-map-key-dot-provider,
+.landing-map-marker-dot-provider {
+  background: #3b82f6;
+  border-color: #1d4ed8;
+}
+
+/* Leaflet circleMarker pins — legend dots only (map uses circleMarker API) */
+.leaflet-interactive.landing-map-pin-provider {
+  z-index: 1000 !important;
+}
+
+.landing-map-empty-msg {
+  text-align: center;
+  color: var(--dl-earth-brown-light);
+  font-weight: 400;
+}
+
 .landing-map-legend {
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 1rem 0.75rem;
   margin: 0;
   font-size: 0.875rem;
   color: var(--dl-green-deep);
@@ -96,4 +139,19 @@
 .landing-map-loc-btn:hover {
   background: rgba(27, 94, 32, 0.2);
   color: var(--dl-green-medium);
+}
+
+.landing-map-loc-btn-provider {
+  background: rgba(29, 78, 216, 0.1);
+  border-color: rgba(29, 78, 216, 0.25);
+  color: #1d4ed8;
+}
+
+.landing-map-loc-btn-provider:hover {
+  background: rgba(29, 78, 216, 0.18);
+  color: #2563eb;
+}
+
+.landing-map-list-item-provider:hover {
+  color: #1d4ed8;
 }
