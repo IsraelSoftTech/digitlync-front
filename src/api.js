@@ -183,6 +183,32 @@ export const api = {
   deleteBooking: (id) =>
     apiRequest(`/api/bookings/${id}`, { method: 'DELETE' }),
 
+  /** Provider availability slots */
+  getProviderAvailability: (providerId, params) => {
+    const q = new URLSearchParams(params || {}).toString();
+    return apiRequest(`/api/availability/provider/${providerId}${q ? `?${q}` : ''}`);
+  },
+  createProviderAvailability: (providerId, data) =>
+    apiRequest(`/api/availability/provider/${providerId}`, { method: 'POST', body: JSON.stringify(data) }),
+  deleteProviderAvailability: (id) =>
+    apiRequest(`/api/availability/${id}`, { method: 'DELETE' }),
+
+  /** Job execution events */
+  getBookingJobEvents: (bookingId) =>
+    apiRequest(`/api/job-events/booking/${bookingId}`),
+  createBookingJobEvent: (bookingId, data) =>
+    apiRequest(`/api/job-events/booking/${bookingId}`, { method: 'POST', body: JSON.stringify(data) }),
+
+  /** Booking disputes */
+  getDisputes: (params) => {
+    const q = new URLSearchParams(params || {}).toString();
+    return apiRequest(`/api/disputes${q ? `?${q}` : ''}`);
+  },
+  createDispute: (data) =>
+    apiRequest('/api/disputes', { method: 'POST', body: JSON.stringify(data) }),
+  resolveDispute: (id, data) =>
+    apiRequest(`/api/disputes/${id}/resolve`, { method: 'PUT', body: JSON.stringify(data) }),
+
   /** Admin ratings (rate farmers and providers) */
   getAdminRatings: (rateeType, rateeId) =>
     apiRequest(`/api/admin-ratings?ratee_type=${rateeType}&ratee_id=${rateeId}`),

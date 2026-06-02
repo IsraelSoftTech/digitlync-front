@@ -125,6 +125,12 @@ function BookingDetail({ bookingId, onBack, onUpdate }) {
             <dd>{booking.farm_produce_type || '—'}</dd>
             <dt>Farm Size (ha)</dt>
             <dd>{booking.farm_size_ha != null ? booking.farm_size_ha : '—'}</dd>
+            <dt>Budget Range</dt>
+            <dd>
+              {booking.budget_min_fcfa != null || booking.budget_max_fcfa != null
+                ? `${Number(booking.budget_min_fcfa || 0).toLocaleString()} - ${Number(booking.budget_max_fcfa || 0).toLocaleString()} FCFA`
+                : '—'}
+            </dd>
           </dl>
         </div>
         <div className="booking-detail-section">
@@ -152,6 +158,30 @@ function BookingDetail({ bookingId, onBack, onUpdate }) {
                 <>
                   <dt>Estimated total cost</dt>
                   <dd>~{Math.round(booking.farm_size_ha * booking.base_price_per_ha).toLocaleString()} FCFA</dd>
+                </>
+              )}
+              {booking.provider_base_amount_fcfa != null && (
+                <>
+                  <dt>Provider base amount</dt>
+                  <dd>{Number(booking.provider_base_amount_fcfa).toLocaleString()} FCFA</dd>
+                </>
+              )}
+              {booking.platform_fee_amount_fcfa != null && (
+                <>
+                  <dt>Platform fee (10%)</dt>
+                  <dd>{Number(booking.platform_fee_amount_fcfa).toLocaleString()} FCFA</dd>
+                </>
+              )}
+              {booking.farmer_payable_amount_fcfa != null && (
+                <>
+                  <dt>Farmer payable total</dt>
+                  <dd>{Number(booking.farmer_payable_amount_fcfa).toLocaleString()} FCFA</dd>
+                </>
+              )}
+              {booking.cancellation_fee_amount_fcfa != null && Number(booking.cancellation_fee_amount_fcfa) > 0 && (
+                <>
+                  <dt>Cancellation fee</dt>
+                  <dd>{Number(booking.cancellation_fee_amount_fcfa).toLocaleString()} FCFA</dd>
                 </>
               )}
               {booking.work_capacity_ha_per_hour != null && (

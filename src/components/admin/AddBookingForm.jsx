@@ -15,6 +15,8 @@ function AddBookingForm({ onSuccess, onCancel }) {
     farm_produce_type: '',
     farm_produce_type_other: '',
     farm_size_ha: '',
+    budget_min_fcfa: '',
+    budget_max_fcfa: '',
     notes: '',
   });
   const [saving, setSaving] = useState(false);
@@ -50,6 +52,8 @@ function AddBookingForm({ onSuccess, onCancel }) {
       scheduled_date: form.scheduled_date || null,
       scheduled_time: form.scheduled_time || null,
       farm_size_ha: form.farm_size_ha ? parseFloat(form.farm_size_ha) : null,
+      budget_min_fcfa: form.budget_min_fcfa ? parseFloat(form.budget_min_fcfa) : null,
+      budget_max_fcfa: form.budget_max_fcfa ? parseFloat(form.budget_max_fcfa) : null,
       farm_produce_type: farmProduceVal,
       notes: form.notes?.trim() || null,
     };
@@ -121,6 +125,14 @@ function AddBookingForm({ onSuccess, onCancel }) {
           <div className="add-booking-field">
             <label htmlFor="farm_size_ha">Farm Size (ha)</label>
             <input id="farm_size_ha" name="farm_size_ha" type="number" step="0.01" min="0" value={form.farm_size_ha} onChange={handleChange} placeholder="e.g. 2.5" />
+          </div>
+          <div className="add-booking-field">
+            <label htmlFor="budget_min_fcfa">Budget Min (FCFA)</label>
+            <input id="budget_min_fcfa" name="budget_min_fcfa" type="number" step="0.01" min="0" value={form.budget_min_fcfa} onChange={handleChange} placeholder="e.g. 80000" />
+          </div>
+          <div className="add-booking-field">
+            <label htmlFor="budget_max_fcfa">Budget Max (FCFA)</label>
+            <input id="budget_max_fcfa" name="budget_max_fcfa" type="number" step="0.01" min="0" value={form.budget_max_fcfa} onChange={handleChange} placeholder="e.g. 120000" />
           </div>
         </div>
         <div className="add-booking-field">
