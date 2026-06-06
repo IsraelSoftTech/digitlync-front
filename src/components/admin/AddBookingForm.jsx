@@ -9,7 +9,7 @@ function AddBookingForm({ onSuccess, onCancel }) {
   const [form, setForm] = useState({
     farmer_id: '',
     provider_id: '',
-    service_type: '',
+    service_type: [],
     scheduled_date: '',
     scheduled_time: '',
     farm_produce_type: '',
@@ -36,6 +36,16 @@ function AddBookingForm({ onSuccess, onCancel }) {
     setError('');
   };
 
+  const handleToggleService = (service) => {
+    setForm((f) => {
+      const prev = Array.isArray(f.service_type) ? f.service_type.slice() : [];
+      const idx = prev.indexOf(service);
+      if (idx === -1) prev.push(service); else prev.splice(idx, 1);
+      return { ...f, service_type: prev };
+    });
+    setError('');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.farmer_id) {
@@ -48,7 +58,7 @@ function AddBookingForm({ onSuccess, onCancel }) {
     const payload = {
       farmer_id: parseInt(form.farmer_id, 10),
       provider_id: form.provider_id ? parseInt(form.provider_id, 10) : null,
-      service_type: form.service_type?.trim() || null,
+    service_type: Array.isArray(form.service_type) ? form.service_type.join(', ') : (form.service_type?.trim() || null),
       scheduled_date: form.scheduled_date || null,
       scheduled_time: form.scheduled_time || null,
       farm_size_ha: form.farm_size_ha ? parseFloat(form.farm_size_ha) : null,
@@ -88,13 +98,19 @@ function AddBookingForm({ onSuccess, onCancel }) {
             </select>
           </div>
           <div className="add-booking-field">
-            <label htmlFor="service_type">Service Type</label>
-            <select id="service_type" name="service_type" value={form.service_type} onChange={handleChange}>
-              <option value="">Select service</option>
+            <label>Service Type</label>
+            <div className="add-booking-checkbox-group">
               {FARMER_SERVICE_NEEDS.map((s) => (
-                <option key={s} value={s}>{s}</option>
+                <label key={s} className="add-booking-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={Array.isArray(form.service_type) && form.service_type.includes(s)}
+                    onChange={() => handleToggleService(s)}
+                  />
+                  <span>{s}</span>
+                </label>
               ))}
-            </select>
+            </div>
           </div>
           <div className="add-booking-field">
             <label htmlFor="scheduled_date">Scheduled Date</label>

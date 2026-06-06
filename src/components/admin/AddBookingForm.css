@@ -18,3 +18,46 @@
 .add-booking-submit:hover:not(:disabled) { background: var(--admin-accent-hover); }
 .add-booking-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 .add-booking-other-input { margin-top: 8px; }
+
+/* Checkbox group for service selection (mobile-friendly) */
+.add-booking-checkbox-group { display: grid; grid-template-columns: 1fr; gap: 10px; }
+@media (min-width: 640px) { .add-booking-checkbox-group { grid-template-columns: repeat(2, 1fr); } }
+
+.add-booking-checkbox {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 0.6rem 0.75rem;
+	border: 1px solid var(--admin-card-border);
+	border-radius: var(--admin-radius);
+	background: var(--admin-card-bg);
+	cursor: pointer;
+	transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease, transform 0.06s ease;
+}
+.add-booking-checkbox input {
+	width: 1.25rem;
+	height: 1.25rem;
+	flex: 0 0 1.25rem;
+	accent-color: var(--admin-accent);
+}
+.add-booking-checkbox span {
+	font-size: 0.95rem;
+	color: var(--admin-text-primary);
+	line-height: 1.2;
+}
+
+.add-booking-checkbox input:checked + span {
+	color: var(--admin-accent);
+	font-weight: 700;
+}
+.add-booking-checkbox input:checked {
+	box-shadow: 0 0 0 3px var(--admin-accent-light);
+}
+.add-booking-checkbox:hover { border-color: var(--admin-accent); }
+.add-booking-checkbox:active { transform: translateY(0.5px); }
+
+/* Larger tap area on small screens */
+@media (max-width: 479px) {
+	.add-booking-checkbox { padding: 0.9rem 1rem; }
+	.add-booking-checkbox span { font-size: 1rem; }
+}

@@ -29,16 +29,22 @@ export const CROPS = [
 
 /** Farmer service needs (multi-select) */
 export const FARMER_SERVICE_NEEDS = [
-  'Plowing',
-  'Harrowing',
+  'Ploughing',
   'Planting',
   'Spraying',
-  'Harvesting',
-  'Threshing',
-  'Transport',
-  'Labour',
   'Irrigation',
+  'Harvesting',
+  'Processing',
+  'Storage',
+  'Transport',
   'Other',
+  // Animal / Livestock services
+  'Vaccination',
+  'Deworming',
+  'Feeding',
+  'Milking',
+  'Livestock Transport',
+  'Animal Health',
 ];
 
 /** Administrative levels - sample for Cameroon (can be expanded) */
