@@ -68,11 +68,9 @@ async function apiRequest(endpoint, options = {}) {
     const looksLikeFetchFail =
       err.name === 'TypeError' || /failed to fetch|networkerror|load failed/i.test(raw);
     const msg =
-      err.name === 'AbortError'
-        ? 'Request timed out - is the backend running?'
-        : looksLikeFetchFail
-          ? 'Could not reach the server. Check your connection, or try again in a moment. (If you used a bookmark, open the link from WhatsApp again.)'
-          : raw || 'Network error - could not reach API';
+      err.name === 'AbortError' || looksLikeFetchFail
+        ? 'Service temporarily unavailable'
+        : 'Something went wrong';
     return {
       error: msg,
       status: null,
@@ -233,6 +231,14 @@ export const api = {
     const q = new URLSearchParams(params || {}).toString();
     return apiRequest(`/api/audit-logs${q ? `?${q}` : ''}`);
   },
+
+  /** Platform settings (admin) */
+  getSettings: () => apiRequest('/api/settings'),
+  updateSettings: (settings) =>
+    apiRequest('/api/settings', {
+      method: 'PUT',
+      body: JSON.stringify({ settings }),
+    }),
 };
 
 /**

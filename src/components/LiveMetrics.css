@@ -19,16 +19,8 @@
 
 .live-metrics-error {
   margin-bottom: 1.5rem;
-  padding: 1rem 1.25rem;
-  background: rgba(244, 67, 54, 0.15);
-  border: 1px solid rgba(244, 67, 54, 0.3);
-  border-radius: 8px;
-  color: rgba(255, 255, 255, 0.95);
-}
-
-.live-metrics-error p {
-  margin: 0 0 0.75rem;
-  font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
 }
 
 .live-metrics-retry {

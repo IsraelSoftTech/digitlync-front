@@ -53,12 +53,12 @@ function AnimatedNumber({ value, decimals = 0, suffix = '', isInView }) {
 function LiveMetrics() {
   const [metrics, setMetrics] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [showRetry, setShowRetry] = useState(false);
 
   const [ref, isInView] = useAnimateOnScroll({ threshold: 0.15 });
 
   const fetchMetrics = React.useCallback(async () => {
-    setError('');
+    setShowRetry(false);
     const { data, error: err } = await api.getPublicMetrics();
     if (!err && data) {
       setMetrics({
@@ -73,7 +73,7 @@ function LiveMetrics() {
       setLoading(false);
       return;
     }
-    setError(err || 'Could not reach API');
+    setShowRetry(true);
     setMetrics({});
     setLoading(false);
   }, []);
@@ -109,9 +109,8 @@ function LiveMetrics() {
         <p className="section-subtitle">
           Real-time coordination data from the Digilync platform.
         </p>
-        {error && (
+        {showRetry && (
           <div className="live-metrics-error">
-            <p>{error}. In development, ensure the backend is running on port 5000. In production, verify the API at <code>{process.env.REACT_APP_API_URL || 'https://api.digilync.net'}</code> is reachable.</p>
             <button type="button" className="live-metrics-retry" onClick={fetchMetrics}>Retry</button>
           </div>
         )}

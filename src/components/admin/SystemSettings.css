@@ -34,6 +34,17 @@
   font-size: 0.9375rem;
 }
 
+.system-settings-message--error {
+  background: #fef2f2;
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #b91c1c;
+}
+
+.ss-save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .ss-section {
   background: var(--admin-card-bg);
   border: 1px solid var(--admin-card-border);
