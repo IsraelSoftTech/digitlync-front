@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { api } from '../../api';
+import { showToast } from '../Toaster';
 import './ProvidersList.css';
 
 function ProvidersList({ onSelectProvider, onAddProvider }) {
@@ -28,7 +29,7 @@ function ProvidersList({ onSelectProvider, onAddProvider }) {
     if (!window.confirm('Delete this provider?')) return;
     const { error: err } = await api.deleteProvider(id);
     if (!err) fetchProviders();
-    else alert(err);
+    else showToast(err, { type: 'error' });
   };
 
   return (

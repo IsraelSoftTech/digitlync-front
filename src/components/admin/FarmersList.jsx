@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { api } from '../../api';
+import { showToast } from '../Toaster';
 import './FarmersList.css';
 
 function FarmersList({ onSelectFarmer, onAddFarmer }) {
@@ -28,7 +29,7 @@ function FarmersList({ onSelectFarmer, onAddFarmer }) {
     if (!window.confirm('Delete this farmer?')) return;
     const { error: err } = await api.deleteFarmer(id);
     if (!err) fetchFarmers();
-    else alert(err);
+    else showToast(err, { type: 'error' });
   };
 
   return (

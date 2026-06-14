@@ -190,6 +190,8 @@ export const api = {
     apiRequest(`/api/availability/provider/${providerId}`, { method: 'POST', body: JSON.stringify(data) }),
   deleteProviderAvailability: (id) =>
     apiRequest(`/api/availability/${id}`, { method: 'DELETE' }),
+  updateProviderAvailability: (id, data) =>
+    apiRequest(`/api/availability/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
 
   /** Job execution events */
   getBookingJobEvents: (bookingId) =>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FiTrash2 } from 'react-icons/fi';
 import { api } from '../../api';
 import ConfirmModal from './ConfirmModal';
+import { showToast } from '../Toaster';
 import './BookingDetail.css';
 
 const STATUS_OPTIONS = ['pending', 'confirmed', 'accepted', 'in_progress', 'completed', 'rejected', 'cancelled'];
@@ -48,7 +49,7 @@ function BookingDetail({ bookingId, onBack, onUpdate }) {
       setBooking((b) => (b ? { ...b, status: data.status } : null));
       setEditing(false);
       onUpdate?.();
-    } else alert(err);
+    } else showToast(err, { type: 'error' });
   };
 
   const handleAssignProvider = async () => {
@@ -61,7 +62,7 @@ function BookingDetail({ bookingId, onBack, onUpdate }) {
       if (data) setBooking(data);
       setAssignProviderId('');
       onUpdate?.();
-    } else alert(err);
+    } else showToast(err, { type: 'error' });
   };
 
   const handleDelete = async () => {
@@ -73,7 +74,7 @@ function BookingDetail({ bookingId, onBack, onUpdate }) {
     if (!err) {
       onBack?.();
       onUpdate?.();
-    } else alert(err);
+    } else showToast(err, { type: 'error' });
   };
 
   if (loading) return <div className="booking-detail-loading">Loading...</div>;

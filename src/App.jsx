@@ -3,6 +3,10 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Loader from './components/Loader';
 import Home from './components/Home';
 import GpsCapture from './components/GpsCapture';
+import ProviderCalendar from './components/ProviderCalendar';
+import ProviderCalendarFull from './components/ProviderCalendarFull';
+import ProviderAdmin from './components/ProviderAdmin';
+import BookingWizard from './components/BookingWizard';
 import AdminDash from './components/AdminDash';
 import AdminLogin from './components/AdminLogin';
 import Terms from './components/pages/Terms';
@@ -53,6 +57,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Home onAdminLoginSuccess={handleAdminLoginSuccess} />} />
             <Route path="/gps" element={<GpsCapture />} />
+            <Route path="/book" element={<BookingWizard />} />
+            <Route path="/provider/:id/calendar" element={<ProviderCalendar providerId={null} />} />
+            <Route path="/provider/:id/calendar/full" element={<ProviderCalendarFull />} />
+            <Route path="/provider/:id/admin" element={<ProviderAdmin />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route
