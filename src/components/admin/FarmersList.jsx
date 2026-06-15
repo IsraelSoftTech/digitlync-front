@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { api } from '../../api';
 import { showToast } from '../Toaster';
+import askConfirm from '../../utils/askConfirm';
 import './FarmersList.css';
 
 function FarmersList({ onSelectFarmer, onAddFarmer }) {
@@ -26,7 +27,7 @@ function FarmersList({ onSelectFarmer, onAddFarmer }) {
 
   const handleDelete = async (id, e) => {
     e.stopPropagation();
-    if (!window.confirm('Delete this farmer?')) return;
+    if (!askConfirm('Delete this farmer?')) return;
     const { error: err } = await api.deleteFarmer(id);
     if (!err) fetchFarmers();
     else showToast(err, { type: 'error' });

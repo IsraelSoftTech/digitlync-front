@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { api } from '../api';
 import { useParams } from 'react-router-dom';
 import { showToast } from './Toaster';
+import askConfirm from '../utils/askConfirm';
 
 export default function ProviderCalendar({ providerId }) {
   const params = useParams();
@@ -10,16 +11,17 @@ export default function ProviderCalendar({ providerId }) {
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState({ available_date: '', start_time: '', end_time: '' });
 
-  const load = async () => {
+  const load = useCallback(async () => {
+    if (!providerId) return;
     setLoading(true);
     const res = await api.getProviderAvailability(providerId || 'me');
     if (!res.error) setSlots(res.data?.slots || []);
     setLoading(false);
-  };
+  }, [providerId]);
 
   useEffect(() => {
-    if (providerId) load();
-  }, [providerId]);
+    load();
+  }, [load]);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -35,7 +37,7 @@ export default function ProviderCalendar({ providerId }) {
   };
 
   const remove = async (id) => {
-    if (!confirm('Delete this slot?')) return;
+    if (!askConfirm('Delete this slot?')) return;
     const res = await api.deleteProviderAvailability(id);
     if (!res.error) {
       showToast('Availability slot deleted', { type: 'success' });

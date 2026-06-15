@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../../api';
 import AdminRatingWidget from './AdminRatingWidget';
+import askConfirm from '../../utils/askConfirm';
 import './FarmerProfile.css';
 
 function FarmerProfile({ farmerId, onBack, onEdit }) {
@@ -44,7 +45,7 @@ function FarmerProfile({ farmerId, onBack, onEdit }) {
   };
 
   const handleDeletePlot = async (plotId) => {
-    if (!window.confirm('Delete this plot?')) return;
+    if (!askConfirm('Delete this plot?')) return;
     const { error: err } = await api.deleteFarmPlot(plotId);
     if (!err) {
       setPlots((p) => p.filter((x) => x.id !== plotId));

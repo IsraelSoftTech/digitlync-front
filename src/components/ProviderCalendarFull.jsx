@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -6,6 +6,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { api } from '../api';
 import { showToast } from './Toaster';
 import './ProviderCalendarFull.css';
+import askConfirm from '../utils/askConfirm';
 
 export default function ProviderCalendarFull() {
   const [slots, setSlots] = useState([]);
@@ -21,12 +22,8 @@ export default function ProviderCalendarFull() {
     if (m) setProviderId(m[1]);
   }, []);
 
-  useEffect(() => {
+  const loadSlots = useCallback(async () => {
     if (!providerId) return;
-    loadSlots();
-  }, [providerId]);
-
-  async function loadSlots() {
     setLoading(true);
     const res = await api.getProviderAvailability(providerId);
     if (!res.error) {
@@ -40,7 +37,11 @@ export default function ProviderCalendarFull() {
       setSlots(s);
     }
     setLoading(false);
-  }
+  }, [providerId]);
+
+  useEffect(() => {
+    loadSlots();
+  }, [loadSlots]);
 
   const handleDateSelect = async (selectInfo) => {
     if (!providerId) {
@@ -79,7 +80,7 @@ export default function ProviderCalendarFull() {
   };
 
   const handleEventClick = async (clickInfo) => {
-    if (!confirm('Delete this availability slot?')) return;
+    if (!askConfirm('Delete this availability slot?')) return;
     const id = clickInfo.event.id;
     const res = await api.deleteProviderAvailability(id);
     if (!res.error) {

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { api } from '../../api';
 import { showToast } from '../Toaster';
+import askConfirm from '../../utils/askConfirm';
 import './ProvidersList.css';
 
 function ProvidersList({ onSelectProvider, onAddProvider }) {
@@ -26,7 +27,7 @@ function ProvidersList({ onSelectProvider, onAddProvider }) {
 
   const handleDelete = async (id, e) => {
     e.stopPropagation();
-    if (!window.confirm('Delete this provider?')) return;
+    if (!askConfirm('Delete this provider?')) return;
     const { error: err } = await api.deleteProvider(id);
     if (!err) fetchProviders();
     else showToast(err, { type: 'error' });
