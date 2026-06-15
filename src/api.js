@@ -218,6 +218,13 @@ export const api = {
       body: JSON.stringify(data),
     }),
 
+  /** Confirmations & Payments (admin) */
+  getConfirmations: (params) => {
+    const q = new URLSearchParams(params || {}).toString();
+    return apiRequest(`/api/admin-confirmations${q ? `?${q}` : ''}`);
+  },
+  releasePayment: (bookingId) => apiRequest(`/api/admin-confirmations/${bookingId}/release`, { method: 'POST' }),
+
   /** Farm plots (multiple GPS per farmer) */
   getFarmPlots: (farmerId) =>
     apiRequest(`/api/farm-plots?farmer_id=${farmerId}`),
