@@ -22,7 +22,7 @@ function ConfirmationsPayments() {
   const handleRelease = async (id) => {
     if (!window.confirm('Release payment for booking #' + id + '?')) return;
     setReleasing(id);
-    const { data, error: err } = await api.releasePayment(id);
+    const { error: err } = await api.releasePayment(id);
     setReleasing(null);
     if (err) return setError(err);
     fetch();
