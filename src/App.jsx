@@ -11,6 +11,8 @@ import AdminDash from './components/AdminDash';
 import AdminLogin from './components/AdminLogin';
 import Terms from './components/pages/Terms';
 import Privacy from './components/pages/Privacy';
+import ConfirmWork from './components/ConfirmWork';
+import ProviderPayout from './components/ProviderPayout';
 import './App.css';
 import './components/PageAnimations.css';
 
@@ -63,6 +65,8 @@ function App() {
             <Route path="/provider/:id/admin" element={<ProviderAdmin />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/confirm-work" element={<ConfirmWork />} />
+            <Route path="/provider-payout" element={<ProviderPayout />} />
             <Route
               path="/admin"
               element={

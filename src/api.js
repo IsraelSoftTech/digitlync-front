@@ -225,6 +225,13 @@ export const api = {
   },
   releasePayment: (bookingId) => apiRequest(`/api/admin-confirmations/${bookingId}/release`, { method: 'POST' }),
 
+  /** Booking portals (farmer/provider) - JSON endpoints for frontend portals */
+  getPortalInfo: (token) => apiRequest(`/api/booking-portals/json/info?t=${encodeURIComponent(token)}`),
+  submitFarmerConfirmation: (token, decision) =>
+    apiRequest('/api/booking-portals/json/farmer/submit', { method: 'POST', body: JSON.stringify({ token, decision }) }),
+  submitProviderPayout: (token, method, number) =>
+    apiRequest('/api/booking-portals/json/provider/submit', { method: 'POST', body: JSON.stringify({ token, method, number }) }),
+
   /** Farm plots (multiple GPS per farmer) */
   getFarmPlots: (farmerId) =>
     apiRequest(`/api/farm-plots?farmer_id=${farmerId}`),
