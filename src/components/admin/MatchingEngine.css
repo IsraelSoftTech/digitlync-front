@@ -194,3 +194,84 @@
   color: var(--admin-text-secondary);
   line-height: 1.8;
 }
+
+.me-manual-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .me-manual-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.me-booking-list h3,
+.me-rec-panel h3 {
+  margin: 0 0 12px;
+  font-size: 1rem;
+}
+
+.me-booking-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 12px;
+  text-align: left;
+  background: #fff;
+  border: 1px solid var(--admin-card-border);
+  border-radius: var(--admin-radius);
+  cursor: pointer;
+}
+
+.me-booking-item.active {
+  border-color: var(--admin-accent);
+  background: rgba(34, 197, 94, 0.06);
+}
+
+.me-booking-item span {
+  font-size: 0.8125rem;
+  color: var(--admin-text-muted);
+}
+
+.me-rec-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+  border: 1px solid var(--admin-card-border);
+  border-radius: var(--admin-radius);
+  background: #fff;
+}
+
+.me-rec-card p {
+  margin: 4px 0 0;
+  font-size: 0.8125rem;
+  color: var(--admin-text-secondary);
+}
+
+.me-match-btn {
+  padding: 8px 14px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--admin-accent);
+  border: none;
+  border-radius: var(--admin-radius);
+  cursor: pointer;
+}
+
+.me-match-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.me-error {
+  color: #b91c1c;
+  font-size: 0.875rem;
+}

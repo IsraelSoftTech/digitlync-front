@@ -13,6 +13,7 @@ import {
   FiSettings,
   FiFileText,
   FiBell,
+  FiCheckCircle,
 } from 'react-icons/fi';
 import ExecutiveDashboard from './admin/ExecutiveDashboard';
 import FarmersList from './admin/FarmersList';
@@ -27,6 +28,7 @@ import AddBookingForm from './admin/AddBookingForm';
 import FarmMapIntelligence from './admin/FarmMapIntelligence';
 import RatingsDisputes from './admin/RatingsDisputes';
 import ConfirmationsPayments from './admin/ConfirmationsPayments';
+import WorkConfirmation from './admin/WorkConfirmation';
 import MatchingEngine from './admin/MatchingEngine';
 import DataAnalytics from './admin/DataAnalytics';
 import UserRoles from './admin/UserRoles';
@@ -50,6 +52,7 @@ const VIEW_BOOKING_ADD = 'booking_add';
 const VIEW_FARM_MAP = 'farm_map';
 const VIEW_RATINGS = 'ratings';
 const VIEW_CONFIRMATIONS = 'confirmations';
+const VIEW_WORK_CONFIRMATIONS = 'work_confirmations';
 const VIEW_MATCHING = 'matching';
 const VIEW_DATA = 'data';
 const VIEW_ROLES = 'roles';
@@ -61,7 +64,8 @@ const NAV_ITEMS = [
   { id: VIEW_DASHBOARD, label: 'Dashboard', icon: FiLayout },
   { id: VIEW_FARMERS, label: 'Farmers', icon: FiUsers },
   { id: VIEW_PROVIDERS, label: 'Providers', icon: FiBriefcase },
-  { id: VIEW_CONFIRMATIONS, label: 'Confirmations & Payment', icon: FiFileText },
+  { id: VIEW_WORK_CONFIRMATIONS, label: 'Work Confirmation', icon: FiCheckCircle },
+  { id: VIEW_CONFIRMATIONS, label: 'Payment Confirmation', icon: FiFileText },
   { id: VIEW_BOOKINGS, label: 'Bookings', icon: FiCalendar },
   { id: VIEW_MATCHING, label: 'Matching', icon: FiZap },
   { id: VIEW_FARM_MAP, label: 'Farm Map', icon: FiMapPin },
@@ -135,6 +139,7 @@ function AdminDash({ onLogout }) {
       case VIEW_BOOKING_ADD: return <AddBookingForm onSuccess={() => { handleBookingUpdate(); showBookings(); }} onCancel={showBookings} />;
       case VIEW_FARM_MAP: return <FarmMapIntelligence onFarmerClick={showFarmerProfile} onProviderClick={showProviderProfile} />;
       case VIEW_RATINGS: return <RatingsDisputes onViewProvider={showProviderProfile} />;
+      case VIEW_WORK_CONFIRMATIONS: return <WorkConfirmation />;
       case VIEW_CONFIRMATIONS: return <ConfirmationsPayments />;
       case VIEW_MATCHING: return <MatchingEngine onViewBookings={showBookings} />;
       case VIEW_DATA: return <DataAnalytics />;

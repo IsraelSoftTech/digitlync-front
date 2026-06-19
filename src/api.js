@@ -223,7 +223,21 @@ export const api = {
     const q = new URLSearchParams(params || {}).toString();
     return apiRequest(`/api/admin-confirmations${q ? `?${q}` : ''}`);
   },
+  getWorkConfirmations: () => apiRequest('/api/admin-confirmations/work'),
+  confirmWork: (bookingId) =>
+    apiRequest(`/api/admin-confirmations/${bookingId}/confirm-work`, { method: 'POST' }),
   releasePayment: (bookingId) => apiRequest(`/api/admin-confirmations/${bookingId}/release`, { method: 'POST' }),
+
+  /** Recommendations & manual matching */
+  getRecommendations: (params) => {
+    const q = new URLSearchParams(params || {}).toString();
+    return apiRequest(`/api/recommendations?${q}`);
+  },
+  matchBooking: (bookingId, providerId) =>
+    apiRequest(`/api/bookings/${bookingId}/match`, {
+      method: 'POST',
+      body: JSON.stringify({ provider_id: providerId }),
+    }),
 
   /** Booking portals (farmer/provider) - JSON endpoints for frontend portals */
   getPortalInfo: (token) => apiRequest(`/api/booking-portals/json/info?t=${encodeURIComponent(token)}`),
