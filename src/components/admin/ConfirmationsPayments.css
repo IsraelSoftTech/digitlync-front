@@ -1,6 +1,0 @@
-.confirm-payments { padding: 16px; }
-.confirm-payments-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
-.confirm-refresh { background:#fff; border:1px solid #ddd; padding:6px 8px; border-radius:4px; cursor:pointer }
-.confirm-table { width:100%; border-collapse:collapse; }
-.confirm-table th, .confirm-table td { border:1px solid #eee; padding:8px; text-align:left; }
-.confirm-subtitle { margin: 0 0 12px; color: #666; font-size: 0.9rem; }
