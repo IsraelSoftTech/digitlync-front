@@ -16,16 +16,18 @@ function MatchingEngine({ onViewBookings }) {
   const loadOverview = async () => {
     setLoading(true);
     setError('');
-    const [dRes, bRes] = await Promise.all([
+    const [dRes, bRes, awaitingRes] = await Promise.all([
       api.getDashboardStats(),
       api.getBookings({ unassigned: '1' }),
+      api.getBookings({ status: 'awaiting_provider_accept' }),
     ]);
     const d = dRes.data;
     const list = bRes.data?.bookings ?? [];
+    const awaitingList = awaitingRes.data?.bookings ?? [];
     setStats({
       unassigned: d?.pendingRequests ?? list.length,
       providers: d?.providers ?? 0,
-      pending: list.filter((b) => b.status === 'pending' || b.status === 'matched').length,
+      pending: awaitingList.length || d?.awaitingProviderAccept || 0,
     });
     setBookings(list);
     setLoading(false);
@@ -43,6 +45,7 @@ function MatchingEngine({ onViewBookings }) {
       service_type: booking.service_type,
       requested_date: booking.scheduled_date || new Date().toISOString().slice(0, 10),
       farm_size_ha: booking.farm_size_ha || 1,
+      budget_min: booking.budget_min_fcfa || '',
       budget_max: booking.budget_max_fcfa || '',
     });
     setRecLoading(false);
@@ -103,7 +106,7 @@ function MatchingEngine({ onViewBookings }) {
             <div className="me-overview-card">
               <FiCheckCircle className="me-overview-icon" />
               <span className="me-overview-value">{stats.pending}</span>
-              <span className="me-overview-label">Awaiting payment</span>
+              <span className="me-overview-label">Awaiting provider accept</span>
             </div>
           </div>
         )}
