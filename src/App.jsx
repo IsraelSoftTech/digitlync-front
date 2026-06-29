@@ -13,6 +13,7 @@ import Terms from './components/pages/Terms';
 import Privacy from './components/pages/Privacy';
 import ConfirmWork from './components/ConfirmWork';
 import ProviderPayout from './components/ProviderPayout';
+import MaintenanceBanner from './components/MaintenanceBanner';
 import './App.css';
 import './components/PageAnimations.css';
 
@@ -56,6 +57,7 @@ function App() {
       {!loaderDone && <Loader onComplete={handleLoaderComplete} />}
       {loaderDone && (
         <BrowserRouter>
+          <MaintenanceBanner />
           <Routes>
             <Route path="/" element={<Home onAdminLoginSuccess={handleAdminLoginSuccess} />} />
             <Route path="/gps" element={<GpsCapture />} />
