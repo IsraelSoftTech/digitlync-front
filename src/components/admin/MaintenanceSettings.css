@@ -1,0 +1,76 @@
+.maintenance-settings {
+  padding: var(--admin-space);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.maintenance-settings-header {
+  margin-bottom: 32px;
+}
+
+.maintenance-settings-title {
+  margin: 0 0 4px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+}
+
+.maintenance-settings-subtitle {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--admin-text-secondary);
+}
+
+.maintenance-settings-message {
+  margin: 0 0 24px;
+  padding: 12px 16px;
+  background: var(--admin-accent-light);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: var(--admin-radius);
+  color: var(--admin-accent);
+  font-size: 0.9375rem;
+}
+
+.maintenance-settings-message--error {
+  background: #fef2f2;
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #b91c1c;
+}
+
+.maintenance-settings-card {
+  display: flex;
+  gap: 16px;
+  padding: 24px;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius);
+}
+
+.maintenance-settings-card-icon {
+  display: flex;
+  align-items: flex-start;
+  font-size: 1.5rem;
+  color: #d97706;
+}
+
+.maintenance-settings-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--admin-text-primary);
+}
+
+.maintenance-settings-toggle input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--admin-accent);
+}
+
+.maintenance-settings-help {
+  margin: 12px 0 0;
+  font-size: 0.875rem;
+  color: var(--admin-text-secondary);
+  line-height: 1.5;
+}

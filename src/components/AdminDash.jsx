@@ -13,6 +13,7 @@ import {
   FiSettings,
   FiFileText,
   FiBell,
+  FiTool,
 } from 'react-icons/fi';
 import ExecutiveDashboard from './admin/ExecutiveDashboard';
 import FarmersList from './admin/FarmersList';
@@ -32,6 +33,7 @@ import UserRoles from './admin/UserRoles';
 import SystemSettings from './admin/SystemSettings';
 import AuditLogs from './admin/AuditLogs';
 import NotificationCenter from './admin/NotificationCenter';
+import MaintenanceSettings from './admin/MaintenanceSettings';
 import './AdminDash.css';
 
 const VIEW_DASHBOARD = 'dashboard';
@@ -54,6 +56,7 @@ const VIEW_ROLES = 'roles';
 const VIEW_SETTINGS = 'settings';
 const VIEW_AUDIT = 'audit';
 const VIEW_NOTIFICATIONS = 'notifications';
+const VIEW_MAINTENANCE = 'maintenance';
 
 const NAV_ITEMS = [
   { id: VIEW_DASHBOARD, label: 'Dashboard', icon: FiLayout },
@@ -66,6 +69,7 @@ const NAV_ITEMS = [
   { id: VIEW_DATA, label: 'Analytics', icon: FiBarChart2 },
   { id: VIEW_ROLES, label: 'Roles', icon: FiShield },
   { id: VIEW_SETTINGS, label: 'Settings', icon: FiSettings },
+  { id: VIEW_MAINTENANCE, label: 'Maintenance', icon: FiTool },
   { id: VIEW_AUDIT, label: 'Audit Logs', icon: FiFileText },
   { id: VIEW_NOTIFICATIONS, label: 'Notifications', icon: FiBell },
 ];
@@ -136,6 +140,7 @@ function AdminDash({ onLogout }) {
       case VIEW_DATA: return <DataAnalytics />;
       case VIEW_ROLES: return <UserRoles />;
       case VIEW_SETTINGS: return <SystemSettings />;
+      case VIEW_MAINTENANCE: return <MaintenanceSettings />;
       case VIEW_AUDIT: return <AuditLogs />;
       case VIEW_NOTIFICATIONS: return <NotificationCenter onNavigate={(view, opts) => { if (view === 'bookings') showBookings(opts || {}); }} />;
       default: return <ExecutiveDashboard />;

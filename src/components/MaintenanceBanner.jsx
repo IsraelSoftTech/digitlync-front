@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { useLocation } from 'react-router-dom';
 import { FiTool, FiX, FiMessageCircle } from 'react-icons/fi';
+import { api } from '../api';
 import './MaintenanceBanner.css';
 
 const RESHOW_DELAY_MS = 5000;
@@ -20,7 +21,8 @@ function getTopBarOffset() {
 
 export default function MaintenanceBanner() {
   const location = useLocation();
-  const [visible, setVisible] = useState(true);
+  const [signalEnabled, setSignalEnabled] = useState(false);
+  const [visible, setVisible] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [topOffset, setTopOffset] = useState(0);
   const timerRef = useRef(null);
@@ -37,7 +39,19 @@ export default function MaintenanceBanner() {
   }, []);
 
   useEffect(() => {
-    if (!mounted || !visible) return undefined;
+    let cancelled = false;
+    (async () => {
+      const { data } = await api.getPublicMaintenance();
+      if (cancelled) return;
+      const enabled = Boolean(data?.maintenanceSignalEnabled);
+      setSignalEnabled(enabled);
+      setVisible(enabled);
+    })();
+    return () => { cancelled = true; };
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (!mounted || !visible || !signalEnabled) return undefined;
 
     updateTopOffset();
 
@@ -56,7 +70,7 @@ export default function MaintenanceBanner() {
       observer.disconnect();
       window.clearTimeout(retryId);
     };
-  }, [mounted, visible, location.pathname, updateTopOffset]);
+  }, [mounted, visible, signalEnabled, location.pathname, updateTopOffset]);
 
   const handleClose = useCallback(() => {
     setVisible(false);
@@ -67,7 +81,7 @@ export default function MaintenanceBanner() {
     }, RESHOW_DELAY_MS);
   }, []);
 
-  if (!mounted || !visible) return null;
+  if (!mounted || !signalEnabled || !visible) return null;
 
   return ReactDOM.createPortal(
     <div

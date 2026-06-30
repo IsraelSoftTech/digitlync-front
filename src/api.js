@@ -259,6 +259,15 @@ export const api = {
       method: 'PUT',
       body: JSON.stringify({ settings }),
     }),
+
+  /** Maintenance banner (admin + public) */
+  getMaintenanceSettings: () => apiRequest('/api/settings/maintenance'),
+  updateMaintenanceSettings: (maintenanceSignalEnabled) =>
+    apiRequest('/api/settings/maintenance', {
+      method: 'PUT',
+      body: JSON.stringify({ maintenanceSignalEnabled }),
+    }),
+  getPublicMaintenance: () => apiRequest('/api/public/maintenance'),
 };
 
 /**
