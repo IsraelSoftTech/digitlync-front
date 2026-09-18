@@ -5,11 +5,21 @@
  */
 
 function getApiBaseUrl() {
-  if (process.env.REACT_APP_API_URL) return process.env.REACT_APP_API_URL;
-  if (process.env.NODE_ENV !== 'production') return ''; // '' = CRA proxy to localhost:5000
+  if (process.env.REACT_APP_API_URL) {
+    return String(process.env.REACT_APP_API_URL).replace(/\/$/, '');
+  }
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname;
+    if (host === 'localhost' || host === '127.0.0.1') return ''; // CRA dev proxy
+    if (/digilync\.net$/i.test(host)) return 'https://api.digilync.net';
+  }
+  if (process.env.NODE_ENV !== 'production') return '';
   return 'https://api.digilync.net';
 }
-const API_BASE_URL = getApiBaseUrl();
+
+function resolveApiBaseUrl() {
+  return getApiBaseUrl();
+}
 
 /**
  * Base fetch wrapper with error handling and JSON parsing
@@ -33,7 +43,7 @@ function getAdminHeaders() {
 }
 
 async function apiRequest(endpoint, options = {}) {
-  const url = `${API_BASE_URL}${endpoint}`;
+  const url = `${resolveApiBaseUrl()}${endpoint}`;
   const timeoutMs = options.timeoutMs ?? API_TIMEOUT_MS;
   const { timeoutMs: _omit, ...fetchOptions } = options;
   const controller = new AbortController();
@@ -68,9 +78,11 @@ async function apiRequest(endpoint, options = {}) {
     const looksLikeFetchFail =
       err.name === 'TypeError' || /failed to fetch|networkerror|load failed/i.test(raw);
     const msg =
-      err.name === 'AbortError' || looksLikeFetchFail
-        ? 'Service temporarily unavailable'
-        : 'Something went wrong';
+      err.name === 'AbortError'
+        ? 'Request timed out. Check your connection and try again.'
+        : looksLikeFetchFail
+          ? 'Could not reach the Digilync API. If this persists, the server may need a CORS or network fix.'
+          : 'Something went wrong';
     return {
       error: msg,
       status: null,
